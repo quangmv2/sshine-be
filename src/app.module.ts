@@ -5,6 +5,8 @@ import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
 import { join } from "path";
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
+import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
@@ -16,7 +18,16 @@ import { AuthModule } from './auth/auth.module';
         outputAs: 'class',
       },
     }),
+    MongooseModule.forRootAsync({
+      useFactory: () => ({
+        uri: process.env.DB_URI + process.env.DB_NAME,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        useCreateIndex: true,
+      })
+    }),
     AuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

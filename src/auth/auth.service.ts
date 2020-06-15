@@ -1,5 +1,16 @@
-import { Injectable } from '@nestjs/common';
-import { OAuth2Client } from "google-auth-library";
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { OAuth2Client, TokenPayload } from "google-auth-library";
+import { Model } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
+import * as jwt from "jsonwebtoken";
+import * as randomstring from "randomstring";
+import * as bcrypt from 'bcryptjs';
+import { v4 as uuidv4 } from 'uuid';
+import { RegisterInputDTO } from 'src/dto/auth.dto';
+import { Token } from "./auth.interface";
+import { UserService } from 'src/user/user.service';
+import { User } from 'src/graphql';
+
 
 @Injectable()
 export class AuthService {
@@ -7,7 +18,12 @@ export class AuthService {
     private readonly CLIENT_ID = process.env.CLIENT_ID || "";
     private client = new OAuth2Client(this.CLIENT_ID);
 
-    async verifyGoogleToken(idToken: string) {
+    constructor(
+        @InjectModel('Token') private readonly tokenModel: Model<Token>,
+        private readonly userService: UserService
+    ){}
+
+    async verifyGoogleToken(idToken: string): Promise<TokenPayload> {
         try {
             const ticket = await this.client.verifyIdToken({
                 idToken,
@@ -15,9 +31,41 @@ export class AuthService {
             });
             const payload = ticket.getPayload();
             const userid = payload['sub'];
+            return payload;
         } catch (error) {
-            
+            return undefined;
         }
+    }
+
+    async loginFromGoogle(idToken: string): Promise<Token> {
+        const payload = await this.verifyGoogleToken(idToken);
+        console.log(payload)
+        if (!payload) throw new HttpException({code: 403}, HttpStatus.FORBIDDEN);
+        let user = await this.userService.getUserByUserNameOrEmail(payload.email)
+        if (!user) {
+            const inputUser: RegisterInputDTO = new RegisterInputDTO();
+            inputUser.email = payload.email;
+            inputUser.firstname = payload.given_name;
+            inputUser.lastname = payload.given_name;
+            inputUser.password = bcrypt.hashSync(randomstring.generate(), 10);
+            inputUser.username = uuidv4();
+            user = await this.userService.createUser(inputUser);
+        } 
+        const userToken = {
+            userID: user.id
+        }
+        return this.createToken(userToken);
+    }
+
+    async createToken(object: any): Promise<Token> {
+        const secret = randomstring.generate(Math.floor(Math.random() * 25) + 10);
+        var token = new this.tokenModel({
+            access_token: jwt.sign(object, secret),
+            secret,
+            confirm: true
+        });
+        token.save();
+        return token;
     }
 
 }
