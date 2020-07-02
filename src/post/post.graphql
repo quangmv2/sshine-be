@@ -1,0 +1,41 @@
+type Query {
+    post(id_post: String): Post,
+    posts(offset: Int, limits: Int): [Post]
+}
+
+type Mutation {
+    addPost(input: PostInput!): Post
+}
+
+input PostInput{
+    id: String,
+    title: String,
+    content: String,
+    image: String
+}
+
+type Post {
+    id: String,
+    title: String,
+    content: String,
+    image: String,
+    comments: [Comment],
+    likes: [Like],
+    createdAt: Float,
+    updatedAt: Float
+}
+
+type Comment {
+    id: String,
+    user: User,
+    content: String,
+    created_at: Float,
+    updated_at: Float
+}
+
+type Like {
+    id: String,
+    user: User,
+    created_at: Float,
+    updated_at: Float
+}

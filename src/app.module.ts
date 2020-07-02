@@ -2,11 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from "@nestjs/config";
-import { GraphQLModule } from "@nestjs/graphql";
+import { GraphQLModule, Context } from "@nestjs/graphql";
 import { join } from "path";
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PostModule } from './post/post.module';
 
 @Module({
   imports: [
@@ -17,6 +18,13 @@ import { MongooseModule } from '@nestjs/mongoose';
         path: join(process.cwd(), 'src/graphql.ts'),
         outputAs: 'class',
       },
+      context: context => {
+        const {req, connection} = context;
+        if (connection) return {
+            req: connection.context
+        }
+        return context;
+      }
     }),
     MongooseModule.forRootAsync({
       useFactory: () => ({
@@ -28,6 +36,7 @@ import { MongooseModule } from '@nestjs/mongoose';
     }),
     AuthModule,
     UserModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],

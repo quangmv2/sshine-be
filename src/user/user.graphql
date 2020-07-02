@@ -10,3 +10,7 @@ type User {
 type Query {
     hello: String
 }
+
+type Mutation {
+    user: User
+}

@@ -40,13 +40,13 @@ export class AuthService {
     async loginFromGoogle(idToken: string): Promise<Token> {
         const payload = await this.verifyGoogleToken(idToken);
         console.log(payload)
-        if (!payload) throw new HttpException({code: 403}, HttpStatus.FORBIDDEN);
+        if (!payload) throw new HttpException({code: 401}, HttpStatus.UNAUTHORIZED);
         let user = await this.userService.getUserByUserNameOrEmail(payload.email)
         if (!user) {
             const inputUser: RegisterInputDTO = new RegisterInputDTO();
             inputUser.email = payload.email;
             inputUser.firstname = payload.given_name;
-            inputUser.lastname = payload.given_name;
+            inputUser.lastname = payload.family_name;
             inputUser.password = bcrypt.hashSync(randomstring.generate(), 10);
             inputUser.username = uuidv4();
             user = await this.userService.createUser(inputUser);
@@ -66,6 +66,31 @@ export class AuthService {
         });
         token.save();
         return token;
+    }
+
+    async verifyToken(access_token: string): Promise<User> {
+        // console.log(access_token);
+        
+        if (!access_token) return undefined;
+        access_token = access_token.replace('Bearer ', '');
+        // console.log("token input", token);
+        const checkToken = await this.tokenModel.findOne({
+            access_token: { $eq: access_token },
+            confirm: true
+        }).exec();
+        // console.log("token", checkToken);
+        
+        if (!checkToken) return undefined;
+
+        const { secret } = checkToken;
+        try {
+            const userObj = jwt.verify(access_token, secret);
+            const { userID } = userObj;
+            const user = await this.userService.getUserById(userID);
+            return user?user:undefined;
+        } catch (error) {
+            return undefined;
+        }
     }
 
 }
