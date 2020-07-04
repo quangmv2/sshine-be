@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { PostModule } from './post/post.module';
             req: connection.context
         }
         return context;
-      }
+      },
+      installSubscriptionHandlers: true
     }),
     MongooseModule.forRootAsync({
       useFactory: () => ({
@@ -37,6 +39,7 @@ import { PostModule } from './post/post.module';
     AuthModule,
     UserModule,
     PostModule,
+    RoomModule,
   ],
   controllers: [AppController],
   providers: [AppService],

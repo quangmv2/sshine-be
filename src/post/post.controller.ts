@@ -14,12 +14,12 @@ export class PostController {
         private readonly postService: PostService
     ){}
 
-    @Get('')
-    @UseGuards(AuthGuard)
-    async user(@Context() context): Promise<User> {
-        const { user } = context.req;
-        return user;
-    }
+    // @Get('')
+    // @UseGuards(AuthGuard)
+    // async user(@Context() context): Promise<User> {
+    //     const { user } = context.req;
+    //     return user;
+    // }
 
     @Post('add')
     // @UseGuards(AuthGuard)
@@ -27,6 +27,12 @@ export class PostController {
     async addPost(@UploadedFile() file, @Body() input): Promise<Postt> {
         // console.log(input);
         return this.postService.addPost(input, file);
+    }
+
+    @Get('')
+    async getPost(@Query('page') page) {
+        if (!page) page = 1;
+        return this.postService.getPostPaginate(page, 5);
     }
 
 }

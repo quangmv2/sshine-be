@@ -1147,7 +1147,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.controller.ts": {
-        "version": "0ea307994447741717b26c75c641e6cadda4b9e72491591ca522c2f08a4f865c",
+        "version": "6594bfe97d0f1efb704b1679a50039087a314f36a524ca600464c81f7329ca39",
         "signature": "def6d2cd7f344844f3fa75cf17265e56c25eb936dba2a5923eba5d6118e9bdfb",
         "affectsGlobalScope": false
       },
@@ -4991,8 +4991,8 @@
         "affectsGlobalScope": false
       },
       "../src/graphql.ts": {
-        "version": "ca9b6bc481fec5463a3f9ed064c00b19b30f6ab0dfbe7fc27c1e9d5b88de83dd",
-        "signature": "eae6b6991114a0688930eef9acc38ba2bea78bb76eb6e351c27454384f0312b7",
+        "version": "6fb96637e2f76dd7913f93037e455a55da94d28ec90a0a6fb2c195820e73804c",
+        "signature": "111bed70caae4f0bf47bfe3cfdc41b58c4c6ccee55bb69037839537cc977fc5e",
         "affectsGlobalScope": false
       },
       "../src/dto/auth.dto.ts": {
@@ -5070,14 +5070,34 @@
         "signature": "71f62cfc1007a763e40100c945fe66104546614989c937b5d261995fedf8ae20",
         "affectsGlobalScope": false
       },
+      "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": {
+        "version": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
+        "signature": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/pubsub.d.ts": {
+        "version": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
+        "signature": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/with-filter.d.ts": {
+        "version": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
+        "signature": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/index.d.ts": {
+        "version": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
+        "signature": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
+        "affectsGlobalScope": false
+      },
       "../src/post/post.service.ts": {
-        "version": "17d5fbd81e275aa161d869f67a59622ffb97c5e107327badbe5a85ef9b375470",
-        "signature": "84601b453f57474567b9beb3f85d6f9561553dcfe3867140296a15c19d7ac510",
+        "version": "916128d99066b753bb8a34a0b836d55ada4cd539855cc34595ccf7ca6f374683",
+        "signature": "4db71b99e572c4c777e95dcd1fd563c6f99f16562fe3391dce9fb0188011949a",
         "affectsGlobalScope": false
       },
       "../src/post/post.resolver.ts": {
-        "version": "18e5fb03ef24154a0014cdfbc9eeb2a8cdd118a3baeac6adf16b330d6026e5f4",
-        "signature": "a14c207bf2266d084de06253a44b3580f88e8c01e76b068d7e94fb731f36ec3c",
+        "version": "3aa3c925b1519c979ee49e466542d777a7ecf15cf3e1f7f275d376c2779ab2e1",
+        "signature": "f302c387c256c9fd1015e327f80478348230eab5b39bd4dbb1c976af9d309115",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/platform-express/interfaces/serve-static-options.interface.d.ts": {
@@ -5161,22 +5181,47 @@
         "affectsGlobalScope": false
       },
       "../src/post/post.controller.ts": {
-        "version": "1c5511d5a2cfac66b4b7986c6659d940f62667f42f8d1aa0955d29edd3856491",
-        "signature": "8c7c7581210f7074db13086102cddc1e6f6648d7ee1d36ddd43ad036201c9930",
+        "version": "2aad4574ec728b36f28f25b9e63e2c0860913b4c300ddec045ed17ed0bef5dfc",
+        "signature": "82711d6c686bc352bc1fc9378a5e31fe9746e6ff084ffc8ecaf34cacf504e9be",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts": {
+        "version": "deaab7293119a4247308f069349654708378f4c5188ac9d7b9d95547d02d601a",
+        "signature": "deaab7293119a4247308f069349654708378f4c5188ac9d7b9d95547d02d601a",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ts-mongoose-pagination/dist/index.d.ts": {
+        "version": "a098a3907dce6c7238bb7dcb1fb410cb93dd783bcf35f7d521d7676534321fe1",
+        "signature": "a098a3907dce6c7238bb7dcb1fb410cb93dd783bcf35f7d521d7676534321fe1",
         "affectsGlobalScope": false
       },
       "../src/post/post.schema.ts": {
-        "version": "8ed849d60330047151eed95e154ad79e6d3e94127acc09adfa647cf171edfa40",
+        "version": "7251d4e46c10f1f6362840ed056d19e08f8d085a3122c9fdbca6ed62f1d550a4",
         "signature": "4dabc4e09f6457fb82297daf29f3035537dac4b6a1487e55d1f7f841c596a4b3",
         "affectsGlobalScope": false
       },
       "../src/post/post.module.ts": {
-        "version": "b899983b5cdfdee65c9991c9062bb3250ec8b38d686f9b65d618911771959469",
+        "version": "b2332cc01ece84d88c74c933f291e082a69eb039b8173e17ad9572f112b549a2",
         "signature": "031b6c0ffa2d201ad9bdce37175e894ac3dfea4082be9dba1235a596de9c3581",
         "affectsGlobalScope": false
       },
+      "../src/room/room.service.ts": {
+        "version": "4de526c7f03379fc78f2b021b14a54195acb055d7c01f5fc9b8a123f6c80509a",
+        "signature": "c972dfe319db8c334a2f4eae04d25b675828ab198f9c0fada2ea3c59a7789c25",
+        "affectsGlobalScope": false
+      },
+      "../src/room/room.resolver.ts": {
+        "version": "4f31d85ff9330e590dd81f36d71356d65f3c73da9a770b5425a2845eaa57060a",
+        "signature": "e040e9242ba7a9164ad604eb2c3a8d2815f1da09a3c5834859dc732304345462",
+        "affectsGlobalScope": false
+      },
+      "../src/room/room.module.ts": {
+        "version": "d9f159f86377e3d0e1d5b50eb77ed99889c0fe59400fca6a56de1294fe9f982c",
+        "signature": "7ebdc6e482327be44f898d355da4b2002c50c4a5b7f4e9bed061d83b5c257fce",
+        "affectsGlobalScope": false
+      },
       "../src/app.module.ts": {
-        "version": "693853c2e83e3376aefaedaa7e881c769ce40907c92c22215cf6cb0439a9358b",
+        "version": "24cd07f2a038c09ab9e754434614679ce7d17a8e8dd8745384521a6b2a8771ad",
         "signature": "b82491e2990291580288c5602d4c017238977749d52b17391f0e45d9a29be644",
         "affectsGlobalScope": false
       },
@@ -13433,6 +13478,40 @@
         "../node_modules/apollo-server-types/dist/index.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/graphql-subscriptions/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub.d.ts",
+        "../node_modules/graphql-subscriptions/dist/with-filter.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/pubsub.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/ts3.7/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/with-filter.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../node_modules/graphql/error/GraphQLError.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -15108,6 +15187,23 @@
         "../node_modules/@types/ws/index.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/ts-mongoose-pagination/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts"
+      ],
+      "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../node_modules/ts-morph/lib/ts-morph.d.ts": [
         "../node_modules/@ts-morph/common/lib/ts-morph-common.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -15402,6 +15498,7 @@
         "../src/app.service.ts",
         "../src/auth/auth.module.ts",
         "../src/post/post.module.ts",
+        "../src/room/room.module.ts",
         "../src/user/user.module.ts"
       ],
       "../src/app.service.ts": [
@@ -15558,10 +15655,12 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../src/post/post.controller.ts",
         "../src/post/post.resolver.ts",
         "../src/post/post.schema.ts",
-        "../src/post/post.service.ts"
+        "../src/post/post.service.ts",
+        "../src/user/user.module.ts"
       ],
       "../src/post/post.resolver.ts": [
         "../node_modules/@nestjs/graphql/index.d.ts",
@@ -15571,7 +15670,9 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
         "../src/post/post.interface.ts",
-        "../src/post/post.service.ts"
+        "../src/post/post.service.ts",
+        "../src/user/user.interface.ts",
+        "../src/user/user.service.ts"
       ],
       "../src/post/post.schema.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -15579,7 +15680,8 @@
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/ts-mongoose-pagination/dist/index.d.ts"
       ],
       "../src/post/post.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -15591,9 +15693,36 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../node_modules/image-type/index.d.ts",
         "../src/dto/post.dto.ts",
         "../src/post/post.interface.ts"
+      ],
+      "../src/room/room.module.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../src/room/room.resolver.ts",
+        "../src/room/room.service.ts"
+      ],
+      "../src/room/room.resolver.ts": [
+        "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../src/room/room.service.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
       ],
       "../src/user/user.interface.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -23652,6 +23781,40 @@
         "../node_modules/apollo-server-types/dist/index.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/graphql-subscriptions/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub.d.ts",
+        "../node_modules/graphql-subscriptions/dist/with-filter.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/pubsub.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/events.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/ts3.7/index.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts"
+      ],
+      "../node_modules/graphql-subscriptions/dist/with-filter.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../node_modules/graphql/error/GraphQLError.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -25327,6 +25490,23 @@
         "../node_modules/@types/ws/index.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/ts-mongoose-pagination/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts"
+      ],
+      "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts"
+      ],
       "../node_modules/ts-morph/lib/ts-morph.d.ts": [
         "../node_modules/@ts-morph/common/lib/ts-morph-common.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -25625,22 +25805,26 @@
         "../src/auth/auth.service.ts"
       ],
       "../src/post/post.controller.ts": [
+        "../node_modules/@types/mongoose/index.d.ts",
         "../src/post/post.interface.ts",
-        "../src/post/post.service.ts",
-        "../src/user/user.interface.ts"
+        "../src/post/post.service.ts"
       ],
       "../src/post/post.interface.ts": [
         "../node_modules/@types/mongoose/index.d.ts"
       ],
       "../src/post/post.resolver.ts": [
+        "../node_modules/@types/mongoose/index.d.ts",
         "../src/post/post.interface.ts",
-        "../src/post/post.service.ts"
+        "../src/post/post.service.ts",
+        "../src/user/user.interface.ts",
+        "../src/user/user.service.ts"
       ],
       "../src/post/post.schema.ts": [
         "../node_modules/@types/mongoose/index.d.ts"
       ],
       "../src/post/post.service.ts": [
         "../node_modules/@types/mongoose/index.d.ts",
+        "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../src/dto/post.dto.ts",
         "../src/post/post.interface.ts"
       ],

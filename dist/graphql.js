@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.Like = exports.Comment = exports.Post = exports.IMutation = exports.Token = exports.IQuery = exports.PostInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
+exports.User = exports.Like = exports.Comment = exports.PostPaginate = exports.Post = exports.ISubscription = exports.IMutation = exports.Token = exports.IQuery = exports.PostInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
 class RegisterInput {
 }
 exports.RegisterInput = RegisterInput;
@@ -22,9 +22,15 @@ exports.Token = Token;
 class IMutation {
 }
 exports.IMutation = IMutation;
+class ISubscription {
+}
+exports.ISubscription = ISubscription;
 class Post {
 }
 exports.Post = Post;
+class PostPaginate {
+}
+exports.PostPaginate = PostPaginate;
 class Comment {
 }
 exports.Comment = Comment;

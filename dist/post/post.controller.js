@@ -16,29 +16,20 @@ exports.PostController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const post_service_1 = require("./post.service");
-const auth_guard_1 = require("../guard/auth.guard");
-const graphql_1 = require("@nestjs/graphql");
 const user_interface_1 = require("../user/user.interface");
 let PostController = class PostController {
     constructor(postService) {
         this.postService = postService;
     }
-    async user(context) {
-        const { user } = context.req;
-        return user;
-    }
     async addPost(file, input) {
         return this.postService.addPost(input, file);
     }
+    async getPost(page) {
+        if (!page)
+            page = 1;
+        return this.postService.getPostPaginate(page, 5);
+    }
 };
-__decorate([
-    common_1.Get(''),
-    common_1.UseGuards(auth_guard_1.AuthGuard),
-    __param(0, graphql_1.Context()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], PostController.prototype, "user", null);
 __decorate([
     common_1.Post('add'),
     common_1.UseInterceptors(platform_express_1.FileInterceptor('image')),
@@ -47,6 +38,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "addPost", null);
+__decorate([
+    common_1.Get(''),
+    __param(0, common_1.Query('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PostController.prototype, "getPost", null);
 PostController = __decorate([
     common_1.Controller('post'),
     __metadata("design:paramtypes", [post_service_1.PostService])

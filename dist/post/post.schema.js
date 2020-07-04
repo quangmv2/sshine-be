@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LikeSchema = exports.likeSchema = exports.CommentSchema = exports.commentSchema = exports.PostSchema = exports.postSchema = void 0;
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 exports.postSchema = new mongoose.Schema({
     title: { type: String, required: true },
     content: { type: String, required: true },
@@ -17,6 +18,7 @@ exports.postSchema = new mongoose.Schema({
         updatedAt: "updatedAt"
     }
 });
+exports.postSchema.plugin(mongoosePaginate);
 exports.PostSchema = {
     name: "Post",
     schema: exports.postSchema,

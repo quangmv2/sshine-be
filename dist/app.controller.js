@@ -35,11 +35,12 @@ let AppController = class AppController {
     downloadFile(id) {
         if (!id)
             throw new common_1.HttpException('Bat Request', common_1.HttpStatus.BAD_REQUEST);
-        const path = path_1.join('/tmp', id);
+        const path = path_1.join('uploads', id);
         const paths = path.split('/');
-        if (!paths[1] || paths[1] !== 'tmp')
+        console.log(path_1.join(__dirname + '/../', path));
+        if (!paths[0] || paths[0] !== 'uploads')
             throw new common_1.HttpException('Bat Request', common_1.HttpStatus.BAD_REQUEST);
-        if (!fs_1.existsSync(path))
+        if (!fs_1.existsSync(path_1.join(__dirname + '/../', path)))
             throw new common_1.HttpException('FORBIDDEN', common_1.HttpStatus.FORBIDDEN);
         return path;
     }

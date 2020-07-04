@@ -17,6 +17,7 @@ const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const post_module_1 = require("./post/post.module");
+const room_module_1 = require("./room/room.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -36,7 +37,8 @@ AppModule = __decorate([
                             req: connection.context
                         };
                     return context;
-                }
+                },
+                installSubscriptionHandlers: true
             }),
             mongoose_1.MongooseModule.forRootAsync({
                 useFactory: () => ({
@@ -49,6 +51,7 @@ AppModule = __decorate([
             auth_module_1.AuthModule,
             user_module_1.UserModule,
             post_module_1.PostModule,
+            room_module_1.RoomModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

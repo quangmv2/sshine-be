@@ -36,7 +36,9 @@ export abstract class IQuery {
 
     abstract post(id_post?: string): Post | Promise<Post>;
 
-    abstract posts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
+    abstract posts(page?: number, limit?: number): PostPaginate | Promise<PostPaginate>;
+
+    abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
 }
 
 export class Token {
@@ -52,7 +54,13 @@ export abstract class IMutation {
 
     abstract addPost(input: PostInput): Post | Promise<Post>;
 
+    abstract deletePost(id_post?: string): Post | Promise<Post>;
+
     abstract user(): User | Promise<User>;
+}
+
+export abstract class ISubscription {
+    abstract listenNewPost(): Post | Promise<Post>;
 }
 
 export class Post {
@@ -62,14 +70,23 @@ export class Post {
     image?: string;
     comments?: Comment[];
     likes?: Like[];
+    user?: User;
     createdAt?: number;
     updatedAt?: number;
+}
+
+export class PostPaginate {
+    data?: Post[];
+    itemCount?: number;
+    limit?: number;
+    page?: number;
 }
 
 export class Comment {
     id?: string;
     user?: User;
     content?: string;
+    total?: number;
     created_at?: number;
     updated_at?: number;
 }
@@ -77,6 +94,7 @@ export class Comment {
 export class Like {
     id?: string;
     user?: User;
+    total?: number;
     created_at?: number;
     updated_at?: number;
 }

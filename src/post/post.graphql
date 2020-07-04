@@ -1,10 +1,16 @@
 type Query {
     post(id_post: String): Post,
-    posts(offset: Int, limits: Int): [Post]
+    posts(page: Int, limit: Int): PostPaginate
+    myPosts(offset: Int, limits: Int): [Post]
 }
 
 type Mutation {
     addPost(input: PostInput!): Post
+    deletePost(id_post: String): Post
+}
+
+type Subscription {
+    listenNewPost: Post
 }
 
 input PostInput{
@@ -21,14 +27,23 @@ type Post {
     image: String,
     comments: [Comment],
     likes: [Like],
+    user: User
     createdAt: Float,
     updatedAt: Float
+}
+
+type PostPaginate {
+    data: [Post],
+    itemCount: Int,
+    limit: Int,
+    page: Int
 }
 
 type Comment {
     id: String,
     user: User,
     content: String,
+    total: Int,
     created_at: Float,
     updated_at: Float
 }
@@ -36,6 +51,7 @@ type Comment {
 type Like {
     id: String,
     user: User,
+    total: Int,
     created_at: Float,
     updated_at: Float
 }

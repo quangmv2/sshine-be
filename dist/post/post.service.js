@@ -20,9 +20,12 @@ const mongoose_2 = require("mongoose");
 const imageType = require("image-type");
 const path_1 = require("path");
 const fs_1 = require("fs");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
 let PostService = class PostService {
-    constructor(postModel) {
+    constructor(postPaginateModel, postModel, pubSub) {
+        this.postPaginateModel = postPaginateModel;
         this.postModel = postModel;
+        this.pubSub = pubSub;
     }
     async addPost(input, image) {
         if (!image)
@@ -31,32 +34,66 @@ let PostService = class PostService {
         if (!type)
             throw new common_1.HttpException('Unsupported Media Type SE', common_1.HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         const post = new this.postModel(input);
+        post.user = '5ef083f9d3cc0c9994af5b94';
         try {
             const directory = 'images/posts';
             const idImage = Date.now() + '_' + image.originalname;
-            if (!fs_1.existsSync('/tmp/' + directory)) {
+            if (!fs_1.existsSync('uploads/' + directory)) {
                 console.log(11);
-                fs_1.mkdirSync(path_1.join('/tmp/', directory), { recursive: true });
+                fs_1.mkdirSync(path_1.join('uploads/', directory), { recursive: true });
             }
-            const path = path_1.join('/tmp/' + directory, idImage);
+            const path = path_1.join('uploads/' + directory, idImage);
             const fileWrite = fs_1.createWriteStream(path);
             fileWrite.write(image.buffer);
             fileWrite.end();
-            post.image = directory + idImage;
+            post.image = directory + '/' + idImage;
         }
         catch (error) {
             throw new common_1.HttpException('Error undefine', common_1.HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return post.save();
+        const publish = {};
+        publish["listenNewPost"] = post;
+        await post.save();
+        this.pubSub.publish('listenNewPost', publish);
+        return post;
+    }
+    async getPostPaginate(page, limit) {
+        const options = {
+            page,
+            limit,
+            collation: {
+                locale: 'en'
+            },
+            customLabels: myCustomLabels,
+            sort: { createdAt: -1 },
+        };
+        const posts = await this.postPaginateModel.paginate({}, options);
+        return posts;
     }
     async getPostById(id) {
         return this.postModel.findById(id);
+    }
+    async listenNewPost() {
+        return this.pubSub.asyncIterator('listenNewPost');
     }
 };
 PostService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('Post')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, mongoose_1.InjectModel('Post')),
+    __param(2, common_1.Inject('PUB_SUB_POST')),
+    __metadata("design:paramtypes", [Object, mongoose_2.Model,
+        graphql_subscriptions_1.PubSub])
 ], PostService);
 exports.PostService = PostService;
+const myCustomLabels = {
+    totalDocs: 'itemCount',
+    docs: 'data',
+    limit: 'limit',
+    page: 'page',
+    nextPage: 'next',
+    prevPage: 'prev',
+    totalPages: 'pageCount',
+    pagingCounter: 'slNo',
+};
 //# sourceMappingURL=post.service.js.map

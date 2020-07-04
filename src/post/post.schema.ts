@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose';
+import {mongoosePagination} from "ts-mongoose-pagination";
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 export const postSchema = new mongoose.Schema({
     
@@ -18,6 +20,8 @@ export const postSchema = new mongoose.Schema({
         updatedAt: "updatedAt"
     }
 });
+
+postSchema.plugin(mongoosePaginate);
 
 export const PostSchema = {
     name: "Post",

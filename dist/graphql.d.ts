@@ -22,7 +22,8 @@ export declare class PostInput {
 export declare abstract class IQuery {
     abstract hello(): string | Promise<string>;
     abstract post(id_post?: string): Post | Promise<Post>;
-    abstract posts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
+    abstract posts(page?: number, limit?: number): PostPaginate | Promise<PostPaginate>;
+    abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
 }
 export declare class Token {
     access_token: string;
@@ -32,7 +33,11 @@ export declare abstract class IMutation {
     abstract login(input: LoginInput): Token | Promise<Token>;
     abstract loginFromGoogle(input: LoginFromGoogleInput): Token | Promise<Token>;
     abstract addPost(input: PostInput): Post | Promise<Post>;
+    abstract deletePost(id_post?: string): Post | Promise<Post>;
     abstract user(): User | Promise<User>;
+}
+export declare abstract class ISubscription {
+    abstract listenNewPost(): Post | Promise<Post>;
 }
 export declare class Post {
     id?: string;
@@ -41,19 +46,28 @@ export declare class Post {
     image?: string;
     comments?: Comment[];
     likes?: Like[];
+    user?: User;
     createdAt?: number;
     updatedAt?: number;
+}
+export declare class PostPaginate {
+    data?: Post[];
+    itemCount?: number;
+    limit?: number;
+    page?: number;
 }
 export declare class Comment {
     id?: string;
     user?: User;
     content?: string;
+    total?: number;
     created_at?: number;
     updated_at?: number;
 }
 export declare class Like {
     id?: string;
     user?: User;
+    total?: number;
     created_at?: number;
     updated_at?: number;
 }
