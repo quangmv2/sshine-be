@@ -16,12 +16,14 @@ exports.PostController = void 0;
 const common_1 = require("@nestjs/common");
 const platform_express_1 = require("@nestjs/platform-express");
 const post_service_1 = require("./post.service");
+const auth_guard_1 = require("../guard/auth.guard");
 const user_interface_1 = require("../user/user.interface");
 let PostController = class PostController {
     constructor(postService) {
         this.postService = postService;
     }
-    async addPost(file, input) {
+    async addPost(file, input, req) {
+        input.user = req.user.id;
         return this.postService.addPost(input, file);
     }
     async getPost(page) {
@@ -32,10 +34,11 @@ let PostController = class PostController {
 };
 __decorate([
     common_1.Post('add'),
+    common_1.UseGuards(auth_guard_1.AuthGuard),
     common_1.UseInterceptors(platform_express_1.FileInterceptor('image')),
-    __param(0, common_1.UploadedFile()), __param(1, common_1.Body()),
+    __param(0, common_1.UploadedFile()), __param(1, common_1.Body()), __param(2, common_1.Req()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:paramtypes", [Object, Object, Object]),
     __metadata("design:returntype", Promise)
 ], PostController.prototype, "addPost", null);
 __decorate([

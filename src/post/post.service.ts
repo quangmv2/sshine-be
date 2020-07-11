@@ -19,11 +19,12 @@ export class PostService {
     ){}
 
     async addPost(input: PostInputDTO, image): Promise<Post> {
+        console.log(input);
+        
         if (!image) throw new HttpException('Unsupported Media Type SE', HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         const type = imageType(image.buffer);
         if (!type) throw new HttpException('Unsupported Media Type SE', HttpStatus.UNSUPPORTED_MEDIA_TYPE);
         const post = new this.postModel(input);
-        post.user = '5ef083f9d3cc0c9994af5b94';
         try {
             const directory = 'images/posts';
             const idImage = Date.now() + '_' + image.originalname;
@@ -39,10 +40,10 @@ export class PostService {
         } catch (error) {
             throw new HttpException('Error undefine', HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        await post.save();
+        
         const publish = {};
         publish["listenNewPost"] = post;
-        // console.log(publish);
-        await post.save();
         this.pubSub.publish('listenNewPost', publish);
         return post;
     }

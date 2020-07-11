@@ -1,4 +1,4 @@
-import { Controller, Post, UseInterceptors, UploadedFile, Body, Query, Param, UseGuards, Get } from '@nestjs/common';
+import { Controller, Post, UseInterceptors, UploadedFile, Body, Query, Param, UseGuards, Get, Req } from '@nestjs/common';
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Post as Postt } from './post.interface';
 import { log } from 'console';
@@ -22,10 +22,10 @@ export class PostController {
     // }
 
     @Post('add')
-    // @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard)
     @UseInterceptors(FileInterceptor('image'))
-    async addPost(@UploadedFile() file, @Body() input): Promise<Postt> {
-        // console.log(input);
+    async addPost(@UploadedFile() file, @Body() input,@Req() req): Promise<Postt> {
+        input.user = req.user.id;
         return this.postService.addPost(input, file);
     }
 

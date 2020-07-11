@@ -5,6 +5,6 @@ import { PostService } from './post.service';
 export declare class PostController {
     private readonly postService;
     constructor(postService: PostService);
-    addPost(file: any, input: any): Promise<Postt>;
+    addPost(file: any, input: any, req: any): Promise<Postt>;
     getPost(page: any): Promise<import("mongoose").IPaginateResult<Postt>>;
 }
