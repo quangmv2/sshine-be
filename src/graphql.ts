@@ -31,6 +31,15 @@ export class PostInput {
     image?: string;
 }
 
+export class BookRoomInput {
+    time_start: number;
+    time_end: number;
+    content: string;
+    note?: string;
+    user_customer_id: string;
+    user_id: string;
+}
+
 export abstract class IQuery {
     abstract hello(): string | Promise<string>;
 
@@ -39,6 +48,14 @@ export abstract class IQuery {
     abstract posts(page?: number, limit?: number): PostPaginate | Promise<PostPaginate>;
 
     abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
+
+    abstract rooms(user_id?: string): Room[] | Promise<Room[]>;
+
+    abstract roomDetail(room_id?: string): Room | Promise<Room>;
+
+    abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
+
+    abstract doctors(page?: number): UserPaginate | Promise<UserPaginate>;
 }
 
 export class Token {
@@ -56,6 +73,10 @@ export abstract class IMutation {
 
     abstract deletePost(id_post?: string): Post | Promise<Post>;
 
+    abstract like(id_post?: string): Post | Promise<Post>;
+
+    abstract bookRoom(input: BookRoomInput): Room | Promise<Room>;
+
     abstract user(): User | Promise<User>;
 }
 
@@ -69,7 +90,7 @@ export class Post {
     content?: string;
     image?: string;
     comments?: Comment[];
-    likes?: Like[];
+    likes?: User[];
     user?: User;
     createdAt?: number;
     updatedAt?: number;
@@ -91,12 +112,16 @@ export class Comment {
     updated_at?: number;
 }
 
-export class Like {
+export class Room {
     id?: string;
-    user?: User;
-    total?: number;
-    created_at?: number;
-    updated_at?: number;
+    time_start?: number;
+    time_end?: number;
+    content?: string;
+    note?: string;
+    user_customer_id?: string;
+    user_id?: string;
+    createdAt?: number;
+    updatedAt?: number;
 }
 
 export class User {
@@ -106,4 +131,12 @@ export class User {
     lastname?: string;
     email?: string;
     phoneNumber?: string;
+    role?: string[];
+}
+
+export class UserPaginate {
+    data?: User[];
+    itemCount?: number;
+    limit?: number;
+    page?: number;
 }

@@ -76,6 +76,21 @@ let PostService = class PostService {
     async listenNewPost() {
         return this.pubSub.asyncIterator('listenNewPost');
     }
+    async likePost(user_id, post_id) {
+        const post = await this.postModel.findById(post_id);
+        const exists = post.likes.findIndex(id => user_id === id);
+        if (exists >= 0) {
+            await post.updateOne({
+                $pull: { likes: user_id }
+            });
+        }
+        else {
+            await post.updateOne({
+                $push: { likes: user_id }
+            });
+        }
+        return post;
+    }
 };
 PostService = __decorate([
     common_1.Injectable(),

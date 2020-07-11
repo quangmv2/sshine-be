@@ -17,6 +17,8 @@ const graphql_1 = require("@nestjs/graphql");
 const post_service_1 = require("./post.service");
 const user_interface_1 = require("../user/user.interface");
 const user_service_1 = require("../user/user.service");
+const auth_guard_1 = require("../guard/auth.guard");
+const common_1 = require("@nestjs/common");
 let PostResolver = class PostResolver {
     constructor(postService, userService) {
         this.postService = postService;
@@ -32,12 +34,21 @@ let PostResolver = class PostResolver {
             limit = 5;
         return this.postService.getPostPaginate(page, limit);
     }
+    async like(id, context) {
+        const { user } = context.req;
+        return this.postService.likePost(user.id, id);
+    }
     async listenNewPost() {
         return this.postService.listenNewPost();
     }
     async getUserOfPost(parent) {
         const { user } = parent;
         return this.userService.getUserById(user);
+    }
+    async getLikeOfPost(parent) {
+        let { likes } = parent;
+        likes = likes.map(async (id) => this.userService.getUserById(id));
+        return likes;
     }
 };
 __decorate([
@@ -55,6 +66,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "getPosts", null);
 __decorate([
+    graphql_1.Mutation('like'),
+    common_1.UseGuards(auth_guard_1.AuthGuardGQL),
+    __param(0, graphql_1.Args('id_post')), __param(1, graphql_1.Context()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "like", null);
+__decorate([
     graphql_1.Subscription('listenNewPost'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -67,6 +86,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], PostResolver.prototype, "getUserOfPost", null);
+__decorate([
+    graphql_1.ResolveField('likes'),
+    __param(0, graphql_1.Parent()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], PostResolver.prototype, "getLikeOfPost", null);
 PostResolver = __decorate([
     graphql_1.Resolver('Post'),
     __metadata("design:paramtypes", [post_service_1.PostService,

@@ -25,6 +25,12 @@ let UserResolver = class UserResolver {
     async hello() {
         return "hello";
     }
+    async users(page) {
+        return this.userService.getUsersPaginate(page);
+    }
+    async doctors(page) {
+        return this.userService.getUsersPaginate(page);
+    }
     async getUser(context) {
         const { user } = context.req;
         return user;
@@ -36,6 +42,20 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "hello", null);
+__decorate([
+    graphql_1.Query('users'),
+    __param(0, graphql_1.Args('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "users", null);
+__decorate([
+    graphql_1.Query('doctors'),
+    __param(0, graphql_1.Args('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], UserResolver.prototype, "doctors", null);
 __decorate([
     graphql_1.Mutation('user'),
     common_1.UseGuards(auth_guard_1.AuthGuardGQL),

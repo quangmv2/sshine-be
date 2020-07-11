@@ -29,7 +29,6 @@ export class AppController {
     if (!id) throw new HttpException('Bat Request', HttpStatus.BAD_REQUEST);
     const path = join('uploads', id);
     const paths = path.split('/');
-    console.log(join(__dirname+'/../', path));
     
     if (!paths[0] || paths[0] !== 'uploads') throw new HttpException('Bat Request', HttpStatus.BAD_REQUEST); 
     if (!existsSync(join(__dirname+'/../', path))) throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);

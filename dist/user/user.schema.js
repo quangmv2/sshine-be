@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserSchema = exports.userSchema = void 0;
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate-v2");
 exports.userSchema = new mongoose.Schema({
     username: { type: String, unique: true, required: true },
     password: { type: String, required: true },
@@ -19,6 +20,7 @@ exports.userSchema = new mongoose.Schema({
         updatedAt: "updatedAt"
     }
 });
+exports.userSchema.plugin(mongoosePaginate);
 exports.UserSchema = {
     name: 'User',
     schema: exports.userSchema,

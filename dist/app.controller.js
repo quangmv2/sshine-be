@@ -37,7 +37,6 @@ let AppController = class AppController {
             throw new common_1.HttpException('Bat Request', common_1.HttpStatus.BAD_REQUEST);
         const path = path_1.join('uploads', id);
         const paths = path.split('/');
-        console.log(path_1.join(__dirname + '/../', path));
         if (!paths[0] || paths[0] !== 'uploads')
             throw new common_1.HttpException('Bat Request', common_1.HttpStatus.BAD_REQUEST);
         if (!fs_1.existsSync(path_1.join(__dirname + '/../', path)))

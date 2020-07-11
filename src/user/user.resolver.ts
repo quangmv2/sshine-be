@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Context } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Context, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuardGQL } from 'src/guard/auth.guard';
 import { User } from 'src/graphql';
@@ -15,6 +15,16 @@ export class UserResolver {
     // @UseGuards(AuthGuardGQL)
     async hello(): Promise<string> {
         return "hello";
+    }
+
+    @Query('users')
+    async users(@Args('page') page: number) {
+        return this.userService.getUsersPaginate(page);
+    }
+
+    @Query('doctors')
+    async doctors(@Args('page') page: number) {
+        return this.userService.getUsersPaginate(page);
     }
 
     @Mutation('user')

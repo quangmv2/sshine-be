@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 import { RoomModule } from './room/room.module';
+import { AppGateway } from './app.gateway';
 
 @Module({
   imports: [

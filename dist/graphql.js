@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = exports.Like = exports.Comment = exports.PostPaginate = exports.Post = exports.ISubscription = exports.IMutation = exports.Token = exports.IQuery = exports.PostInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
+exports.UserPaginate = exports.User = exports.Room = exports.Comment = exports.PostPaginate = exports.Post = exports.ISubscription = exports.IMutation = exports.Token = exports.IQuery = exports.BookRoomInput = exports.PostInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
 class RegisterInput {
 }
 exports.RegisterInput = RegisterInput;
@@ -13,6 +13,9 @@ exports.LoginFromGoogleInput = LoginFromGoogleInput;
 class PostInput {
 }
 exports.PostInput = PostInput;
+class BookRoomInput {
+}
+exports.BookRoomInput = BookRoomInput;
 class IQuery {
 }
 exports.IQuery = IQuery;
@@ -34,10 +37,13 @@ exports.PostPaginate = PostPaginate;
 class Comment {
 }
 exports.Comment = Comment;
-class Like {
+class Room {
 }
-exports.Like = Like;
+exports.Room = Room;
 class User {
 }
 exports.User = User;
+class UserPaginate {
+}
+exports.UserPaginate = UserPaginate;
 //# sourceMappingURL=graphql.js.map

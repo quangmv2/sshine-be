@@ -10,10 +10,15 @@ exports.RoomModule = void 0;
 const common_1 = require("@nestjs/common");
 const room_service_1 = require("./room.service");
 const room_resolver_1 = require("./room.resolver");
+const mongoose_1 = require("@nestjs/mongoose");
+const room_schema_1 = require("./room.schema");
 let RoomModule = class RoomModule {
 };
 RoomModule = __decorate([
     common_1.Module({
+        imports: [
+            mongoose_1.MongooseModule.forFeature([room_schema_1.RoomSchema]),
+        ],
         providers: [room_service_1.RoomService, room_resolver_1.RoomResolver]
     })
 ], RoomModule);

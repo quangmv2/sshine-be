@@ -10,6 +10,8 @@ export declare class PostResolver {
     constructor(postService: PostService, userService: UserService);
     getPost(id: string): Promise<Post>;
     getPosts(page: number, limit: number): Promise<import("mongoose").IPaginateResult<Post>>;
+    like(id: string, context: any): Promise<Post>;
     listenNewPost(): Promise<AsyncIterator<unknown, any, undefined>>;
     getUserOfPost(parent: any): Promise<User>;
+    getLikeOfPost(parent: any): Promise<any>;
 }

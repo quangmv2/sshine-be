@@ -5,12 +5,24 @@ type User {
     lastname: String,
     email: String,
     phoneNumber: String,
+    role: [String]
 }
+
+type UserPaginate {
+    data: [User],
+    itemCount: Int,
+    limit: Int,
+    page: Int
+}
+
 
 type Query {
     hello: String
+    users(page: Int): UserPaginate
+    doctors(page: Int): UserPaginate
 }
 
 type Mutation {
     user: User
 }
+

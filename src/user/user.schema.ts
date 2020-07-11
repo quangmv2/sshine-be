@@ -1,4 +1,6 @@
 import * as mongoose from 'mongoose';
+import {mongoosePagination} from "ts-mongoose-pagination";
+import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 export const userSchema = new mongoose.Schema({
 
@@ -19,6 +21,8 @@ export const userSchema = new mongoose.Schema({
         updatedAt: "updatedAt"
     }
 });
+
+userSchema.plugin(mongoosePaginate);
 
 export const UserSchema = {
     name: 'User',

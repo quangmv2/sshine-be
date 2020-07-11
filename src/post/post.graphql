@@ -7,6 +7,7 @@ type Query {
 type Mutation {
     addPost(input: PostInput!): Post
     deletePost(id_post: String): Post
+    like(id_post: String): Post
 }
 
 type Subscription {
@@ -26,7 +27,7 @@ type Post {
     content: String,
     image: String,
     comments: [Comment],
-    likes: [Like],
+    likes: [User],
     user: User
     createdAt: Float,
     updatedAt: Float
@@ -43,14 +44,6 @@ type Comment {
     id: String,
     user: User,
     content: String,
-    total: Int,
-    created_at: Float,
-    updated_at: Float
-}
-
-type Like {
-    id: String,
-    user: User,
     total: Int,
     created_at: Float,
     updated_at: Float

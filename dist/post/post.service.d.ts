@@ -12,4 +12,5 @@ export declare class PostService {
     getPostPaginate(page: number, limit: number): Promise<import("mongoose").IPaginateResult<Post>>;
     getPostById(id: string): Promise<Post>;
     listenNewPost(): Promise<AsyncIterator<unknown, any, undefined>>;
+    likePost(user_id: string, post_id: string): Promise<Post>;
 }

@@ -56,7 +56,7 @@ export class PostService {
             },
             customLabels: myCustomLabels,
             sort: { createdAt: -1 },
-          };
+        };
         const posts = await this.postPaginateModel.paginate({}, options);
         return posts;
     }
@@ -67,6 +67,23 @@ export class PostService {
 
     async listenNewPost() {
         return this.pubSub.asyncIterator('listenNewPost');
+    }
+
+    async likePost(user_id: string, post_id: string): Promise<Post> {
+        const post = await this.postModel.findById(post_id);
+        const exists = post.likes.findIndex(id => user_id === id);
+        if (exists>=0) {
+            await post.updateOne({
+                $pull: { likes: user_id }
+            });
+        } else {
+
+            await post.updateOne({
+                $push: { likes: user_id }
+            });
+        }
+        
+        return post;
     }
 
 }

@@ -17,8 +17,9 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 let UserService = class UserService {
-    constructor(userModel) {
+    constructor(userModel, userPaginateModel) {
         this.userModel = userModel;
+        this.userPaginateModel = userPaginateModel;
     }
     async createUser(input) {
         const user = new this.userModel(input);
@@ -38,11 +39,35 @@ let UserService = class UserService {
         const user = await this.userModel.findById(id);
         return user;
     }
+    async getUsersPaginate(page) {
+        const options = {
+            page,
+            limit: 10,
+            collation: {
+                locale: 'en'
+            },
+            customLabels: myCustomLabels,
+            sort: { createdAt: -1 },
+        };
+        const users = await this.userPaginateModel.paginate({}, options);
+        return users;
+    }
 };
 UserService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel("User")),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, mongoose_1.InjectModel('User')),
+    __metadata("design:paramtypes", [mongoose_2.Model, Object])
 ], UserService);
 exports.UserService = UserService;
+const myCustomLabels = {
+    totalDocs: 'itemCount',
+    docs: 'data',
+    limit: 'limit',
+    page: 'page',
+    nextPage: 'next',
+    prevPage: 'prev',
+    totalPages: 'pageCount',
+    pagingCounter: 'slNo',
+};
 //# sourceMappingURL=user.service.js.map

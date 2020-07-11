@@ -1,0 +1,29 @@
+type Room {
+    id: String,
+    time_start: Float,
+    time_end: Float,
+    content: String,
+    note: String,
+    user_customer_id: String,
+    user_id: String,
+    createdAt: Float,
+    updatedAt: Float
+}
+
+input BookRoomInput {
+    time_start: Int!,
+    time_end: Int!,
+    content: String!,
+    note: String,
+    user_customer_id: String!,
+    user_id: String!,
+}
+
+type Query {
+    rooms(user_id: String): [Room],
+    roomDetail(room_id: String): Room,
+}
+
+type Mutation {
+    bookRoom(input: BookRoomInput!): Room
+}
