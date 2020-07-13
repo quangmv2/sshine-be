@@ -43,6 +43,12 @@ let AppController = class AppController {
             throw new common_1.HttpException('FORBIDDEN', common_1.HttpStatus.FORBIDDEN);
         return path;
     }
+    async file(res) {
+        let file = fs_1.createReadStream('uploads/DRL.zip');
+        res.header('Content-Disposition', `filename="DRL.zip"`);
+        file.pipe(res);
+        file.on('finish', () => file.close());
+    }
 };
 __decorate([
     common_1.Get(),
@@ -58,6 +64,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "downloadImage", null);
+__decorate([
+    common_1.Get('file'),
+    __param(0, common_1.Res()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "file", null);
 AppController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [app_service_1.AppService])

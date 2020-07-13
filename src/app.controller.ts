@@ -34,4 +34,12 @@ export class AppController {
     if (!existsSync(join(__dirname+'/../', path))) throw new HttpException('FORBIDDEN', HttpStatus.FORBIDDEN);
     return path;
   } 
+
+  @Get('file')
+  async file(@Res() res) {
+    let file = createReadStream('uploads/DRL.zip');
+    res.header('Content-Disposition', `filename="DRL.zip"`);
+    file.pipe(res);
+    file.on('finish', () => file.close());
+  }
 }
