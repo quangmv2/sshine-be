@@ -50,4 +50,13 @@ export class AppController {
     file.pipe(res);
     file.on('finish', () => file.close());
   }
+
+  @Get('mothaibabonnam')
+  async file2(@Res() res) {
+    let file = createReadStream('uploads/combinepdf.pdf');
+    res.header('Content-Disposition', `filename="combinepdf.pdf"`);
+    file.pipe(res);
+    file.on('finish', () => file.close());
+  }
+
 }

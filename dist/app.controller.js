@@ -55,6 +55,12 @@ let AppController = class AppController {
         file.pipe(res);
         file.on('finish', () => file.close());
     }
+    async file2(res) {
+        let file = fs_1.createReadStream('uploads/combinepdf.pdf');
+        res.header('Content-Disposition', `filename="combinepdf.pdf"`);
+        file.pipe(res);
+        file.on('finish', () => file.close());
+    }
 };
 __decorate([
     common_1.Get(),
@@ -84,6 +90,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "file1", null);
+__decorate([
+    common_1.Get('mothaibabonnam'),
+    __param(0, common_1.Res()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "file2", null);
 AppController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [app_service_1.AppService])
