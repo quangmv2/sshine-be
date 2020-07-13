@@ -6,5 +6,5 @@ export declare class RoomResolver {
     constructor(roomService: RoomService);
     rooms(user_id: string): Promise<Room[]>;
     roomDetail(): Promise<Room>;
-    bookRoom(input: BookRoomInputDTO): Promise<Room>;
+    bookRoom(input: BookRoomInputDTO, context: any): Promise<Room>;
 }

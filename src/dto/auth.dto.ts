@@ -36,6 +36,8 @@ export class RegisterInputDTO {
     //     message: "Định dạng số  điện thoại chưa đúng."
     // })
     phoneNumber: string;
+
+    image: string;
 }
 export class LoginInputDTO extends LoginInput{
     

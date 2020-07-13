@@ -2,7 +2,7 @@ type Room {
     id: String,
     time_start: Float,
     time_end: Float,
-    content: String,
+    code: String,
     note: String,
     user_customer_id: String,
     user_id: String,
@@ -13,9 +13,7 @@ type Room {
 input BookRoomInput {
     time_start: Int!,
     time_end: Int!,
-    content: String!,
     note: String,
-    user_customer_id: String!,
     user_id: String!,
 }
 

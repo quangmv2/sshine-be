@@ -17,11 +17,15 @@ const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const room_dto_1 = require("../dto/room.dto");
+const randomstring = require("randomstring");
 let RoomService = class RoomService {
     constructor(roomModel) {
         this.roomModel = roomModel;
     }
-    async registerRoom(input) {
+    async registerRoom(input, user_id) {
+        console.log(randomstring.generate());
+        input.code = `${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}`;
+        input.user_customer_id = user_id;
         const room = new this.roomModel(input);
         return room.save();
     }

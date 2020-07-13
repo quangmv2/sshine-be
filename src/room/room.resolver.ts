@@ -1,7 +1,9 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Context } from '@nestjs/graphql';
 import { Room } from './room.interface';
 import { BookRoomInputDTO } from 'src/dto/room.dto';
 import { RoomService } from './room.service';
+import { AuthGuardGQL } from 'src/guard/auth.guard';
+import { UseGuards } from '@nestjs/common';
 
 @Resolver('Room')
 export class RoomResolver {
@@ -21,8 +23,10 @@ export class RoomResolver {
     }
 
     @Mutation('bookRoom')
-    async bookRoom(@Args('input') input: BookRoomInputDTO): Promise<Room>{
-        return this.roomService.registerRoom(input);
+    @UseGuards(AuthGuardGQL)
+    async bookRoom(@Args('input') input: BookRoomInputDTO, @Context() context): Promise<Room>{
+        const { user } = context.req;
+        return this.roomService.registerRoom(input, user.id);
     }
 
 }

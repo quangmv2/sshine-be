@@ -4,13 +4,34 @@ exports.RoomSchema = exports.roomSchema = void 0;
 const mongoose = require("mongoose");
 const mongoose_1 = require("mongoose");
 const mongoosePaginate = require("mongoose-paginate-v2");
+const messageDetailSchema = new mongoose.Schema({
+    type: {
+        type: String,
+        enum: ['image', 'quote', 'send', 'sticker'],
+        required: true
+    },
+    content: { type: String, required: true },
+    status: {
+        type: String,
+        enum: ['Send', 'Delivered', 'Seen'],
+        required: true
+    },
+    createdAt: { type: Number },
+    updatedAt: { type: Number }
+}, {
+    timestamps: {
+        createdAt: "createdAt",
+        updatedAt: "updatedAt"
+    }
+});
 exports.roomSchema = new mongoose.Schema({
     time_start: { type: Number, required: true },
     time_end: { type: Number, required: true },
-    content: { type: String, required: true },
+    code: { type: String, required: true, unique: true },
     note: { type: String },
     user_customer_id: { type: mongoose_1.Schema.Types.ObjectId },
     user_id: { type: mongoose_1.Schema.Types.ObjectId },
+    mesages: [messageDetailSchema],
     createdAt: { type: Number },
     updatedAt: { type: Number }
 }, {

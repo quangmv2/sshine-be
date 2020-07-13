@@ -6,7 +6,7 @@ import * as jwt from "jsonwebtoken";
 import * as randomstring from "randomstring";
 import * as bcrypt from 'bcryptjs';
 import { v4 as uuidv4 } from 'uuid';
-import { RegisterInputDTO } from 'src/dto/auth.dto';
+import { RegisterInputDTO, LoginInputDTO } from 'src/dto/auth.dto';
 import { Token } from "./auth.interface";
 import { UserService } from 'src/user/user.service';
 import { User } from 'src/graphql';
@@ -49,8 +49,30 @@ export class AuthService {
             inputUser.lastname = payload.family_name;
             inputUser.password = bcrypt.hashSync(randomstring.generate(), 10);
             inputUser.username = uuidv4();
+            inputUser.image = payload.picture;
             user = await this.userService.createUser(inputUser);
         } 
+        const userToken = {
+            userID: user.id
+        }
+        return this.createToken(userToken);
+    }
+
+    async login(input: LoginInputDTO): Promise<Token> {
+        const { username, password } = input;
+        const user = await this.userService.getUserByUserNameOrEmail(username);
+        if (!user) throw new HttpException('Incorrect', HttpStatus.UNAUTHORIZED);
+        if (!bcrypt.compareSync(password, user.password)) throw new HttpException('Incorrect', HttpStatus.UNAUTHORIZED);
+        const userToken = {
+            userID: user.id
+        }
+        return this.createToken(userToken);
+    }
+
+    async register(input: RegisterInputDTO): Promise<Token> {
+        input.username = uuidv4();
+        input.password = bcrypt.hashSync(input.password, 10);
+        const user = await this.userService.createUser(input);
         const userToken = {
             userID: user.id
         }

@@ -12,6 +12,7 @@ export const userSchema = new mongoose.Schema({
     phoneNumber: { type: String },
     confirm: { type: Boolean, default: false },
     active: {type: Array, default: false},
+    image: { type: String },
     createdAt: { type: Number },
     updatedAt: { type: Number }
 },

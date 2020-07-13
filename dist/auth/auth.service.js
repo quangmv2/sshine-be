@@ -58,8 +58,30 @@ let AuthService = class AuthService {
             inputUser.lastname = payload.family_name;
             inputUser.password = bcrypt.hashSync(randomstring.generate(), 10);
             inputUser.username = uuid_1.v4();
+            inputUser.image = payload.picture;
             user = await this.userService.createUser(inputUser);
         }
+        const userToken = {
+            userID: user.id
+        };
+        return this.createToken(userToken);
+    }
+    async login(input) {
+        const { username, password } = input;
+        const user = await this.userService.getUserByUserNameOrEmail(username);
+        if (!user)
+            throw new common_1.HttpException('Incorrect', common_1.HttpStatus.UNAUTHORIZED);
+        if (!bcrypt.compareSync(password, user.password))
+            throw new common_1.HttpException('Incorrect', common_1.HttpStatus.UNAUTHORIZED);
+        const userToken = {
+            userID: user.id
+        };
+        return this.createToken(userToken);
+    }
+    async register(input) {
+        input.username = uuid_1.v4();
+        input.password = bcrypt.hashSync(input.password, 10);
+        const user = await this.userService.createUser(input);
         const userToken = {
             userID: user.id
         };

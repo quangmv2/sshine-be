@@ -16,6 +16,8 @@ exports.RoomResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const room_dto_1 = require("../dto/room.dto");
 const room_service_1 = require("./room.service");
+const auth_guard_1 = require("../guard/auth.guard");
+const common_1 = require("@nestjs/common");
 let RoomResolver = class RoomResolver {
     constructor(roomService) {
         this.roomService = roomService;
@@ -26,8 +28,9 @@ let RoomResolver = class RoomResolver {
     async roomDetail() {
         return null;
     }
-    async bookRoom(input) {
-        return this.roomService.registerRoom(input);
+    async bookRoom(input, context) {
+        const { user } = context.req;
+        return this.roomService.registerRoom(input, user.id);
     }
 };
 __decorate([
@@ -45,9 +48,10 @@ __decorate([
 ], RoomResolver.prototype, "roomDetail", null);
 __decorate([
     graphql_1.Mutation('bookRoom'),
-    __param(0, graphql_1.Args('input')),
+    common_1.UseGuards(auth_guard_1.AuthGuardGQL),
+    __param(0, graphql_1.Args('input')), __param(1, graphql_1.Context()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [room_dto_1.BookRoomInputDTO]),
+    __metadata("design:paramtypes", [room_dto_1.BookRoomInputDTO, Object]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "bookRoom", null);
 RoomResolver = __decorate([

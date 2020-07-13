@@ -22,9 +22,7 @@ export declare class PostInput {
 export declare class BookRoomInput {
     time_start: number;
     time_end: number;
-    content: string;
     note?: string;
-    user_customer_id: string;
     user_id: string;
 }
 export declare abstract class IQuery {
@@ -82,7 +80,7 @@ export declare class Room {
     id?: string;
     time_start?: number;
     time_end?: number;
-    content?: string;
+    code?: string;
     note?: string;
     user_customer_id?: string;
     user_id?: string;

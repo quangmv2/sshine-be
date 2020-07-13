@@ -6,6 +6,7 @@ export declare class RegisterInputDTO {
     lastname: string;
     email: string;
     phoneNumber: string;
+    image: string;
 }
 export declare class LoginInputDTO extends LoginInput {
     username: string;
