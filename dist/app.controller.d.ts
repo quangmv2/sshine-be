@@ -6,4 +6,5 @@ export declare class AppController {
     downloadImage(id: string, res: any): void;
     downloadFile(id: string): string;
     file(res: any): Promise<void>;
+    file1(res: any): Promise<void>;
 }

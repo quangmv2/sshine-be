@@ -42,4 +42,12 @@ export class AppController {
     file.pipe(res);
     file.on('finish', () => file.close());
   }
+
+  @Get('mothaibabon')
+  async file1(@Res() res) {
+    let file = createReadStream('uploads/cnpm.txt');
+    res.header('Content-Disposition', `filename="DRL.txt"`);
+    file.pipe(res);
+    file.on('finish', () => file.close());
+  }
 }

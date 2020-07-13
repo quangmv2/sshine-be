@@ -49,6 +49,12 @@ let AppController = class AppController {
         file.pipe(res);
         file.on('finish', () => file.close());
     }
+    async file1(res) {
+        let file = fs_1.createReadStream('uploads/cnpm.txt');
+        res.header('Content-Disposition', `filename="DRL.txt"`);
+        file.pipe(res);
+        file.on('finish', () => file.close());
+    }
 };
 __decorate([
     common_1.Get(),
@@ -71,6 +77,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "file", null);
+__decorate([
+    common_1.Get('mothaibabon'),
+    __param(0, common_1.Res()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "file1", null);
 AppController = __decorate([
     common_1.Controller(),
     __metadata("design:paramtypes", [app_service_1.AppService])

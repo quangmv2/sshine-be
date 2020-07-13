@@ -1147,8 +1147,8 @@
         "affectsGlobalScope": false
       },
       "../src/app.controller.ts": {
-        "version": "980c2674783af6f6e1b4870cee8cf4ce1b658cb88beba37bf70ea2bf80389dae",
-        "signature": "b1763191d56c97e429f4b7b036dd20a09c34fc03545ea4053cde6e7480cb3ed0",
+        "version": "ba958451da67ca763909b019b80ef2a80b19a1beb072471f807dee1a82f1d5bb",
+        "signature": "10c470765abbf024829474d3fbf77ecec3b56170106c4831cf84672944139bf9",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/websockets/adapters/ws-adapter.d.ts": {
