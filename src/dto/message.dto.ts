@@ -1,5 +1,5 @@
-// import { NewMessage } from "src/graphql";
+import { NewMessage } from "src/graphql";
 
-// export class MessageInputDTO extends NewMessage {
+export class MessageInputDTO extends NewMessage {
     
-// }
+}

@@ -1,3 +1,12 @@
+export declare enum TypeMessage {
+    quote = "quote",
+    send = "send"
+}
+export declare enum StatusMessage {
+    Send = "Send",
+    Delivered = "Delivered",
+    Seen = "Seen"
+}
 export declare class RegisterInput {
     username: string;
     password: string;
@@ -25,12 +34,18 @@ export declare class BookRoomInput {
     note?: string;
     user_id: string;
 }
+export declare class NewMessage {
+    content: string;
+    type?: TypeMessage;
+    to?: string;
+}
 export declare abstract class IQuery {
     abstract hello(): string | Promise<string>;
     abstract post(id_post?: string): Post | Promise<Post>;
     abstract posts(page?: number, limit?: number): PostPaginate | Promise<PostPaginate>;
     abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
     abstract rooms(user_id?: string): Room[] | Promise<Room[]>;
+    abstract myRooms(): Room[] | Promise<Room[]>;
     abstract roomDetail(room_id?: string): Room | Promise<Room>;
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
     abstract doctors(page?: number): UserPaginate | Promise<UserPaginate>;
@@ -46,10 +61,12 @@ export declare abstract class IMutation {
     abstract deletePost(id_post?: string): Post | Promise<Post>;
     abstract like(id_post?: string): Post | Promise<Post>;
     abstract bookRoom(input: BookRoomInput): Room | Promise<Room>;
+    abstract sendMessage(input: NewMessage): MessageDetail | Promise<MessageDetail>;
     abstract user(): User | Promise<User>;
 }
 export declare abstract class ISubscription {
     abstract listenNewPost(): Post | Promise<Post>;
+    abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
 }
 export declare class Post {
     id?: string;
@@ -82,10 +99,18 @@ export declare class Room {
     time_end?: number;
     code?: string;
     note?: string;
-    user_customer_id?: string;
-    user_id?: string;
+    user_customer_id?: User;
+    user_id?: User;
     createdAt?: number;
     updatedAt?: number;
+}
+export declare class MessageDetail {
+    id?: string;
+    type?: TypeMessage;
+    content?: string;
+    status?: StatusMessage;
+    from?: User;
+    to?: Room;
 }
 export declare class User {
     id?: string;
@@ -95,6 +120,7 @@ export declare class User {
     email?: string;
     phoneNumber?: string;
     role?: string[];
+    image?: string;
 }
 export declare class UserPaginate {
     data?: User[];

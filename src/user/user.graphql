@@ -5,7 +5,8 @@ type User {
     lastname: String,
     email: String,
     phoneNumber: String,
-    role: [String]
+    role: [String],
+    image: String
 }
 
 type UserPaginate {

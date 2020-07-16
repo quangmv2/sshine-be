@@ -18,28 +18,68 @@ const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
 const room_dto_1 = require("../dto/room.dto");
 const randomstring = require("randomstring");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
+const message_dto_1 = require("../dto/message.dto");
+const user_service_1 = require("../user/user.service");
 let RoomService = class RoomService {
-    constructor(roomModel) {
+    constructor(roomModel, pubSub, userService) {
         this.roomModel = roomModel;
+        this.pubSub = pubSub;
+        this.userService = userService;
     }
     async registerRoom(input, user_id) {
         console.log(randomstring.generate());
         input.code = `${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}`;
         input.user_customer_id = user_id;
+        console.log(input);
         const room = new this.roomModel(input);
         return room.save();
     }
     async getRoomOfUser(user_id) {
+        console.log(user_id);
         const rooms = await this.roomModel.find({
-            user_id
+            $or: [
+                {
+                    user_id
+                },
+                {
+                    user_customer_id: user_id
+                }
+            ]
         }).sort({ createdAt: -1 });
         return rooms;
+    }
+    async sendMessage(input, user_id, room_id) {
+        const room = await this.roomModel.findById(room_id);
+        let message = Object.assign(Object.assign({}, input), { from: user_id });
+        room.messages.push(message);
+        await room.save();
+        console.log(room);
+        message = room.messages[room.messages.length - 1];
+        const publish = {};
+        publish["listenNewMessage"] = {
+            id: message.id,
+            type: message.type,
+            content: message.content,
+            status: message.status,
+            from: await this.userService.getUserById(message.from),
+            to: room
+        };
+        console.log(publish);
+        this.pubSub.publish(`MESSAGE: ${room.user_id === user_id ? user_id : room.user_customer_id}`, publish);
+        return message;
+    }
+    async listenNewMessage(user_id) {
+        return this.pubSub.asyncIterator(`MESSAGE: ${user_id}`);
     }
 };
 RoomService = __decorate([
     common_1.Injectable(),
     __param(0, mongoose_1.InjectModel('Room')),
-    __metadata("design:paramtypes", [mongoose_2.Model])
+    __param(1, common_1.Inject('PUB_SUB_MESSAGE')),
+    __metadata("design:paramtypes", [mongoose_2.Model,
+        graphql_subscriptions_1.PubSub,
+        user_service_1.UserService])
 ], RoomService);
 exports.RoomService = RoomService;
 //# sourceMappingURL=room.service.js.map

@@ -8,14 +8,15 @@ const messageDetailSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: ['image', 'quote', 'send', 'sticker'],
-        required: true
+        default: 'send'
     },
     content: { type: String, required: true },
     status: {
         type: String,
         enum: ['Send', 'Delivered', 'Seen'],
-        required: true
+        default: 'Send'
     },
+    from: { type: mongoose_1.Schema.Types.ObjectId, required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number }
 }, {
@@ -31,7 +32,7 @@ exports.roomSchema = new mongoose.Schema({
     note: { type: String },
     user_customer_id: { type: mongoose_1.Schema.Types.ObjectId },
     user_id: { type: mongoose_1.Schema.Types.ObjectId },
-    mesages: [messageDetailSchema],
+    messages: [messageDetailSchema],
     createdAt: { type: Number },
     updatedAt: { type: Number }
 }, {

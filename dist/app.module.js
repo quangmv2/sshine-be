@@ -12,33 +12,21 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const config_1 = require("@nestjs/config");
 const graphql_1 = require("@nestjs/graphql");
-const path_1 = require("path");
 const auth_module_1 = require("./auth/auth.module");
 const user_module_1 = require("./user/user.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const post_module_1 = require("./post/post.module");
 const room_module_1 = require("./room/room.module");
+const grapqlConfigModule_1 = require("./grapqlConfigModule");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
             config_1.ConfigModule.forRoot(),
-            graphql_1.GraphQLModule.forRoot({
-                typePaths: ['./**/*.graphql'],
-                definitions: {
-                    path: path_1.join(process.cwd(), 'src/graphql.ts'),
-                    outputAs: 'class',
-                },
-                context: context => {
-                    const { req, connection } = context;
-                    if (connection)
-                        return {
-                            req: connection.context
-                        };
-                    return context;
-                },
-                installSubscriptionHandlers: true
+            graphql_1.GraphQLModule.forRootAsync({
+                imports: [auth_module_1.AuthModule],
+                useClass: grapqlConfigModule_1.GqlModuleConfig,
             }),
             mongoose_1.MongooseModule.forRootAsync({
                 useFactory: () => ({

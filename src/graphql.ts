@@ -6,6 +6,17 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum TypeMessage {
+    quote = "quote",
+    send = "send"
+}
+
+export enum StatusMessage {
+    Send = "Send",
+    Delivered = "Delivered",
+    Seen = "Seen"
+}
+
 export class RegisterInput {
     username: string;
     password: string;
@@ -38,6 +49,12 @@ export class BookRoomInput {
     user_id: string;
 }
 
+export class NewMessage {
+    content: string;
+    type?: TypeMessage;
+    to?: string;
+}
+
 export abstract class IQuery {
     abstract hello(): string | Promise<string>;
 
@@ -48,6 +65,8 @@ export abstract class IQuery {
     abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
 
     abstract rooms(user_id?: string): Room[] | Promise<Room[]>;
+
+    abstract myRooms(): Room[] | Promise<Room[]>;
 
     abstract roomDetail(room_id?: string): Room | Promise<Room>;
 
@@ -75,11 +94,15 @@ export abstract class IMutation {
 
     abstract bookRoom(input: BookRoomInput): Room | Promise<Room>;
 
+    abstract sendMessage(input: NewMessage): MessageDetail | Promise<MessageDetail>;
+
     abstract user(): User | Promise<User>;
 }
 
 export abstract class ISubscription {
     abstract listenNewPost(): Post | Promise<Post>;
+
+    abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
 }
 
 export class Post {
@@ -116,10 +139,19 @@ export class Room {
     time_end?: number;
     code?: string;
     note?: string;
-    user_customer_id?: string;
-    user_id?: string;
+    user_customer_id?: User;
+    user_id?: User;
     createdAt?: number;
     updatedAt?: number;
+}
+
+export class MessageDetail {
+    id?: string;
+    type?: TypeMessage;
+    content?: string;
+    status?: StatusMessage;
+    from?: User;
+    to?: Room;
 }
 
 export class User {
@@ -130,6 +162,7 @@ export class User {
     email?: string;
     phoneNumber?: string;
     role?: string[];
+    image?: string;
 }
 
 export class UserPaginate {

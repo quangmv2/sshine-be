@@ -1,11 +1,26 @@
+type Query {
+    rooms(user_id: String): [Room],
+    myRooms: [Room],
+    roomDetail(room_id: String): Room,
+}
+
+type Mutation {
+    bookRoom(input: BookRoomInput!): Room,
+    sendMessage(input: NewMessage!): MessageDetail
+}
+
+type Subscription {
+    listenNewMessage: MessageDetail   
+}
+
 type Room {
     id: String,
     time_start: Float,
     time_end: Float,
     code: String,
     note: String,
-    user_customer_id: String,
-    user_id: String,
+    user_customer_id: User,
+    user_id: User,
     createdAt: Float,
     updatedAt: Float
 }
@@ -17,11 +32,34 @@ input BookRoomInput {
     user_id: String!,
 }
 
-type Query {
-    rooms(user_id: String): [Room],
-    roomDetail(room_id: String): Room,
+
+enum TypeMessage {
+    quote,
+    send
 }
 
-type Mutation {
-    bookRoom(input: BookRoomInput!): Room
+enum StatusMessage {
+    Send,
+    Delivered,
+    Seen
 }
+
+input NewMessage {
+    content: String!,
+    type: TypeMessage,
+    to: String 
+}
+
+type MessageDetail {
+    id: String,
+    type: TypeMessage,
+    content: String,
+    status: StatusMessage,
+    from: User,
+    to: Room
+}
+
+# type MyMessages {
+#     messageLast: MessageDetail,
+#     user: User
+# }

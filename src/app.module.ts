@@ -10,24 +10,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { PostModule } from './post/post.module';
 import { RoomModule } from './room/room.module';
 import { AppGateway } from './app.gateway';
+import { GqlModuleConfig } from './grapqlConfigModule';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    GraphQLModule.forRoot({
-      typePaths: ['./**/*.graphql'],
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
-        outputAs: 'class',
-      },
-      context: context => {
-        const {req, connection} = context;
-        if (connection) return {
-            req: connection.context
-        }
-        return context;
-      },
-      installSubscriptionHandlers: true
+    GraphQLModule.forRootAsync({
+      imports: [AuthModule],
+      useClass: GqlModuleConfig,
     }),
     MongooseModule.forRootAsync({
       useFactory: () => ({

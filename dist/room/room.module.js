@@ -12,14 +12,21 @@ const room_service_1 = require("./room.service");
 const room_resolver_1 = require("./room.resolver");
 const mongoose_1 = require("@nestjs/mongoose");
 const room_schema_1 = require("./room.schema");
+const graphql_subscriptions_1 = require("graphql-subscriptions");
+const user_module_1 = require("../user/user.module");
+const PubSubMessage = {
+    provide: 'PUB_SUB_MESSAGE',
+    useValue: new graphql_subscriptions_1.PubSub()
+};
 let RoomModule = class RoomModule {
 };
 RoomModule = __decorate([
     common_1.Module({
         imports: [
+            user_module_1.UserModule,
             mongoose_1.MongooseModule.forFeature([room_schema_1.RoomSchema]),
         ],
-        providers: [room_service_1.RoomService, room_resolver_1.RoomResolver]
+        providers: [room_service_1.RoomService, room_resolver_1.RoomResolver, PubSubMessage]
     })
 ], RoomModule);
 exports.RoomModule = RoomModule;

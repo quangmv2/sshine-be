@@ -3,17 +3,21 @@ import { Schema } from 'mongoose';
 import * as mongoosePaginate from 'mongoose-paginate-v2';
 
 const messageDetailSchema = new mongoose.Schema({
+    // id: {type: String},
     type: { 
         type: String,
         enum: ['image', 'quote', 'send', 'sticker'],
-        required: true
+        // required: true,
+        default: 'send'
      },
     content: { type: String, required: true },
     status: {
         type: String,
         enum: ['Send', 'Delivered', 'Seen'],
-        required: true
+        // required: true,
+        default: 'Send'
     },
+    from: { type: Schema.Types.ObjectId, required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number }
 },
@@ -32,7 +36,7 @@ export const roomSchema = new mongoose.Schema({
     note: { type: String },
     user_customer_id: { type: Schema.Types.ObjectId },
     user_id: { type: Schema.Types.ObjectId },
-    mesages: [messageDetailSchema],
+    messages: [messageDetailSchema],
     createdAt: { type: Number },
     updatedAt: { type: Number }
     
