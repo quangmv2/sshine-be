@@ -34,10 +34,9 @@ let GqlModuleConfig = class GqlModuleConfig {
             },
             installSubscriptionHandlers: true,
             subscriptions: {
-                onConnect: (connectParam, ws) => {
+                onConnect: async (connectParam, ws) => {
                     const { Authorization } = connectParam;
-                    console.log(connectParam);
-                    const userContext = this.authService.verifyToken(Authorization);
+                    const userContext = await this.authService.verifyToken(Authorization);
                     return userContext ? userContext : false;
                 }
             }

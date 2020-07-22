@@ -32,10 +32,14 @@ let AuthService = class AuthService {
         this.client = new google_auth_library_1.OAuth2Client(this.CLIENT_ID);
     }
     async verifyGoogleToken(idToken) {
+        console.log(idToken);
         try {
             const ticket = await this.client.verifyIdToken({
                 idToken,
-                audience: this.CLIENT_ID,
+                audience: [
+                    this.CLIENT_ID,
+                    '48642982972-na98mh55jhdcujsskk6pfn9jkr607jh6.apps.googleusercontent.com'
+                ],
             });
             const payload = ticket.getPayload();
             const userid = payload['sub'];

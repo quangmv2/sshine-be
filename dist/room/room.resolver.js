@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.RoomResolver = void 0;
+exports.MessageDetailResolver = exports.RoomResolver = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const room_dto_1 = require("../dto/room.dto");
 const room_service_1 = require("./room.service");
@@ -30,10 +30,12 @@ let RoomResolver = class RoomResolver {
     }
     async myRooms(context) {
         const { user } = context.req;
-        return this.roomService.getRoomOfUser(user.id);
+        const rooms = await this.roomService.getRoomOfUser(user.id);
+        console.log(rooms);
+        return rooms;
     }
-    async roomDetail() {
-        return null;
+    async roomDetail(room_id) {
+        return this.roomService.getRoom(room_id);
     }
     async bookRoom(input, context) {
         const { user } = context.req;
@@ -43,9 +45,16 @@ let RoomResolver = class RoomResolver {
         const { user } = context.req;
         return this.roomService.sendMessage(input, user.id, input.to);
     }
+    async messageOfRoom(room_id, page) {
+        return this.roomService.getMessageOfRoom(room_id, page);
+    }
     async listenNewMessage(context) {
         const user = context.req;
         return this.roomService.listenNewMessage(user.id);
+    }
+    async listenNewMessageRoom(room_id, context) {
+        const user = context.req;
+        return this.roomService.listenNewMessageRoom(room_id);
     }
     async user_customer_id(parent) {
         return this.userService.getUserById(parent.user_customer_id);
@@ -71,8 +80,9 @@ __decorate([
 ], RoomResolver.prototype, "myRooms", null);
 __decorate([
     graphql_1.Query('roomDetail'),
+    __param(0, graphql_1.Args("room_id")),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "roomDetail", null);
 __decorate([
@@ -92,12 +102,32 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "sendMessage", null);
 __decorate([
+    graphql_1.Mutation('messageOfRoom'),
+    __param(0, graphql_1.Args('room_id')), __param(1, graphql_1.Args('page')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Number]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "messageOfRoom", null);
+__decorate([
     graphql_1.Subscription('listenNewMessage'),
     __param(0, graphql_1.Context()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "listenNewMessage", null);
+__decorate([
+    graphql_1.Subscription('listenNewMessageRoom', {
+        filter: (payload, variables, context) => {
+            if (payload.listenNewMessageRoom.from.id === context.req.id)
+                return false;
+            return true;
+        }
+    }),
+    __param(0, graphql_1.Args("room_id")), __param(1, graphql_1.Context()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "listenNewMessageRoom", null);
 __decorate([
     graphql_1.ResolveField('user_customer_id'),
     __param(0, graphql_1.Parent()),
@@ -118,4 +148,26 @@ RoomResolver = __decorate([
         user_service_1.UserService])
 ], RoomResolver);
 exports.RoomResolver = RoomResolver;
+let MessageDetailResolver = class MessageDetailResolver {
+    constructor(roomService, userService) {
+        this.roomService = roomService;
+        this.userService = userService;
+    }
+    async from(parent) {
+        return this.userService.getUserById(parent.from);
+    }
+};
+__decorate([
+    graphql_1.ResolveField('from'),
+    __param(0, graphql_1.Parent()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], MessageDetailResolver.prototype, "from", null);
+MessageDetailResolver = __decorate([
+    graphql_1.Resolver('MessageDetail'),
+    __metadata("design:paramtypes", [room_service_1.RoomService,
+        user_service_1.UserService])
+], MessageDetailResolver);
+exports.MessageDetailResolver = MessageDetailResolver;
 //# sourceMappingURL=room.resolver.js.map

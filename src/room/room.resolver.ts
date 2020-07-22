@@ -24,12 +24,15 @@ export class RoomResolver {
     @UseGuards(AuthGuardGQL)
     async myRooms(@Context() context): Promise<Room[]> {
         const { user } = context.req;
-        return this.roomService.getRoomOfUser(user.id);
+        const rooms: Room[] = await this.roomService.getRoomOfUser(user.id);
+        console.log(rooms);
+        return rooms;
+        
     }
 
     @Query('roomDetail')
-    async roomDetail(): Promise<Room> {
-        return null;
+    async roomDetail(@Args("room_id") room_id: string): Promise<Room> {
+        return this.roomService.getRoom(room_id);
     }
 
     @Mutation('bookRoom')
@@ -46,10 +49,28 @@ export class RoomResolver {
         return this.roomService.sendMessage(input, user.id, input.to);
     }
 
+    @Mutation('messageOfRoom')
+    async messageOfRoom(@Args('room_id') room_id: string, @Args('page') page: number) {
+        // console.log(room_id, page);
+        
+        return this.roomService.getMessageOfRoom(room_id, page);
+    }
+
     @Subscription('listenNewMessage')
     async listenNewMessage(@Context() context) {
         const user = context.req;
         return this.roomService.listenNewMessage(user.id);
+    }
+    
+    @Subscription('listenNewMessageRoom', {
+        filter: (payload, variables, context) => {
+            if (payload.listenNewMessageRoom.from.id === context.req.id) return false
+            return  true;
+        }
+    })
+    async listenNewMessageRoom(@Args("room_id") room_id: string, @Context() context) {
+        const user = context.req;
+        return this.roomService.listenNewMessageRoom(room_id);
     }
 
     @ResolveField('user_customer_id')
@@ -62,4 +83,18 @@ export class RoomResolver {
         return this.userService.getUserById(parent.user_id);
     }
 
+}
+
+@Resolver('MessageDetail')
+export class MessageDetailResolver {
+
+    constructor(
+        private readonly roomService: RoomService,
+        private readonly userService: UserService,
+    ){}
+
+    @ResolveField('from')
+    async from(@Parent() parent) {
+        return this.userService.getUserById(parent.from);
+    }
 }

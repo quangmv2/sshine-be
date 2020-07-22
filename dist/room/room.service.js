@@ -16,6 +16,7 @@ exports.RoomService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const room_interface_1 = require("./room.interface");
 const room_dto_1 = require("../dto/room.dto");
 const randomstring = require("randomstring");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
@@ -28,33 +29,39 @@ let RoomService = class RoomService {
         this.userService = userService;
     }
     async registerRoom(input, user_id) {
-        console.log(randomstring.generate());
         input.code = `${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}`;
         input.user_customer_id = user_id;
         console.log(input);
         const room = new this.roomModel(input);
         return room.save();
     }
+    async getRoom(room_id) {
+        return this.roomModel.findById(room_id);
+    }
     async getRoomOfUser(user_id) {
-        console.log(user_id);
         const rooms = await this.roomModel.find({
             $or: [
                 {
-                    user_id
+                    user_customer_id: user_id
                 },
                 {
-                    user_customer_id: user_id
+                    user_id: user_id
                 }
             ]
         }).sort({ createdAt: -1 });
         return rooms;
     }
+    async getMessageOfRoom(room_id, page) {
+        let messages = (await this.roomModel.findById(room_id)).messages;
+        messages.sort((a, b) => a.createdAt - b.createdAt);
+        messages = messages.slice((messages.length - 1 - page * 10), messages.length);
+        return messages;
+    }
     async sendMessage(input, user_id, room_id) {
         const room = await this.roomModel.findById(room_id);
-        let message = Object.assign(Object.assign({}, input), { from: user_id });
+        let message = Object.assign(Object.assign({}, input), { from: user_id, type: room_interface_1.TypeMessage.send });
         room.messages.push(message);
         await room.save();
-        console.log(room);
         message = room.messages[room.messages.length - 1];
         const publish = {};
         publish["listenNewMessage"] = {
@@ -65,12 +72,16 @@ let RoomService = class RoomService {
             from: await this.userService.getUserById(message.from),
             to: room
         };
-        console.log(publish);
+        publish["listenNewMessageRoom"] = publish["listenNewMessage"];
         this.pubSub.publish(`MESSAGE: ${room.user_id === user_id ? user_id : room.user_customer_id}`, publish);
+        this.pubSub.publish(`MESSAGE_ROOM: ${room_id}`, publish);
         return message;
     }
     async listenNewMessage(user_id) {
         return this.pubSub.asyncIterator(`MESSAGE: ${user_id}`);
+    }
+    async listenNewMessageRoom(room_id) {
+        return this.pubSub.asyncIterator(`MESSAGE_ROOM: ${room_id}`);
     }
 };
 RoomService = __decorate([

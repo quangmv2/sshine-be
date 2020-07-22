@@ -14,7 +14,7 @@ export class AuthResolver {
     @Mutation('loginFromGoogle')
     async loginFromGoogle(@Args('input') inputLoginGoogle: LoginFromGoogleInput): Promise<Token> {
         const { id_token } = inputLoginGoogle;
-        // console.log(id_token);
+        console.log(id_token);
         return this.authService.loginFromGoogle(id_token);
     }
 

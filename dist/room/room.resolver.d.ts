@@ -9,10 +9,18 @@ export declare class RoomResolver {
     constructor(roomService: RoomService, userService: UserService);
     rooms(user_id: string): Promise<Room[]>;
     myRooms(context: any): Promise<Room[]>;
-    roomDetail(): Promise<Room>;
+    roomDetail(room_id: string): Promise<Room>;
     bookRoom(input: BookRoomInputDTO, context: any): Promise<Room>;
     sendMessage(input: MessageInputDTO, context: any): Promise<import("./room.interface").Message>;
+    messageOfRoom(room_id: string, page: number): Promise<import("./room.interface").Message[]>;
     listenNewMessage(context: any): Promise<AsyncIterator<unknown, any, undefined>>;
+    listenNewMessageRoom(room_id: string, context: any): Promise<AsyncIterator<unknown, any, undefined>>;
     user_customer_id(parent: any): Promise<import("../user/user.interface").User>;
     user_id(parent: any): Promise<import("../user/user.interface").User>;
+}
+export declare class MessageDetailResolver {
+    private readonly roomService;
+    private readonly userService;
+    constructor(roomService: RoomService, userService: UserService);
+    from(parent: any): Promise<import("../user/user.interface").User>;
 }

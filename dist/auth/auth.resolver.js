@@ -22,6 +22,7 @@ let AuthResolver = class AuthResolver {
     }
     async loginFromGoogle(inputLoginGoogle) {
         const { id_token } = inputLoginGoogle;
+        console.log(id_token);
         return this.authService.loginFromGoogle(id_token);
     }
 };

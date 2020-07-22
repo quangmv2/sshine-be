@@ -19,8 +19,8 @@ export interface Message {
     content: string,
     status?: StatusMessage,
     from: string,
-    createdAt?: Number,
-    updatedAt?: Number
+    createdAt?: number,
+    updatedAt?: number
 }
 
 export enum TypeMessage {

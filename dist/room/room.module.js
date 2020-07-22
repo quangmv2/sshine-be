@@ -26,7 +26,7 @@ RoomModule = __decorate([
             user_module_1.UserModule,
             mongoose_1.MongooseModule.forFeature([room_schema_1.RoomSchema]),
         ],
-        providers: [room_service_1.RoomService, room_resolver_1.RoomResolver, PubSubMessage]
+        providers: [room_service_1.RoomService, room_resolver_1.RoomResolver, PubSubMessage, room_resolver_1.MessageDetailResolver]
     })
 ], RoomModule);
 exports.RoomModule = RoomModule;

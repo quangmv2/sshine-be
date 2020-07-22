@@ -10,7 +10,10 @@ export declare class RoomService {
     private readonly userService;
     constructor(roomModel: Model<Room>, pubSub: PubSub, userService: UserService);
     registerRoom(input: BookRoomInputDTO, user_id: string): Promise<Room>;
+    getRoom(room_id: string): Promise<Room>;
     getRoomOfUser(user_id: string): Promise<Room[]>;
+    getMessageOfRoom(room_id: any, page: any): Promise<Message[]>;
     sendMessage(input: MessageInputDTO, user_id: any, room_id: any): Promise<Message>;
     listenNewMessage(user_id: any): Promise<AsyncIterator<unknown, any, undefined>>;
+    listenNewMessageRoom(room_id: any): Promise<AsyncIterator<unknown, any, undefined>>;
 }

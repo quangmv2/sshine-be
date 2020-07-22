@@ -6,11 +6,14 @@ type Query {
 
 type Mutation {
     bookRoom(input: BookRoomInput!): Room,
-    sendMessage(input: NewMessage!): MessageDetail
+    sendMessage(input: NewMessage!): MessageDetail,
+    seenMessage(room_id: String): String,
+    messageOfRoom(room_id: String, page: Int): [MessageDetail]
 }
 
 type Subscription {
     listenNewMessage: MessageDetail   
+    listenNewMessageRoom(room_id: String!): MessageDetail   
 }
 
 type Room {
@@ -19,6 +22,7 @@ type Room {
     time_end: Float,
     code: String,
     note: String,
+    messages: [MessageDetail],
     user_customer_id: User,
     user_id: User,
     createdAt: Float,
@@ -46,7 +50,6 @@ enum StatusMessage {
 
 input NewMessage {
     content: String!,
-    type: TypeMessage,
     to: String 
 }
 

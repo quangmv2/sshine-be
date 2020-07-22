@@ -36,7 +36,6 @@ export declare class BookRoomInput {
 }
 export declare class NewMessage {
     content: string;
-    type?: TypeMessage;
     to?: string;
 }
 export declare abstract class IQuery {
@@ -62,11 +61,14 @@ export declare abstract class IMutation {
     abstract like(id_post?: string): Post | Promise<Post>;
     abstract bookRoom(input: BookRoomInput): Room | Promise<Room>;
     abstract sendMessage(input: NewMessage): MessageDetail | Promise<MessageDetail>;
+    abstract seenMessage(room_id?: string): string | Promise<string>;
+    abstract messageOfRoom(room_id?: string, page?: number): MessageDetail[] | Promise<MessageDetail[]>;
     abstract user(): User | Promise<User>;
 }
 export declare abstract class ISubscription {
     abstract listenNewPost(): Post | Promise<Post>;
     abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
+    abstract listenNewMessageRoom(room_id: string): MessageDetail | Promise<MessageDetail>;
 }
 export declare class Post {
     id?: string;
@@ -99,6 +101,7 @@ export declare class Room {
     time_end?: number;
     code?: string;
     note?: string;
+    messages?: MessageDetail[];
     user_customer_id?: User;
     user_id?: User;
     createdAt?: number;

@@ -5116,8 +5116,8 @@
         "affectsGlobalScope": false
       },
       "../src/graphql.ts": {
-        "version": "5005c21db9826213caf78a57c92b9287cc1a5945eb878b69a69e08e6067b8afb",
-        "signature": "00df8a6f47a0af9bfa82228744083fca94f14cb5e2e1a4a5ac4ad2476d461bb3",
+        "version": "bc6e5e5f09f3f8c6d3d460f71e2c7138a28a85d43dc8e4e3fc07968faf1a4dc5",
+        "signature": "4b1fc9379507628a07726857419a35ce552b66833e65704137e2a4547cfbf533",
         "affectsGlobalScope": false
       },
       "../src/dto/auth.dto.ts": {
@@ -5141,12 +5141,12 @@
         "affectsGlobalScope": false
       },
       "../src/auth/auth.service.ts": {
-        "version": "6b56997fde8a65dc6005406041cf6e10c52f3d05cf4bd7042363c4b4c6b5622c",
+        "version": "33fe94576d356dbc0a0796b05a1944f454315d33463457914898fae53c7e089e",
         "signature": "7c7a1a5d520ba49d4fbb64a0ebb872dfb83f19643a43f3cd3cb1801587385d5c",
         "affectsGlobalScope": false
       },
       "../src/auth/auth.resolver.ts": {
-        "version": "7bcfc9ecd23bd7c26f933e99f733180e64f340df382cacd8a0ec5a52f6310dd3",
+        "version": "2acf733771cdad249e4642e0e89c132f24074e1e0315466225898b5f5ab57aaa",
         "signature": "b6e0717caa1d96512d4b865eaf69a92183aaf5e0f5c8337711202dd67512e7c0",
         "affectsGlobalScope": false
       },
@@ -5156,7 +5156,7 @@
         "affectsGlobalScope": false
       },
       "../src/guard/auth.guard.ts": {
-        "version": "82de81a34fffc91787bcad6970228c8826217d309549c45aac42d586714da0d4",
+        "version": "63a76a1164023a0bfeaca6b23c4dc5f052f75dd4207b6fa75cf4c3fdb1120ef8",
         "signature": "4e0f8194167404774f23066eda5a927601218a51fa2fdaf641fbc909d8316ac5",
         "affectsGlobalScope": false
       },
@@ -5331,8 +5331,8 @@
         "affectsGlobalScope": false
       },
       "../src/room/room.interface.ts": {
-        "version": "6f3329990cb92769c139fd9b84ae108199eda2bdcb4a075b0647c7d3cce55f84",
-        "signature": "dcfae34865e33aa6f795af631a20cfcb46a300e4ef232dfec1e9db232bd3bbcb",
+        "version": "ab3381a5568fcbbdd1af996b7cdd3070dc337094b094279dc4f79d3fa9f27937",
+        "signature": "10362bbe91116eeddcd7ceb69486b207576c689f0cbd48cdc9e5c0a103064b89",
         "affectsGlobalScope": false
       },
       "../src/dto/room.dto.ts": {
@@ -5346,13 +5346,13 @@
         "affectsGlobalScope": false
       },
       "../src/room/room.service.ts": {
-        "version": "9c866925c2540eec3574fc1249d7a0ee800cf409933f74da3f79618c139168b7",
-        "signature": "b9189b6ebfad8f4fffb8905c7765fac40ad7aa2a09988e3310e9776408867652",
+        "version": "9a965b4fb1cc53c9f9705fbbef55d2218002a9b2b6445cf872d2060c2a967eb2",
+        "signature": "02655cca104554299b641123d9ee905fabcd7b4e272370041f22e67ebc3a8c23",
         "affectsGlobalScope": false
       },
       "../src/room/room.resolver.ts": {
-        "version": "ad18a16c8e5a5b7cabf0cd3f85dfaf0703593077d42e3e327ea0ada53c5a2d83",
-        "signature": "ca0864afebd77dde4a1c61d939e3727d751ebd14565d14df6bebf01e912bedc3",
+        "version": "0917583c2ba096ec59b5668981d55d212340fe3fa34041855efde689c6c10717",
+        "signature": "875923329457699d7c2194a37afb6b916c936940c0e22e47b943f7f744ad6d12",
         "affectsGlobalScope": false
       },
       "../src/room/room.schema.ts": {
@@ -5361,12 +5361,12 @@
         "affectsGlobalScope": false
       },
       "../src/room/room.module.ts": {
-        "version": "9c80d2e1631b82b8e50600a1ef296451212cfb9b1076d935c48af44e2dd9152c",
+        "version": "0e31ec72784bb1464bbf254a35cbfd129f2753a974dd7cdd0efdc21f9441ca2a",
         "signature": "7ebdc6e482327be44f898d355da4b2002c50c4a5b7f4e9bed061d83b5c257fce",
         "affectsGlobalScope": false
       },
       "../src/grapqlConfigModule.ts": {
-        "version": "160b17e989c54c08d9a67b66877decf92780cbdafcd09a267dec56243654ae00",
+        "version": "20f219e65ba914117e91f9227b01fbef61ecea3777c087ba57ae08b1cde25c82",
         "signature": "e6ff9d884576d89d9ffa17c3cd9aec93f3bd59108e077bb2bab8eb5310dd1df5",
         "affectsGlobalScope": false
       },
@@ -16009,6 +16009,7 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
+        "../node_modules/rxjs/internal/scheduler/async.d.ts",
         "../src/auth/auth.service.ts"
       ],
       "../src/guard/auth.guard.ts": [

@@ -2,6 +2,7 @@ import { GqlOptionsFactory, GqlModuleOptions } from '@nestjs/graphql';
 import { AuthService } from 'src/auth/auth.service';
 import { Injectable } from '@nestjs/common';
 import { join } from 'path';
+import { async } from 'rxjs/internal/scheduler/async';
 
 @Injectable()
 export class GqlModuleConfig implements GqlOptionsFactory {
@@ -24,11 +25,9 @@ export class GqlModuleConfig implements GqlOptionsFactory {
             },
             installSubscriptionHandlers: true,
             subscriptions: {
-                onConnect: (connectParam: any, ws) => {
+                onConnect: async(connectParam: any, ws) => {
                     const { Authorization } = connectParam;
-                    console.log(connectParam);
-                    
-                    const userContext = this.authService.verifyToken(Authorization);
+                    const userContext = await this.authService.verifyToken(Authorization);
                     return userContext?userContext:false;
                 }
             }
