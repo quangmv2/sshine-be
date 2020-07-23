@@ -12,8 +12,13 @@ export declare class RoomService {
     registerRoom(input: BookRoomInputDTO, user_id: string): Promise<Room>;
     getRoom(room_id: string): Promise<Room>;
     getRoomOfUser(user_id: string): Promise<Room[]>;
+    getMyRoomOfUser(user_id: string): Promise<Room[]>;
+    getMyRoomBookOfUser(user_id: string): Promise<Room[]>;
     getMessageOfRoom(room_id: any, page: any): Promise<Message[]>;
+    confirmRoom(room_id: string): Promise<Room>;
+    deleteRoom(room_id: string): Promise<string>;
     sendMessage(input: MessageInputDTO, user_id: any, room_id: any): Promise<Message>;
     listenNewMessage(user_id: any): Promise<AsyncIterator<unknown, any, undefined>>;
     listenNewMessageRoom(room_id: any): Promise<AsyncIterator<unknown, any, undefined>>;
+    listenRoom(user_id: string): Promise<AsyncIterator<unknown, any, undefined>>;
 }

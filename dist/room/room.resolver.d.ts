@@ -9,12 +9,16 @@ export declare class RoomResolver {
     constructor(roomService: RoomService, userService: UserService);
     rooms(user_id: string): Promise<Room[]>;
     myRooms(context: any): Promise<Room[]>;
+    roomBook(context: any): Promise<Room[]>;
     roomDetail(room_id: string): Promise<Room>;
     bookRoom(input: BookRoomInputDTO, context: any): Promise<Room>;
     sendMessage(input: MessageInputDTO, context: any): Promise<import("./room.interface").Message>;
     messageOfRoom(room_id: string, page: number): Promise<import("./room.interface").Message[]>;
+    confirmRoom(room_id: string): Promise<Room>;
+    deleteRoom(room_id: string): Promise<string>;
     listenNewMessage(context: any): Promise<AsyncIterator<unknown, any, undefined>>;
     listenNewMessageRoom(room_id: string, context: any): Promise<AsyncIterator<unknown, any, undefined>>;
+    listenRoom(context: any): Promise<AsyncIterator<unknown, any, undefined>>;
     user_customer_id(parent: any): Promise<import("../user/user.interface").User>;
     user_id(parent: any): Promise<import("../user/user.interface").User>;
 }

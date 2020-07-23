@@ -33,6 +33,7 @@ exports.roomSchema = new mongoose.Schema({
     user_customer_id: { type: mongoose_1.Schema.Types.ObjectId },
     user_id: { type: mongoose_1.Schema.Types.ObjectId },
     messages: [messageDetailSchema],
+    status: { type: mongoose_1.Schema.Types.Boolean, default: false },
     createdAt: { type: Number },
     updatedAt: { type: Number }
 }, {

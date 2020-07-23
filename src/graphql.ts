@@ -43,7 +43,7 @@ export class PostInput {
 }
 
 export class BookRoomInput {
-    time_start: number;
+    time_start: string;
     time_end: number;
     note?: string;
     user_id: string;
@@ -68,6 +68,8 @@ export abstract class IQuery {
     abstract myRooms(): Room[] | Promise<Room[]>;
 
     abstract roomDetail(room_id?: string): Room | Promise<Room>;
+
+    abstract roomBook(): Room[] | Promise<Room[]>;
 
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
 
@@ -99,6 +101,10 @@ export abstract class IMutation {
 
     abstract messageOfRoom(room_id?: string, page?: number): MessageDetail[] | Promise<MessageDetail[]>;
 
+    abstract confirmRoom(room_id?: string): Room | Promise<Room>;
+
+    abstract deleteRoom(room_id?: string): string | Promise<string>;
+
     abstract user(): User | Promise<User>;
 }
 
@@ -108,6 +114,8 @@ export abstract class ISubscription {
     abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
 
     abstract listenNewMessageRoom(room_id: string): MessageDetail | Promise<MessageDetail>;
+
+    abstract listenRoom(): string | Promise<string>;
 }
 
 export class Post {
@@ -145,6 +153,7 @@ export class Room {
     code?: string;
     note?: string;
     messages?: MessageDetail[];
+    status?: boolean;
     user_customer_id?: User;
     user_id?: User;
     createdAt?: number;

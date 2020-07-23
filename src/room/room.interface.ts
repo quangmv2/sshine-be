@@ -9,6 +9,7 @@ export interface Room extends Document{
     messages: Message[],
     user_customer_id?: string;
     user_id: string;
+    status: boolean,
     created_at?: number;
     updated_at?: number;
 }

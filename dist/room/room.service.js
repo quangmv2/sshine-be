@@ -31,8 +31,11 @@ let RoomService = class RoomService {
     async registerRoom(input, user_id) {
         input.code = `${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}-${randomstring.generate({ length: 4, charset: 'numeric' })}`;
         input.user_customer_id = user_id;
-        console.log(input);
-        const room = new this.roomModel(input);
+        const room = new this.roomModel(Object.assign(Object.assign({}, input), { time_start: parseInt(input.time_start, 10) }));
+        const publish = {};
+        publish["listenRoom"] = "update room";
+        this.pubSub.publish(`LISTEN_ROOM: ${user_id}`, publish);
+        this.pubSub.publish(`LISTEN_ROOM: ${input.user_id}`, publish);
         return room.save();
     }
     async getRoom(room_id) {
@@ -51,11 +54,41 @@ let RoomService = class RoomService {
         }).sort({ createdAt: -1 });
         return rooms;
     }
+    async getMyRoomOfUser(user_id) {
+        const rooms = await this.roomModel.find({
+            user_customer_id: user_id,
+            status: true
+        }).sort({ createdAt: -1 });
+        return rooms;
+    }
+    async getMyRoomBookOfUser(user_id) {
+        console.log(user_id);
+        const rooms = await this.roomModel.find({
+            user_id: user_id,
+        }).sort({ createdAt: -1 });
+        return rooms;
+    }
     async getMessageOfRoom(room_id, page) {
         let messages = (await this.roomModel.findById(room_id)).messages;
         messages.sort((a, b) => a.createdAt - b.createdAt);
         messages = messages.slice((messages.length - 1 - page * 10), messages.length);
         return messages;
+    }
+    async confirmRoom(room_id) {
+        await this.roomModel.updateOne({
+            _id: room_id
+        }, {
+            status: true
+        });
+        let room = await this.roomModel.findById(room_id);
+        const publish = {};
+        publish["listenRoom"] = "update room";
+        this.pubSub.publish(`LISTEN_ROOM: ${room.user_customer_id}`, publish);
+        return room;
+    }
+    async deleteRoom(room_id) {
+        await this.roomModel.deleteOne({ _id: room_id });
+        return `success ${Math.random()} `;
     }
     async sendMessage(input, user_id, room_id) {
         const room = await this.roomModel.findById(room_id);
@@ -72,8 +105,9 @@ let RoomService = class RoomService {
             from: await this.userService.getUserById(message.from),
             to: room
         };
+        console.log(room.user_id != user_id);
         publish["listenNewMessageRoom"] = publish["listenNewMessage"];
-        this.pubSub.publish(`MESSAGE: ${room.user_id === user_id ? user_id : room.user_customer_id}`, publish);
+        this.pubSub.publish(`MESSAGE: ${room.user_id != user_id ? room.user_id : room.user_customer_id}`, publish);
         this.pubSub.publish(`MESSAGE_ROOM: ${room_id}`, publish);
         return message;
     }
@@ -82,6 +116,9 @@ let RoomService = class RoomService {
     }
     async listenNewMessageRoom(room_id) {
         return this.pubSub.asyncIterator(`MESSAGE_ROOM: ${room_id}`);
+    }
+    async listenRoom(user_id) {
+        return this.pubSub.asyncIterator(`LISTEN_ROOM: ${user_id}`);
     }
 };
 RoomService = __decorate([

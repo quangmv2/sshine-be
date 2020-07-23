@@ -26,11 +26,17 @@ let RoomResolver = class RoomResolver {
         this.userService = userService;
     }
     async rooms(user_id) {
-        return this.roomService.getRoomOfUser(user_id);
+        return this.roomService.getMyRoomOfUser(user_id);
     }
     async myRooms(context) {
         const { user } = context.req;
-        const rooms = await this.roomService.getRoomOfUser(user.id);
+        const rooms = await this.roomService.getMyRoomOfUser(user.id);
+        console.log(rooms);
+        return rooms;
+    }
+    async roomBook(context) {
+        const { user } = context.req;
+        const rooms = await this.roomService.getMyRoomBookOfUser(user.id);
         console.log(rooms);
         return rooms;
     }
@@ -48,6 +54,12 @@ let RoomResolver = class RoomResolver {
     async messageOfRoom(room_id, page) {
         return this.roomService.getMessageOfRoom(room_id, page);
     }
+    async confirmRoom(room_id) {
+        return this.roomService.confirmRoom(room_id);
+    }
+    async deleteRoom(room_id) {
+        return this.roomService.deleteRoom(room_id);
+    }
     async listenNewMessage(context) {
         const user = context.req;
         return this.roomService.listenNewMessage(user.id);
@@ -55,6 +67,10 @@ let RoomResolver = class RoomResolver {
     async listenNewMessageRoom(room_id, context) {
         const user = context.req;
         return this.roomService.listenNewMessageRoom(room_id);
+    }
+    async listenRoom(context) {
+        const user = context.req;
+        return this.roomService.listenRoom(user.id);
     }
     async user_customer_id(parent) {
         return this.userService.getUserById(parent.user_customer_id);
@@ -64,14 +80,14 @@ let RoomResolver = class RoomResolver {
     }
 };
 __decorate([
-    graphql_1.Query('rooms'),
+    graphql_1.Query(),
     __param(0, graphql_1.Args('user_id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "rooms", null);
 __decorate([
-    graphql_1.Query('myRooms'),
+    graphql_1.Query(),
     common_1.UseGuards(auth_guard_1.AuthGuardGQL),
     __param(0, graphql_1.Context()),
     __metadata("design:type", Function),
@@ -79,14 +95,22 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "myRooms", null);
 __decorate([
-    graphql_1.Query('roomDetail'),
+    graphql_1.Query(),
+    common_1.UseGuards(auth_guard_1.AuthGuardGQL),
+    __param(0, graphql_1.Context()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "roomBook", null);
+__decorate([
+    graphql_1.Query(),
     __param(0, graphql_1.Args("room_id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "roomDetail", null);
 __decorate([
-    graphql_1.Mutation('bookRoom'),
+    graphql_1.Mutation(),
     common_1.UseGuards(auth_guard_1.AuthGuardGQL),
     __param(0, graphql_1.Args('input')), __param(1, graphql_1.Context()),
     __metadata("design:type", Function),
@@ -94,7 +118,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "bookRoom", null);
 __decorate([
-    graphql_1.Mutation('sendMessage'),
+    graphql_1.Mutation(),
     common_1.UseGuards(auth_guard_1.AuthGuardGQL),
     __param(0, graphql_1.Args('input')), __param(1, graphql_1.Context()),
     __metadata("design:type", Function),
@@ -102,14 +126,28 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "sendMessage", null);
 __decorate([
-    graphql_1.Mutation('messageOfRoom'),
+    graphql_1.Mutation(),
     __param(0, graphql_1.Args('room_id')), __param(1, graphql_1.Args('page')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Number]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "messageOfRoom", null);
 __decorate([
-    graphql_1.Subscription('listenNewMessage'),
+    graphql_1.Mutation(),
+    __param(0, graphql_1.Args('room_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "confirmRoom", null);
+__decorate([
+    graphql_1.Mutation(),
+    __param(0, graphql_1.Args('room_id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "deleteRoom", null);
+__decorate([
+    graphql_1.Subscription(),
     __param(0, graphql_1.Context()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
@@ -128,6 +166,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], RoomResolver.prototype, "listenNewMessageRoom", null);
+__decorate([
+    graphql_1.Subscription(),
+    __param(0, graphql_1.Context()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], RoomResolver.prototype, "listenRoom", null);
 __decorate([
     graphql_1.ResolveField('user_customer_id'),
     __param(0, graphql_1.Parent()),

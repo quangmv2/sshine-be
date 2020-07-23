@@ -2,18 +2,22 @@ type Query {
     rooms(user_id: String): [Room],
     myRooms: [Room],
     roomDetail(room_id: String): Room,
+    roomBook: [Room]
 }
 
 type Mutation {
     bookRoom(input: BookRoomInput!): Room,
     sendMessage(input: NewMessage!): MessageDetail,
     seenMessage(room_id: String): String,
-    messageOfRoom(room_id: String, page: Int): [MessageDetail]
+    messageOfRoom(room_id: String, page: Int): [MessageDetail],
+    confirmRoom(room_id: String): Room
+    deleteRoom(room_id: String): String
 }
 
 type Subscription {
     listenNewMessage: MessageDetail   
-    listenNewMessageRoom(room_id: String!): MessageDetail   
+    listenNewMessageRoom(room_id: String!): MessageDetail  
+    listenRoom: String
 }
 
 type Room {
@@ -23,6 +27,7 @@ type Room {
     code: String,
     note: String,
     messages: [MessageDetail],
+    status: Boolean,
     user_customer_id: User,
     user_id: User,
     createdAt: Float,
@@ -30,7 +35,7 @@ type Room {
 }
 
 input BookRoomInput {
-    time_start: Int!,
+    time_start: String!,
     time_end: Int!,
     note: String,
     user_id: String!,

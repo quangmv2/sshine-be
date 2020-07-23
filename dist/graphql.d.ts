@@ -29,7 +29,7 @@ export declare class PostInput {
     image?: string;
 }
 export declare class BookRoomInput {
-    time_start: number;
+    time_start: string;
     time_end: number;
     note?: string;
     user_id: string;
@@ -46,6 +46,7 @@ export declare abstract class IQuery {
     abstract rooms(user_id?: string): Room[] | Promise<Room[]>;
     abstract myRooms(): Room[] | Promise<Room[]>;
     abstract roomDetail(room_id?: string): Room | Promise<Room>;
+    abstract roomBook(): Room[] | Promise<Room[]>;
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
     abstract doctors(page?: number): UserPaginate | Promise<UserPaginate>;
 }
@@ -63,12 +64,15 @@ export declare abstract class IMutation {
     abstract sendMessage(input: NewMessage): MessageDetail | Promise<MessageDetail>;
     abstract seenMessage(room_id?: string): string | Promise<string>;
     abstract messageOfRoom(room_id?: string, page?: number): MessageDetail[] | Promise<MessageDetail[]>;
+    abstract confirmRoom(room_id?: string): Room | Promise<Room>;
+    abstract deleteRoom(room_id?: string): string | Promise<string>;
     abstract user(): User | Promise<User>;
 }
 export declare abstract class ISubscription {
     abstract listenNewPost(): Post | Promise<Post>;
     abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
     abstract listenNewMessageRoom(room_id: string): MessageDetail | Promise<MessageDetail>;
+    abstract listenRoom(): string | Promise<string>;
 }
 export declare class Post {
     id?: string;
@@ -102,6 +106,7 @@ export declare class Room {
     code?: string;
     note?: string;
     messages?: MessageDetail[];
+    status?: boolean;
     user_customer_id?: User;
     user_id?: User;
     createdAt?: number;

@@ -15,48 +15,68 @@ export class RoomResolver {
         private readonly userService: UserService,
     ){}
 
-    @Query('rooms')
+    @Query()
     async rooms(@Args('user_id') user_id: string): Promise<Room[]> {
-        return this.roomService.getRoomOfUser(user_id);
+        return this.roomService.getMyRoomOfUser(user_id);
     }
     
-    @Query('myRooms')
+    @Query()
     @UseGuards(AuthGuardGQL)
     async myRooms(@Context() context): Promise<Room[]> {
         const { user } = context.req;
-        const rooms: Room[] = await this.roomService.getRoomOfUser(user.id);
+        const rooms: Room[] = await this.roomService.getMyRoomOfUser(user.id);
         console.log(rooms);
         return rooms;
         
     }
 
-    @Query('roomDetail')
+    @Query()
+    @UseGuards(AuthGuardGQL)
+    async roomBook(@Context() context): Promise<Room[]> {
+        const { user } = context.req;
+        const rooms: Room[] = await this.roomService.getMyRoomBookOfUser(user.id);
+        console.log(rooms);
+        return rooms;
+    }
+
+    @Query()
     async roomDetail(@Args("room_id") room_id: string): Promise<Room> {
         return this.roomService.getRoom(room_id);
     }
 
-    @Mutation('bookRoom')
+    @Mutation()
     @UseGuards(AuthGuardGQL)
     async bookRoom(@Args('input') input: BookRoomInputDTO, @Context() context): Promise<Room>{
         const { user } = context.req;
         return this.roomService.registerRoom(input, user.id);
     }
     
-    @Mutation('sendMessage')
+    @Mutation()
     @UseGuards(AuthGuardGQL)
     async sendMessage(@Args('input') input: MessageInputDTO, @Context() context) {
         const { user } = context.req;
         return this.roomService.sendMessage(input, user.id, input.to);
     }
 
-    @Mutation('messageOfRoom')
+    @Mutation()
     async messageOfRoom(@Args('room_id') room_id: string, @Args('page') page: number) {
         // console.log(room_id, page);
         
         return this.roomService.getMessageOfRoom(room_id, page);
     }
 
-    @Subscription('listenNewMessage')
+    @Mutation()
+    async confirmRoom(@Args('room_id') room_id: string): Promise<Room> {
+        return this.roomService.confirmRoom(room_id);
+    }
+
+    
+    @Mutation()
+    async deleteRoom(@Args('room_id') room_id: string): Promise<string> {
+        return this.roomService.deleteRoom(room_id);
+    }
+
+    @Subscription()
     async listenNewMessage(@Context() context) {
         const user = context.req;
         return this.roomService.listenNewMessage(user.id);
@@ -71,6 +91,11 @@ export class RoomResolver {
     async listenNewMessageRoom(@Args("room_id") room_id: string, @Context() context) {
         const user = context.req;
         return this.roomService.listenNewMessageRoom(room_id);
+    }
+    @Subscription()
+    async listenRoom(@Context() context) {
+        const user = context.req;
+        return this.roomService.listenRoom(user.id);
     }
 
     @ResolveField('user_customer_id')
