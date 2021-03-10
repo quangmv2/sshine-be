@@ -4,7 +4,7 @@ export interface Question extends Document {
     question: string;
     answers: String[];
     answer: number;
-    id_contest: string;
+    currenTime: number;
     createdAt: number;
     updatedAt: number;
 }

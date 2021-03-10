@@ -28,14 +28,9 @@ let QuestionResolver = class QuestionResolver {
     }
     async createOneQuestion(input, context) {
         const { user } = context.req;
-        const contest = await this.contestService.findContest(input.id_contest);
         const question = new this.questionModel(input);
         await question.save();
-        console.log(contest);
         return question;
-    }
-    async contest(parent) {
-        return this.contestService.findContest(parent.id_contest);
     }
 };
 __decorate([
@@ -46,13 +41,6 @@ __decorate([
     __metadata("design:paramtypes", [question_dto_1.CreateQuestionInputDTO, Object]),
     __metadata("design:returntype", Promise)
 ], QuestionResolver.prototype, "createOneQuestion", null);
-__decorate([
-    graphql_1.ResolveField("contest"),
-    __param(0, graphql_1.Parent()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", Promise)
-], QuestionResolver.prototype, "contest", null);
 QuestionResolver = __decorate([
     graphql_1.Resolver("Question"),
     __param(1, mongoose_1.InjectModel("Question")),

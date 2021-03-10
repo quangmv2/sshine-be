@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserPaginate = exports.User = exports.Question = exports.ISubscription = exports.CounterContest = exports.Contest = exports.IMutation = exports.Token = exports.IQuery = exports.UpdateQuestionInput = exports.CreateQuestionInput = exports.UpdateContestInput = exports.CreateContestInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
+exports.UserPaginate = exports.User = exports.Question = exports.ISubscription = exports.CounterContest = exports.Contest = exports.IMutation = exports.Token = exports.IQuery = exports.UpdateQuestionInput = exports.CreateQuestionInput = exports.AddQuestionToContest = exports.UpdateContestInput = exports.CreateContestInput = exports.LoginFromGoogleInput = exports.LoginInput = exports.RegisterInput = void 0;
 class RegisterInput {
 }
 exports.RegisterInput = RegisterInput;
@@ -16,6 +16,9 @@ exports.CreateContestInput = CreateContestInput;
 class UpdateContestInput {
 }
 exports.UpdateContestInput = UpdateContestInput;
+class AddQuestionToContest {
+}
+exports.AddQuestionToContest = AddQuestionToContest;
 class CreateQuestionInput {
 }
 exports.CreateQuestionInput = CreateQuestionInput;

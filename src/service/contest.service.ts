@@ -1,10 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Contest } from 'src/interfaces/contest.interface';
+import { Contest, ContestQuestion } from 'src/interfaces/contest.interface';
 import { Model, PaginateModel, Types } from 'mongoose';
 import { PubSub } from 'graphql-subscriptions';
 import { Cron } from '@nestjs/schedule';
 import { Question } from 'src/interfaces/question.interface';
+import { ApolloError } from 'apollo-server-express';
 
 @Injectable()
 export class ContestService {
@@ -14,6 +15,8 @@ export class ContestService {
         // private readonly contestService: ContestService,
         @Inject('PUB_SUB_MESSAGE') private readonly pubSub: PubSub,
         @InjectModel("Contest") private readonly contestModel: Model<Contest>,
+        @InjectModel("Question") private readonly questionModel: Model<Question>,
+        @InjectModel("ContestQuestion") private readonly contestQuestionModel: Model<ContestQuestion>,
     ) { }
 
     async findContest(id: string): Promise<Contest> {
@@ -21,15 +24,49 @@ export class ContestService {
     }
 
     //     async listenNewMessage(user_id) {
-//         return this.pubSub.asyncIterator(`MESSAGE: ${user_id}`);
-//     }
+    //         return this.pubSub.asyncIterator(`MESSAGE: ${user_id}`);
+    //     }
+
+    async addQuestion(input) {
+        const { id_contest, id_question } = input;
+
+        const contest = await this.contestModel.findOne({
+            $and: [
+                {
+                    _id: { $eq: id_contest }
+                },
+                {
+                    id_questions: {
+                        $nin: [id_question]
+                    }
+                }
+            ]
+        });
+        if (!contest) throw new ApolloError("Da ton tai", "GRAPHQL_VALIDATION_FAILED")
+        contest.id_questions.push(id_question);
+        contest.save();
+        return null
+    }
 
     async listenContestStart(id_contest: string) {
         return this.pubSub.asyncIterator(`CONTEST_START: ${id_contest}`);
     }
 
     async getQuestionOfContest(id_contest: string): Promise<Question[]> {
-        return []
+        console.log(id_contest);
+
+        const contest = await this.contestModel.aggregate().match({
+            _id: Types.ObjectId(id_contest)
+        })
+            .lookup({
+                from: "questions",
+                localField: "id_questions",
+                foreignField: "_id",
+                as: "questions"
+            });
+        // console.log();
+
+        return contest[0].questions;
     }
 
     @Cron("* * * * * *")
@@ -57,22 +94,39 @@ export class ContestService {
                  }
             }
             this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+            const counter = new Counter(this, c);
+            counter.start();
         })
     }
 
 }
 
 class Counter {
-    
+
     // contest: Contest
-    
+
     constructor(
         private readonly contestService: ContestService,
-        contest: Contest
-    ) {}
+        private contest: Contest
+    ) { }
 
     async start() {
+        console.log("start");
+        
+        const questions = await this.contestService.getQuestionOfContest(this.contest._id);
+        for (let index = 0; index < questions.length; index++) {
+            // const element = questions[index];
+            console.log(index, questions[index]);
+            await this.sleep(10*1000);
+        }
+        // questions.forEach(async (question, index) => {
+        //     await this.sleep(10*1000);
+        //     console.log(index, question);
+        // })
+    }
 
+    async sleep(time: number) {
+        return new Promise(resolve => setTimeout(resolve, time));
     }
 
 }

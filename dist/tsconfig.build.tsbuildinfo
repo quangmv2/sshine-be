@@ -5136,8 +5136,8 @@
         "affectsGlobalScope": false
       },
       "../src/graphql.ts": {
-        "version": "cdfb2b2fa9380605ae48781102ee5219048319c5d82990c912b78047cf4fffc5",
-        "signature": "57391d74b1d1e57e75954640549dfa72ca24e2d03e32c78b4242e75d6052d21b",
+        "version": "81109c160aa717e120e33d09844df7ab5b80e009a36a41f15a6ec671251db740",
+        "signature": "83760d697dd83137ca29b693828fa870cb61c4463681ba3217def98cae3ae896",
         "affectsGlobalScope": false
       },
       "../src/dto/auth.dto.ts": {
@@ -5161,7 +5161,7 @@
         "affectsGlobalScope": false
       },
       "../src/service/auth.service.ts": {
-        "version": "9da0c82a70cfdee1ccd4fca960a1c8be7120fff994230aedbf888f476906b492",
+        "version": "0dc3e7525281ce8a1d64225af821317dbbef6ae9e9732d46d425a3ae3aaa7fac",
         "signature": "adc7abd34553331a1700da1448df47b865cb5d844847e648179c65ead0481cfb",
         "affectsGlobalScope": false
       },
@@ -5356,18 +5356,18 @@
         "affectsGlobalScope": false
       },
       "../src/dto/question.dto.ts": {
-        "version": "e4bfd8c8360005e091bacf35348362d2530a6c6984b805ef547b285705454b2e",
-        "signature": "a8d9171580193eeb272f3f94b5d3e75519f4fdc906fabcc3efa81b127507c1bc",
+        "version": "dc3c0d0c8e02268aa1d6396acbbf675f1fbe0c1c17e889762413f854732b4267",
+        "signature": "490a4d350b96ebb5c5c371cf9f60797a4238a4760c5a786a51c7e788c03a50f0",
         "affectsGlobalScope": false
       },
       "../src/interfaces/question.interface.ts": {
-        "version": "e83026e96475fd3c67bbc0f37db838d90cd34fbda6518432f8b4afa793d9e80b",
-        "signature": "390d51bd22aa3ff530e200e9e6f07f1e3faab64c2b70f60d8c934856bdeb87f9",
+        "version": "558a45471a05099752631bd6fccc90689c4f310d31457004cb6ec91798a09dfe",
+        "signature": "e87f7ff4c78c0407b6d863a515f51528d26dd9c34305c2dce3105d1e26212d9b",
         "affectsGlobalScope": false
       },
       "../src/interfaces/contest.interface.ts": {
-        "version": "a311c5d01d57075b9784157bf2e919cf00780d603ff54f78bb5e2bf4c5d55528",
-        "signature": "c9e56b395612e87e079e3b264e7515136aee6ef99f641826889f91e3e2c3a563",
+        "version": "675d27915483427134db46df847607fbb0239eeb4033824de36321c19a43f962",
+        "signature": "c09c86cabddb0af009630c56c23d15c83a5c2b044f6e539f722440c841b38195",
         "affectsGlobalScope": false
       },
       "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": {
@@ -5450,18 +5450,43 @@
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "affectsGlobalScope": false
       },
+      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts": {
+        "version": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
+        "signature": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts": {
+        "version": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
+        "signature": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/cors/index.d.ts": {
+        "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
+        "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts": {
+        "version": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
+        "signature": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/dist/index.d.ts": {
+        "version": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
+        "signature": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
+        "affectsGlobalScope": false
+      },
       "../src/service/contest.service.ts": {
-        "version": "d1a825ac998eda720547c86933b13991c323638372cc76454c7547d1bf768389",
-        "signature": "af9eca909f98dac68b7d1452b8b59c6d34881f3fa10979f90eec72880fce7508",
+        "version": "f6f132d987ca2c4066a96e5259bc89d3de04ba3c62dbfc05a012bd1a0f1100d6",
+        "signature": "5254267abffb7b5e54c99ec5c71eb06100aca2ea0cdf1ce912f448f4295a6069",
         "affectsGlobalScope": false
       },
       "../src/resolver/question.resolver.ts": {
-        "version": "9d414fdca7873e7e757efbddcb238da09946acd014988a95e8e3268e2b90c516",
-        "signature": "036eae472fff31f3f1a1b77bbff2d60ce6c30dd2a05b1371cfe7141ec4519070",
+        "version": "46c1d227cb9723156033dec94681530c692d6ff7b7195650d3c89a13516fce59",
+        "signature": "dbd065a59d941ed9f4fc62d2e323dd7be423e2b559a713a430332a70624b187c",
         "affectsGlobalScope": false
       },
       "../src/schema/question.schema.ts": {
-        "version": "58f3fc733ebc7e33ae19dab986af4c68f2065e6c9a3c707f18c5e8ae11c13bdd",
+        "version": "e27e5931138c0d779fe4747f6012da1c10eb3ea30314e680380da5c2790306c7",
         "signature": "b462e988a803a320fc26f6772d065511c22299d49899288fd5b510d960bb8d43",
         "affectsGlobalScope": false
       },
@@ -5471,17 +5496,17 @@
         "affectsGlobalScope": false
       },
       "../src/resolver/contest.resolver.ts": {
-        "version": "1f6070b6bff1066a6245b3c1b0b23b4e958856ec49255ec0d71045040fc6e488",
-        "signature": "67db7c454d410944ab1810e1dd410f2d537d6ca4c917e804fcd2d665c5a93476",
+        "version": "7a7b405751707b1d46bf898abb1ec1ffda8833b3baa5f2538418209bcd9e18f5",
+        "signature": "d15df797809b9c8577c5690481c7998a7fb91a12fe78902d68b6ccbb6ad98808",
         "affectsGlobalScope": false
       },
       "../src/schema/contest.schema.ts": {
-        "version": "e43d3334978f7243cc68250d34c62c05a3126e1f76b8b42899f7a94d2be663e7",
-        "signature": "40a67f0fcf01da7686909987e212966dacd713752aa1b28bc5a3342b75a47c77",
+        "version": "b1af3b1f25e4230c28a4ddad14b7531f2c9522ffbad94b99104024fc2b8ca736",
+        "signature": "7653f936bda0fe79b8f0cb9d77399d02b9d434448cb7db0661c7baf5dbf9661a",
         "affectsGlobalScope": false
       },
       "../src/modules/contest.module.ts": {
-        "version": "4b8c3d98cfec59c3c751bf928d592ba949735fea5f5966796a63ab577a366bdb",
+        "version": "c131dce2d9b6e49ef16d37ea3b28ad9b4de06e10ff0dccd488056c563105b627",
         "signature": "ae0c2a828e3c040ccda903cb6231b0b79fa66449db749ca4ee77ab3c090bc53f",
         "affectsGlobalScope": false
       },
@@ -5520,58 +5545,8 @@
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
-      "../src/dto/message.dto.ts": {
-        "version": "7132dca770d918a0d200ef68a1cbc89e9e5d428b960f576e52f91c15fc0355af",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/dto/post.dto.ts": {
-        "version": "3a5ac92c97ee9ae26225240552b5982fc71335ba1b2f7630c050879c9fa46825",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/dto/room.dto.ts": {
-        "version": "ab65b02bd684f5292cfe54746317605a11aa135ee4314246c428ed71bd8d4da9",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
       "../src/dto/user.dto.ts": {
         "version": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/room.module.ts": {
-        "version": "1cceeafc89d3e5ba0eb3d4da61e5103c379806df6689f9b76b1128a9b9fae7fb",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/resolver/post.resolver.ts": {
-        "version": "1cef81ad4e0e524931deb69ea892267faf8469cd0b16fba2040c0207e86b48a5",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/resolver/room.resolver.ts": {
-        "version": "b91ed399489ca64e686c0f7a6d80c38e976dae18806d95321926dd1fab9fbe7a",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/schema/post.schema.ts": {
-        "version": "a96b0111d1356e37e9191c1eeb8c831cf33496c3681288699945a4b6f8773a88",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/schema/room.schema.ts": {
-        "version": "2e3f399d9bc8a13d92947bf7ecb45e75b9ab1a99b8c35ec782cb7a683e4510f9",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/service/post.service.ts": {
-        "version": "fb364188f468bb8a0fa18b31be01390abe766a5a93c3b9e57d478298d3c51cd9",
-        "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-        "affectsGlobalScope": false
-      },
-      "../src/service/room.service.ts": {
-        "version": "8d8cd33dd078e1d2adcbcbe01a8d94d1266f08aad0d49acf6ec8ac5ae939bc0f",
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
@@ -5618,11 +5593,6 @@
       "../node_modules/@types/cookiejar/index.d.ts": {
         "version": "16b7fb094ffaa5d270f934e7406e8baee2f8245cfabf6dcc20f693389f005f56",
         "signature": "16b7fb094ffaa5d270f934e7406e8baee2f8245cfabf6dcc20f693389f005f56",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@types/cors/index.d.ts": {
-        "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
-        "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/engine.io/index.d.ts": {
@@ -12532,6 +12502,55 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/cors/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/dist/index.d.ts",
+        "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts",
+        "../node_modules/subscriptions-transport-ws/dist/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/dist/index.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/cors/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/dist/index.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/index.d.ts",
+        "../node_modules/apollo-server-express/dist/ApolloServer.d.ts",
+        "../node_modules/graphql-subscriptions/dist/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/express-serve-static-core/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/qs/index.d.ts",
+        "../node_modules/@types/serve-static/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/Interfaces.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/makeExecutableSchema.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/mock.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/schemaVisitor.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/stitching/index.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/transforms/index.d.ts"
+      ],
       "../node_modules/apollo-server-plugin-base/dist/index.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -16313,20 +16332,6 @@
         "../node_modules/@types/node/util.d.ts",
         "../src/graphql.ts"
       ],
-      "../src/dto/message.dto.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../src/dto/post.dto.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
       "../src/dto/question.dto.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -16338,13 +16343,6 @@
         "../node_modules/class-transformer/types/index.d.ts",
         "../node_modules/class-validator/types/index.d.ts",
         "../src/graphql.ts"
-      ],
-      "../src/dto/room.dto.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
       ],
       "../src/dto/user.dto.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
@@ -16465,6 +16463,7 @@
         "../src/modules/user.module.ts",
         "../src/resolver/contest.resolver.ts",
         "../src/schema/contest.schema.ts",
+        "../src/schema/question.schema.ts",
         "../src/service/contest.service.ts"
       ],
       "../src/modules/question.module.ts": [
@@ -16479,13 +16478,6 @@
         "../src/resolver/question.resolver.ts",
         "../src/schema/question.schema.ts",
         "../src/service/question.service.ts"
-      ],
-      "../src/modules/room.module.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
       ],
       "../src/modules/user.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -16533,16 +16525,10 @@
         "../src/dto/contest.dto.ts",
         "../src/guard/auth.guard.ts",
         "../src/interfaces/contest.interface.ts",
+        "../src/interfaces/question.interface.ts",
         "../src/interfaces/user.interface.ts",
         "../src/service/contest.service.ts",
         "../src/service/user.service.ts"
-      ],
-      "../src/resolver/post.resolver.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
       ],
       "../src/resolver/question.resolver.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -16559,13 +16545,6 @@
         "../src/interfaces/contest.interface.ts",
         "../src/interfaces/question.interface.ts",
         "../src/service/contest.service.ts"
-      ],
-      "../src/resolver/room.resolver.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
       ],
       "../src/resolver/user.resolver.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -16603,23 +16582,9 @@
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts"
       ],
-      "../src/schema/post.schema.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
       "../src/schema/question.schema.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/mongoose/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../src/schema/room.schema.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
@@ -16667,26 +16632,13 @@
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-express/dist/index.d.ts",
         "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../src/interfaces/contest.interface.ts",
         "../src/interfaces/question.interface.ts"
       ],
-      "../src/service/post.service.ts": [
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
       "../src/service/question.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
-        "../node_modules/@types/graceful-fs/index.d.ts",
-        "../node_modules/@types/node/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/fs.d.ts",
-        "../node_modules/@types/node/ts3.2/util.d.ts",
-        "../node_modules/@types/node/util.d.ts"
-      ],
-      "../src/service/room.service.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
@@ -23387,6 +23339,55 @@
         "../node_modules/@types/node/util.d.ts",
         "../node_modules/graphql/index.d.ts"
       ],
+      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/cors/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/dist/index.d.ts",
+        "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts",
+        "../node_modules/subscriptions-transport-ws/dist/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/dist/index.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/cors/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/dist/index.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/index.d.ts",
+        "../node_modules/apollo-server-express/dist/ApolloServer.d.ts",
+        "../node_modules/graphql-subscriptions/dist/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts": [
+        "../node_modules/@types/body-parser/index.d.ts",
+        "../node_modules/@types/express-serve-static-core/index.d.ts",
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/@types/qs/index.d.ts",
+        "../node_modules/@types/serve-static/index.d.ts"
+      ],
+      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts": [
+        "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/node/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/fs.d.ts",
+        "../node_modules/@types/node/ts3.2/util.d.ts",
+        "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/Interfaces.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/makeExecutableSchema.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/mock.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/schemaVisitor.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/stitching/index.d.ts",
+        "../node_modules/apollo-server-core/node_modules/graphql-tools/dist/transforms/index.d.ts"
+      ],
       "../node_modules/apollo-server-plugin-base/dist/index.d.ts": [
         "../node_modules/@types/graceful-fs/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
@@ -27146,6 +27147,7 @@
         "../node_modules/@types/mongoose/index.d.ts",
         "../src/dto/contest.dto.ts",
         "../src/interfaces/contest.interface.ts",
+        "../src/interfaces/question.interface.ts",
         "../src/interfaces/user.interface.ts",
         "../src/service/contest.service.ts",
         "../src/service/user.service.ts"
@@ -27153,7 +27155,6 @@
       "../src/resolver/question.resolver.ts": [
         "../node_modules/@types/mongoose/index.d.ts",
         "../src/dto/question.dto.ts",
-        "../src/interfaces/contest.interface.ts",
         "../src/interfaces/question.interface.ts",
         "../src/service/contest.service.ts"
       ],
@@ -27908,6 +27909,10 @@
       "../node_modules/apollo-server-env/dist/typescript-utility-types.d.ts",
       "../node_modules/apollo-server-env/dist/url.d.ts",
       "../node_modules/apollo-server-errors/dist/index.d.ts",
+      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts",
+      "../node_modules/apollo-server-express/dist/index.d.ts",
+      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts",
+      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts",
       "../node_modules/apollo-server-plugin-base/dist/index.d.ts",
       "../node_modules/apollo-server-types/dist/index.d.ts",
       "../node_modules/apollo-utilities/lib/directives.d.ts",
@@ -28317,10 +28322,7 @@
       "../src/app.service.ts",
       "../src/dto/auth.dto.ts",
       "../src/dto/contest.dto.ts",
-      "../src/dto/message.dto.ts",
-      "../src/dto/post.dto.ts",
       "../src/dto/question.dto.ts",
-      "../src/dto/room.dto.ts",
       "../src/dto/user.dto.ts",
       "../src/graphql.ts",
       "../src/grapqlConfigModule.ts",
@@ -28334,28 +28336,21 @@
       "../src/modules/auth.module.ts",
       "../src/modules/contest.module.ts",
       "../src/modules/question.module.ts",
-      "../src/modules/room.module.ts",
       "../src/modules/user.module.ts",
       "../src/resolver/answer.resolver.ts",
       "../src/resolver/auth.resolver.ts",
       "../src/resolver/contest.resolver.ts",
-      "../src/resolver/post.resolver.ts",
       "../src/resolver/question.resolver.ts",
-      "../src/resolver/room.resolver.ts",
       "../src/resolver/user.resolver.ts",
       "../src/schema/answer.schema.ts",
       "../src/schema/auth.schema.ts",
       "../src/schema/contest.schema.ts",
-      "../src/schema/post.schema.ts",
       "../src/schema/question.schema.ts",
-      "../src/schema/room.schema.ts",
       "../src/schema/user.schema.ts",
       "../src/service/answer.service.ts",
       "../src/service/auth.service.ts",
       "../src/service/contest.service.ts",
-      "../src/service/post.service.ts",
       "../src/service/question.service.ts",
-      "../src/service/room.service.ts",
       "../src/service/user.service.ts"
     ]
   },

@@ -32,7 +32,6 @@ let AuthService = class AuthService {
         this.client = new google_auth_library_1.OAuth2Client(this.CLIENT_ID);
     }
     async verifyGoogleToken(idToken) {
-        console.log(idToken);
         try {
             const ticket = await this.client.verifyIdToken({
                 idToken,
@@ -51,7 +50,6 @@ let AuthService = class AuthService {
     }
     async loginFromGoogle(idToken) {
         const payload = await this.verifyGoogleToken(idToken);
-        console.log(payload);
         if (!payload)
             throw new common_1.HttpException({ code: 401 }, common_1.HttpStatus.UNAUTHORIZED);
         let user = await this.userService.getUserByUserNameOrEmail(payload.email);
@@ -105,21 +103,17 @@ let AuthService = class AuthService {
         if (!access_token)
             return undefined;
         access_token = access_token.replace('Bearer ', '');
-        console.log(access_token);
         const checkToken = await this.tokenModel.findOne({
             access_token: { $eq: access_token },
             confirm: true
         }).exec();
-        console.log(checkToken);
         if (!checkToken)
             return undefined;
         const { secret } = checkToken;
         try {
             const userObj = jwt.verify(access_token, secret);
             const { userID } = userObj;
-            console.log(userID, userObj);
             const user = await this.userService.getUserById(userID);
-            console.log(user);
             return user ? user : undefined;
         }
         catch (error) {

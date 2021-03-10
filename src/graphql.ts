@@ -36,19 +36,24 @@ export class UpdateContestInput {
     id_users?: string[];
 }
 
+export class AddQuestionToContest {
+    id_contest?: string;
+    id_question?: string;
+}
+
 export class CreateQuestionInput {
     question: string;
     answers?: string[];
+    currenTime?: number;
     answer?: number;
-    id_contest: string;
 }
 
 export class UpdateQuestionInput {
     id?: string;
     question?: string;
     answers?: string[];
+    currenTime?: number;
     answer?: number;
-    id_contest?: string;
 }
 
 export abstract class IQuery {
@@ -59,6 +64,10 @@ export abstract class IQuery {
     abstract contest(id_contest?: string): Contest | Promise<Contest>;
 
     abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
+
+    abstract questionOfContest(id_contest?: string): Question[] | Promise<Question[]>;
+
+    abstract questionOfContestNoAnswer(id_contest?: string): Question[] | Promise<Question[]>;
 
     abstract myContest(): Contest[] | Promise<Contest[]>;
 
@@ -88,6 +97,8 @@ export abstract class IMutation {
 
     abstract updateContest(input?: UpdateContestInput): Contest | Promise<Contest>;
 
+    abstract addQuestionToContest(input?: AddQuestionToContest): Contest | Promise<Contest>;
+
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
@@ -116,10 +127,11 @@ export abstract class ISubscription {
 }
 
 export class Question {
+    id?: string;
     question?: string;
     answers?: string[];
     answer?: number;
-    contest?: Contest;
+    currenTime?: number;
     createdAt?: number;
     updatedAt?: number;
 }

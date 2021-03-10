@@ -1,8 +1,9 @@
 type Question {
+    id: String
     question: String,
     answers: [String],
     answer: Int,
-    contest: Contest,
+    currenTime: Int,
     createdAt: Int,
     updatedAt: Int   
 }
@@ -10,16 +11,16 @@ type Question {
 input CreateQuestionInput {
     question: String!,
     answers: [String!]
+    currenTime: Int,
     answer: Int,
-    id_contest: String!
 }
 
 input UpdateQuestionInput {
     id: String,
     question: String,
     answers: [String]
+    currenTime: Int,
     answer: Int,
-    id_contest: String
 }
 
 type Mutation {

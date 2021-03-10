@@ -20,19 +20,52 @@ const mongoose_2 = require("mongoose");
 const graphql_subscriptions_1 = require("graphql-subscriptions");
 const schedule_1 = require("@nestjs/schedule");
 const question_interface_1 = require("../interfaces/question.interface");
+const apollo_server_express_1 = require("apollo-server-express");
 let ContestService = class ContestService {
-    constructor(pubSub, contestModel) {
+    constructor(pubSub, contestModel, questionModel, contestQuestionModel) {
         this.pubSub = pubSub;
         this.contestModel = contestModel;
+        this.questionModel = questionModel;
+        this.contestQuestionModel = contestQuestionModel;
     }
     async findContest(id) {
         return this.contestModel.findById(id);
+    }
+    async addQuestion(input) {
+        const { id_contest, id_question } = input;
+        const contest = await this.contestModel.findOne({
+            $and: [
+                {
+                    _id: { $eq: id_contest }
+                },
+                {
+                    id_questions: {
+                        $nin: [id_question]
+                    }
+                }
+            ]
+        });
+        if (!contest)
+            throw new apollo_server_express_1.ApolloError("Da ton tai", "GRAPHQL_VALIDATION_FAILED");
+        contest.id_questions.push(id_question);
+        contest.save();
+        return null;
     }
     async listenContestStart(id_contest) {
         return this.pubSub.asyncIterator(`CONTEST_START: ${id_contest}`);
     }
     async getQuestionOfContest(id_contest) {
-        return [];
+        console.log(id_contest);
+        const contest = await this.contestModel.aggregate().match({
+            _id: mongoose_2.Types.ObjectId(id_contest)
+        })
+            .lookup({
+            from: "questions",
+            localField: "id_questions",
+            foreignField: "_id",
+            as: "questions"
+        });
+        return contest[0].questions;
     }
     async checkContestStart() {
         const now = Date.now();
@@ -58,6 +91,8 @@ let ContestService = class ContestService {
                 }
             };
             this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+            const counter = new Counter(this, c);
+            counter.start();
         });
     }
 };
@@ -71,15 +106,29 @@ ContestService = __decorate([
     common_1.Injectable(),
     __param(0, common_1.Inject('PUB_SUB_MESSAGE')),
     __param(1, mongoose_1.InjectModel("Contest")),
+    __param(2, mongoose_1.InjectModel("Question")),
+    __param(3, mongoose_1.InjectModel("ContestQuestion")),
     __metadata("design:paramtypes", [graphql_subscriptions_1.PubSub,
+        mongoose_2.Model,
+        mongoose_2.Model,
         mongoose_2.Model])
 ], ContestService);
 exports.ContestService = ContestService;
 class Counter {
     constructor(contestService, contest) {
         this.contestService = contestService;
+        this.contest = contest;
     }
     async start() {
+        console.log("start");
+        const questions = await this.contestService.getQuestionOfContest(this.contest._id);
+        for (let index = 0; index < questions.length; index++) {
+            console.log(index, questions[index]);
+            await this.sleep(10 * 1000);
+        }
+    }
+    async sleep(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
     }
 }
 //# sourceMappingURL=contest.service.js.map

@@ -22,6 +22,7 @@ const common_1 = require("@nestjs/common");
 const auth_guard_1 = require("../guard/auth.guard");
 const user_service_1 = require("../service/user.service");
 const user_interface_1 = require("../interfaces/user.interface");
+const question_interface_1 = require("../interfaces/question.interface");
 let ContestResolver = class ContestResolver {
     constructor(userService, contestService, contestModel) {
         this.userService = userService;
@@ -41,6 +42,9 @@ let ContestResolver = class ContestResolver {
         });
         return contest;
     }
+    async addQuestionToContest(input) {
+        return this.contestService.addQuestion(input);
+    }
     async userOfContest(id_contest) {
         const contest = await this.contestModel.findById(id_contest);
         if (!contest)
@@ -53,6 +57,18 @@ let ContestResolver = class ContestResolver {
             id_users: { $all: user._id }
         });
         return contests;
+    }
+    async questionOfContest(id_contest) {
+        const questions = await this.contestService.getQuestionOfContest(id_contest);
+        console.log(questions);
+        return questions;
+    }
+    async questionOfContestNoAnswer(id_contest) {
+        const questions = await this.contestService.getQuestionOfContest(id_contest);
+        return questions.map(q => {
+            delete q.answer;
+            return q;
+        });
     }
     async listenContestStart(id) {
         return this.contestService.listenContestStart(id);
@@ -79,6 +95,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ContestResolver.prototype, "updateContest", null);
 __decorate([
+    graphql_1.Mutation(),
+    __param(0, graphql_1.Args("input")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], ContestResolver.prototype, "addQuestionToContest", null);
+__decorate([
     graphql_1.Query(),
     __param(0, graphql_1.Args("id_contest")),
     __metadata("design:type", Function),
@@ -93,6 +116,20 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], ContestResolver.prototype, "myContest", null);
+__decorate([
+    graphql_1.Query(),
+    __param(0, graphql_1.Args("id_contest")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ContestResolver.prototype, "questionOfContest", null);
+__decorate([
+    graphql_1.Query(),
+    __param(0, graphql_1.Args("id_contest")),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], ContestResolver.prototype, "questionOfContestNoAnswer", null);
 __decorate([
     graphql_1.Subscription(),
     __param(0, graphql_1.Args("id")),

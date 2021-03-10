@@ -6,8 +6,8 @@ import { IsMongoId } from "class-validator";
 
 export class CreateQuestionInputDTO extends CreateQuestionInput {
 
-    @IsMongoId()
-    public id_contest: string
+    // @IsMongoId()
+    // public id_contest: string
 }
 
 export class UpdateQuestionInputDTO extends UpdateQuestionInput {

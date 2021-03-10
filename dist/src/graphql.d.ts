@@ -23,24 +23,30 @@ export declare class UpdateContestInput {
     timeStart?: number;
     id_users?: string[];
 }
+export declare class AddQuestionToContest {
+    id_contest?: string;
+    id_question?: string;
+}
 export declare class CreateQuestionInput {
     question: string;
     answers?: string[];
+    currenTime?: number;
     answer?: number;
-    id_contest: string;
 }
 export declare class UpdateQuestionInput {
     id?: string;
     question?: string;
     answers?: string[];
+    currenTime?: number;
     answer?: number;
-    id_contest?: string;
 }
 export declare abstract class IQuery {
     abstract hello(): string | Promise<string>;
     abstract contests(): Contest[] | Promise<Contest[]>;
     abstract contest(id_contest?: string): Contest | Promise<Contest>;
     abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
+    abstract questionOfContest(id_contest?: string): Question[] | Promise<Question[]>;
+    abstract questionOfContestNoAnswer(id_contest?: string): Question[] | Promise<Question[]>;
     abstract myContest(): Contest[] | Promise<Contest[]>;
     abstract questionNow(id_contest?: string): Question | Promise<Question>;
     abstract queryQuestion(input: string): Question | Promise<Question>;
@@ -57,6 +63,7 @@ export declare abstract class IMutation {
     abstract loginFromGoogle(input: LoginFromGoogleInput): Token | Promise<Token>;
     abstract createContest(input?: CreateContestInput): Contest | Promise<Contest>;
     abstract updateContest(input?: UpdateContestInput): Contest | Promise<Contest>;
+    abstract addQuestionToContest(input?: AddQuestionToContest): Contest | Promise<Contest>;
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
     abstract user(): User | Promise<User>;
@@ -78,10 +85,11 @@ export declare abstract class ISubscription {
     abstract listenQuestionContest(id?: string): CounterContest | Promise<CounterContest>;
 }
 export declare class Question {
+    id?: string;
     question?: string;
     answers?: string[];
     answer?: number;
-    contest?: Contest;
+    currenTime?: number;
     createdAt?: number;
     updatedAt?: number;
 }

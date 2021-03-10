@@ -9,6 +9,7 @@ const contestShema = new mongoose.Schema({
     started: { type: Boolean, default: false },
     createBy: { type: Schema.Types.ObjectId, required: true },
     id_users: { type: [Schema.Types.ObjectId], required: true },
+    id_questions: { type: [Schema.Types.ObjectId], required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number }
 },
@@ -19,6 +20,28 @@ const contestShema = new mongoose.Schema({
     }
 });
 
+
+const contestQuestionShema = new mongoose.Schema({
+
+    // _id: { type: Schema.Types.ObjectId },
+    order: { type: Number },
+    id_contest: { type: Schema.Types.ObjectId, required: true },
+    id_question: { type: Schema.Types.ObjectId, required: true },
+    createdAt: { type: Number },
+    updatedAt: { type: Number }
+},
+{
+    timestamps: {
+        createdAt: "createdAt",
+        updatedAt: "updatedAt"
+    }
+});
+
+export const ContestQuestionShema = {
+    name: "ContestQuestion",
+    schema: contestQuestionShema,
+    collection: "contest_questions"
+}
 
 export const ContestShema = {
     name: "Contest",

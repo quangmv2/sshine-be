@@ -21,10 +21,10 @@ export class QuestionResolver {
     @UseGuards(AuthGuardGQL)
     async createOneQuestion(@Args("input") input: CreateQuestionInputDTO, @Context() context): Promise<Question> {
         const { user } = context.req;
-        const contest = await this.contestService.findContest(input.id_contest);
+        // const contest = await this.contestService.findContest(input.id_contest);
         const question = new this.questionModel(input);
         await question.save();
-        console.log(contest);    
+        // console.log(contest);    
         return question;
     }
 
@@ -39,9 +39,9 @@ export class QuestionResolver {
     //     return question;
     // }
 
-    @ResolveField("contest")
-    async contest(@Parent() parent: Question): Promise<Contest> {
-        return this.contestService.findContest(parent.id_contest);
-    }
+    // @ResolveField("contest")
+    // async contest(@Parent() parent: Question): Promise<Contest> {
+    //     return this.contestService.findContest(parent.id_contest);
+    // }
 
 }

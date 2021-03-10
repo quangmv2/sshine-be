@@ -8,6 +8,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuardGQL } from 'src/guard/auth.guard';
 import { UserService } from 'src/service/user.service';
 import { User } from 'src/interfaces/user.interface';
+import { Question } from 'src/interfaces/question.interface';
 
 @Resolver("Contest")
 export class ContestResolver {
@@ -44,6 +45,11 @@ export class ContestResolver {
         return contest;
     }
 
+    @Mutation()
+    async addQuestionToContest(@Args("input") input) {
+        return this.contestService.addQuestion(input);
+    }
+
     @Query()
     async userOfContest(@Args("id_contest") id_contest: string): Promise<User[]> {
         const contest = await this.contestModel.findById(id_contest);
@@ -59,6 +65,22 @@ export class ContestResolver {
             id_users: { $all: user._id }
         })
         return contests;
+    }
+
+    @Query()
+    async questionOfContest(@Args("id_contest") id_contest: string): Promise<Question[]> {
+        const questions = await this.contestService.getQuestionOfContest(id_contest);
+        console.log(questions);
+        
+        return questions
+    }
+    @Query()
+    async questionOfContestNoAnswer(@Args("id_contest") id_contest: string): Promise<Question[]> {
+        const questions = await this.contestService.getQuestionOfContest(id_contest);
+        return questions.map(q => {
+            delete q.answer;
+            return q;
+        })
     }
 
     @Subscription()

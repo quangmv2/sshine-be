@@ -18,6 +18,11 @@ input UpdateContestInput {
     id_users: [String]
 }
 
+input AddQuestionToContest {
+    id_contest: String,
+    id_question: String,
+}
+
 type CounterContest {
     question: Question,
     type: String,
@@ -27,12 +32,15 @@ type CounterContest {
 type Mutation {
     createContest(input: CreateContestInput): Contest
     updateContest(input: UpdateContestInput): Contest
+    addQuestionToContest(input: AddQuestionToContest): Contest
 }
 
 type Query {
     contests: [Contest]
     contest(id_contest: String): Contest
     userOfContest(id_contest: String): [User]
+    questionOfContest(id_contest: String): [Question]
+    questionOfContestNoAnswer(id_contest: String): [Question]
     myContest: [Contest]
     questionNow(id_contest: String): Question
 }
