@@ -1,10 +1,10 @@
-import { IsNotEmpty, IsEmail } from 'class-validator';
-import { LoginInput } from 'src/graphql';
+// import { IsNotEmpty, IsEmail } from 'class-validator';
+// import { LoginInput } from 'src/graphql';
 
-export class PostInputDTO {
+// export class PostInputDTO {
 
-    title?: string;
-    content?: string;
-    user?: string
+//     title?: string;
+//     content?: string;
+//     user?: string
     
-}
+// }

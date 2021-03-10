@@ -6,17 +6,6 @@
 
 /* tslint:disable */
 /* eslint-disable */
-export enum TypeMessage {
-    quote = "quote",
-    send = "send"
-}
-
-export enum StatusMessage {
-    Send = "Send",
-    Delivered = "Delivered",
-    Seen = "Seen"
-}
-
 export class RegisterInput {
     username: string;
     password: string;
@@ -35,41 +24,49 @@ export class LoginFromGoogleInput {
     id_token: string;
 }
 
-export class PostInput {
+export class CreateContestInput {
+    name: string;
+    timeStart: number;
+}
+
+export class UpdateContestInput {
     id?: string;
-    title?: string;
-    content?: string;
-    image?: string;
+    name?: string;
+    timeStart?: number;
+    id_users?: string[];
 }
 
-export class BookRoomInput {
-    time_start: string;
-    time_end: number;
-    note?: string;
-    user_id: string;
+export class CreateQuestionInput {
+    question: string;
+    answers?: string[];
+    answer?: number;
+    id_contest: string;
 }
 
-export class NewMessage {
-    content: string;
-    to?: string;
+export class UpdateQuestionInput {
+    id?: string;
+    question?: string;
+    answers?: string[];
+    answer?: number;
+    id_contest?: string;
 }
 
 export abstract class IQuery {
     abstract hello(): string | Promise<string>;
 
-    abstract post(id_post?: string): Post | Promise<Post>;
+    abstract contests(): Contest[] | Promise<Contest[]>;
 
-    abstract posts(page?: number, limit?: number): PostPaginate | Promise<PostPaginate>;
+    abstract contest(id_contest?: string): Contest | Promise<Contest>;
 
-    abstract myPosts(offset?: number, limits?: number): Post[] | Promise<Post[]>;
+    abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
 
-    abstract rooms(user_id?: string): Room[] | Promise<Room[]>;
+    abstract myContest(): Contest[] | Promise<Contest[]>;
 
-    abstract myRooms(): Room[] | Promise<Room[]>;
+    abstract questionNow(id_contest?: string): Question | Promise<Question>;
 
-    abstract roomDetail(room_id?: string): Room | Promise<Room>;
+    abstract queryQuestion(input: string): Question | Promise<Question>;
 
-    abstract roomBook(): Room[] | Promise<Room[]>;
+    abstract answerQuestion(input: string): number | Promise<number>;
 
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
 
@@ -87,86 +84,44 @@ export abstract class IMutation {
 
     abstract loginFromGoogle(input: LoginFromGoogleInput): Token | Promise<Token>;
 
-    abstract addPost(input: PostInput): Post | Promise<Post>;
+    abstract createContest(input?: CreateContestInput): Contest | Promise<Contest>;
 
-    abstract deletePost(id_post?: string): Post | Promise<Post>;
+    abstract updateContest(input?: UpdateContestInput): Contest | Promise<Contest>;
 
-    abstract like(id_post?: string): Post | Promise<Post>;
+    abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
-    abstract bookRoom(input: BookRoomInput): Room | Promise<Room>;
-
-    abstract sendMessage(input: NewMessage): MessageDetail | Promise<MessageDetail>;
-
-    abstract seenMessage(room_id?: string): string | Promise<string>;
-
-    abstract messageOfRoom(room_id?: string, page?: number): MessageDetail[] | Promise<MessageDetail[]>;
-
-    abstract confirmRoom(room_id?: string): Room | Promise<Room>;
-
-    abstract deleteRoom(room_id?: string): string | Promise<string>;
+    abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
 
     abstract user(): User | Promise<User>;
 }
 
+export class Contest {
+    id?: string;
+    name?: string;
+    timeStart?: number;
+    started?: boolean;
+    createBy?: User;
+}
+
+export class CounterContest {
+    question?: Question;
+    type?: string;
+    time?: number;
+}
+
 export abstract class ISubscription {
-    abstract listenNewPost(): Post | Promise<Post>;
+    abstract listenContestStart(id?: string): Contest | Promise<Contest>;
 
-    abstract listenNewMessage(): MessageDetail | Promise<MessageDetail>;
-
-    abstract listenNewMessageRoom(room_id: string): MessageDetail | Promise<MessageDetail>;
-
-    abstract listenRoom(): string | Promise<string>;
+    abstract listenQuestionContest(id?: string): CounterContest | Promise<CounterContest>;
 }
 
-export class Post {
-    id?: string;
-    title?: string;
-    content?: string;
-    image?: string;
-    comments?: Comment[];
-    likes?: User[];
-    user?: User;
+export class Question {
+    question?: string;
+    answers?: string[];
+    answer?: number;
+    contest?: Contest;
     createdAt?: number;
     updatedAt?: number;
-}
-
-export class PostPaginate {
-    data?: Post[];
-    itemCount?: number;
-    limit?: number;
-    page?: number;
-}
-
-export class Comment {
-    id?: string;
-    user?: User;
-    content?: string;
-    total?: number;
-    created_at?: number;
-    updated_at?: number;
-}
-
-export class Room {
-    id?: string;
-    time_start?: number;
-    time_end?: number;
-    code?: string;
-    note?: string;
-    messages?: MessageDetail[];
-    status?: boolean;
-    user_customer_id?: User;
-    user_id?: User;
-    createdAt?: number;
-    updatedAt?: number;
-}
-
-export class MessageDetail {
-    id?: string;
-    type?: TypeMessage;
-    content?: string;
-    status?: StatusMessage;
-    from?: User;
-    to?: Room;
 }
 
 export class User {

@@ -1,0 +1,43 @@
+type Contest {
+    id: String,
+    name: String,
+    timeStart: Float,
+    started: Boolean
+    createBy: User
+}
+
+input CreateContestInput {
+    name: String!,
+    timeStart: Float!
+}
+
+input UpdateContestInput {
+    id: String,
+    name: String,
+    timeStart: Float,
+    id_users: [String]
+}
+
+type CounterContest {
+    question: Question,
+    type: String,
+    time: Float
+}
+
+type Mutation {
+    createContest(input: CreateContestInput): Contest
+    updateContest(input: UpdateContestInput): Contest
+}
+
+type Query {
+    contests: [Contest]
+    contest(id_contest: String): Contest
+    userOfContest(id_contest: String): [User]
+    myContest: [Contest]
+    questionNow(id_contest: String): Question
+}
+
+type Subscription {
+    listenContestStart(id: String): Contest
+    listenQuestionContest(id: String): CounterContest
+}

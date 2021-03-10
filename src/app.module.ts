@@ -4,13 +4,15 @@ import { AppService } from './app.service';
 import { ConfigModule } from "@nestjs/config";
 import { GraphQLModule, Context } from "@nestjs/graphql";
 import { join } from "path";
-import { AuthModule } from './auth/auth.module';
-import { UserModule } from './user/user.module';
+import { AuthModule } from './modules/auth.module';
+import { UserModule } from './modules/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { PostModule } from './post/post.module';
-import { RoomModule } from './room/room.module';
+// import { RoomModule } from './modules/room.module';
 import { AppGateway } from './app.gateway';
 import { GqlModuleConfig } from './grapqlConfigModule';
+import { QuestionModule } from './modules/question.module';
+import { ContestModule } from './modules/contest.module';
+import { AnswerModule } from './modules/answer.module';
 
 @Module({
   imports: [
@@ -29,8 +31,10 @@ import { GqlModuleConfig } from './grapqlConfigModule';
     }),
     AuthModule,
     UserModule,
-    PostModule,
-    RoomModule,
+    // RoomModule,
+    QuestionModule,
+    ContestModule,
+    AnswerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

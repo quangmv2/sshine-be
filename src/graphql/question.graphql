@@ -1,0 +1,33 @@
+type Question {
+    question: String,
+    answers: [String],
+    answer: Int,
+    contest: Contest,
+    createdAt: Int,
+    updatedAt: Int   
+}
+
+input CreateQuestionInput {
+    question: String!,
+    answers: [String!]
+    answer: Int,
+    id_contest: String!
+}
+
+input UpdateQuestionInput {
+    id: String,
+    question: String,
+    answers: [String]
+    answer: Int,
+    id_contest: String
+}
+
+type Mutation {
+    createOneQuestion(input: CreateQuestionInput!): Question
+    createManyQuestion(input: [CreateQuestionInput!]): [Question]
+}
+
+type Query {
+    queryQuestion(input: String!): Question
+    answerQuestion(input: String!): Int
+}

@@ -1,6 +1,6 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../service/auth.service';
 
 @Injectable()
 export class AuthGuardGQL implements CanActivate {
@@ -12,6 +12,8 @@ export class AuthGuardGQL implements CanActivate {
         let token = ctx.req.headers.authorization;
         const user = await this.authService.verifyToken(token);
         if (!user) return false;
+        console.log(user);
+        
         ctx.req.user = user;
         ctx.req.token = token;
         return true;
