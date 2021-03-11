@@ -72,32 +72,32 @@ export class ContestService {
         
     }
 
-    // @Cron("* * * * * *")
-    // async checkContestStart() {
-    //     const now = Date.now();
-    //     const contests = await this.contestModel.find({
-    //         $and: [
-    //             { timeStart: { $lte: now } },
-    //             { started: { $eq: false } }
-    //         ]
-    //     })
-    //     const ids = contests.map(c => c._id);
-    //     this.contestModel.updateMany({ _id: { $in: ids } }, {
-    //         $set: { started: true }
-    //     }).exec();
-    //     console.log("cron", now, contests)
-    //     contests.forEach(c => {
-    //         const publish = {
-    //             listenContestStart: {
-    //                 time: 1
-    //             }
-    //         }
-    //         this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
-    //         // this.pubSub.subscribe()
-    //         const counter = new Counter(this, c);
-    //         counter.start();
-    //     })
-    // }
+    @Cron("* * * * * *")
+    async checkContestStart() {
+        const now = Date.now();
+        const contests = await this.contestModel.find({
+            $and: [
+                { timeStart: { $lte: now } },
+                { started: { $eq: false } }
+            ]
+        })
+        const ids = contests.map(c => c._id);
+        this.contestModel.updateMany({ _id: { $in: ids } }, {
+            $set: { started: true }
+        }).exec();
+        console.log("cron", now, contests)
+        contests.forEach(c => {
+            const publish = {
+                listenContestStart: {
+                    time: 1
+                }
+            }
+            this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+            // this.pubSub.subscribe()
+            const counter = new Counter(this, c);
+            counter.start();
+        })
+    }
 
 }
 
