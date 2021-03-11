@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:seed": "./node_modules/.bin/ts-node dbseed/index.ts"
+    "db:seed": "./node_modules/.bin/ts-node src/dbseed/index.ts"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
@@ -41,6 +41,7 @@
     "graphql-tools": "^6.0.8",
     "image-type": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
     "mongoose": "^5.9.18",
     "mongoose-paginate": "^5.0.3",
     "mongoose-paginate-v2": "^1.3.9",

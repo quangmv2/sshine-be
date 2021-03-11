@@ -23,16 +23,37 @@ input AddQuestionToContest {
     id_question: String,
 }
 
+enum EnumListenContest {
+    WAITTING
+    ANSWER
+    WAITTING_QUESTION
+    QUESTION
+    END
+}
+
+type Answer {
+    id_question: String,
+    answer: Int
+}
+
 type CounterContest {
     question: Question,
     type: String,
     time: Float
 }
 
+type DataStreamContest {
+    question: Question,
+    type: EnumListenContest,
+    time: Float
+    answer: Answer
+}
+
 type Mutation {
     createContest(input: CreateContestInput): Contest
     updateContest(input: UpdateContestInput): Contest
-    addQuestionToContest(input: AddQuestionToContest): Contest
+    removeContest(input: String): Contest
+    toggleQuestionToContest(input: AddQuestionToContest): String
 }
 
 type Query {
@@ -45,7 +66,12 @@ type Query {
     questionNow(id_contest: String): Question
 }
 
+input Subscribe {
+    id_contest: String,
+    id_user: String
+}
+
 type Subscription {
-    listenContestStart(id: String): Contest
+    listenContestStart(input: Subscribe): DataStreamContest
     listenQuestionContest(id: String): CounterContest
 }

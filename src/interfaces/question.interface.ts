@@ -10,7 +10,7 @@ export interface Question extends Document {
     question: string,
     answers: String[],
     answer: number
-    currenTime: number
+    currentTime: number
     // id_contest: string,
     createdAt: number,
     updatedAt: number

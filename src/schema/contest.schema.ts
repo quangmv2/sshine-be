@@ -9,6 +9,7 @@ const contestShema = new mongoose.Schema({
     started: { type: Boolean, default: false },
     createBy: { type: Schema.Types.ObjectId, required: true },
     id_users: { type: [Schema.Types.ObjectId], required: true },
+    id_users_reject: { type: [Schema.Types.ObjectId] },
     id_questions: { type: [Schema.Types.ObjectId], required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number }

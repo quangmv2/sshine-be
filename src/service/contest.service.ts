@@ -6,6 +6,7 @@ import { PubSub } from 'graphql-subscriptions';
 import { Cron } from '@nestjs/schedule';
 import { Question } from 'src/interfaces/question.interface';
 import { ApolloError } from 'apollo-server-express';
+// import * as lodash from "lodash";
 
 @Injectable()
 export class ContestService {
@@ -13,7 +14,7 @@ export class ContestService {
     constructor(
         // private readonly userService: UserService,
         // private readonly contestService: ContestService,
-        @Inject('PUB_SUB_MESSAGE') private readonly pubSub: PubSub,
+        @Inject('PUB_SUB_MESSAGE') public readonly pubSub: PubSub,
         @InjectModel("Contest") private readonly contestModel: Model<Contest>,
         @InjectModel("Question") private readonly questionModel: Model<Question>,
         @InjectModel("ContestQuestion") private readonly contestQuestionModel: Model<ContestQuestion>,
@@ -30,22 +31,19 @@ export class ContestService {
     async addQuestion(input) {
         const { id_contest, id_question } = input;
 
-        const contest = await this.contestModel.findOne({
-            $and: [
-                {
-                    _id: { $eq: id_contest }
-                },
-                {
-                    id_questions: {
-                        $nin: [id_question]
-                    }
-                }
-            ]
-        });
+        const contest = await this.contestModel.findById(id_contest);
         if (!contest) throw new ApolloError("Da ton tai", "GRAPHQL_VALIDATION_FAILED")
-        contest.id_questions.push(id_question);
+        const [arr, result] = this.toggleArrayItem(contest.id_questions, id_question);
+        contest.id_questions = arr
+        console.log(contest.id_questions.includes(id_question));
         contest.save();
-        return null
+        return result;
+    }
+
+    toggleArrayItem(arr, item) {
+        return arr.includes(item)
+            ? [arr.filter(i => i != item), "remove"] // remove item
+            : [[...arr, item], "add"]; // add item
     }
 
     async listenContestStart(id_contest: string) {
@@ -57,47 +55,49 @@ export class ContestService {
 
         const contest = await this.contestModel.aggregate().match({
             _id: Types.ObjectId(id_contest)
-        })
-            .lookup({
-                from: "questions",
-                localField: "id_questions",
-                foreignField: "_id",
-                as: "questions"
-            });
+        }).lookup({
+            from: "questions",
+            localField: "id_questions",
+            foreignField: "_id",
+            as: "questions"
+        });
         // console.log();
 
         return contest[0].questions;
     }
 
-    @Cron("* * * * * *")
-    async checkContestStart() {
-        const now = Date.now();
-        const contests = await this.contestModel.find({
-            $and: [
-                { timeStart: { $lte: now } },
-                { started: { $eq: false } }
-            ]
-        })
-        const ids = contests.map(c => c._id);
-        this.contestModel.updateMany({ _id: { $in: ids } }, {
-            $set : { started: true }
-        }).exec();
-        console.log("cron", now, contests)
-        contests.forEach(c => {
-            const publish = {
-                listenContestStart: { 
-                    id: c._id,
-                    name: c.name,
-                    timeStart: c.timeStart,
-                    createBy: c.createBy,
-                    started: c.started
-                 }
-            }
-            this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
-            const counter = new Counter(this, c);
-            counter.start();
-        })
+    async checkResult(id_contest: string, id_question: string) {
+        const constest = await this.contestModel.findById(id_contest);
+        const question = await this.questionModel.findById(id_question);
+        
     }
+
+    // @Cron("* * * * * *")
+    // async checkContestStart() {
+    //     const now = Date.now();
+    //     const contests = await this.contestModel.find({
+    //         $and: [
+    //             { timeStart: { $lte: now } },
+    //             { started: { $eq: false } }
+    //         ]
+    //     })
+    //     const ids = contests.map(c => c._id);
+    //     this.contestModel.updateMany({ _id: { $in: ids } }, {
+    //         $set: { started: true }
+    //     }).exec();
+    //     console.log("cron", now, contests)
+    //     contests.forEach(c => {
+    //         const publish = {
+    //             listenContestStart: {
+    //                 time: 1
+    //             }
+    //         }
+    //         this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+    //         // this.pubSub.subscribe()
+    //         const counter = new Counter(this, c);
+    //         counter.start();
+    //     })
+    // }
 
 }
 
@@ -107,26 +107,52 @@ class Counter {
 
     constructor(
         private readonly contestService: ContestService,
-        private contest: Contest
+        private readonly contest: Contest
     ) { }
+
+    publishTime(time: number) {
+        console.log(time);
+        const publish = {
+            listenContestStart: {
+                time,
+                // question
+            }
+        }
+        
+        this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, publish);
+    }
 
     async start() {
         console.log("start");
-        
+
         const questions = await this.contestService.getQuestionOfContest(this.contest._id);
         for (let index = 0; index < questions.length; index++) {
             // const element = questions[index];
-            console.log(index, questions[index]);
-            await this.sleep(10*1000);
+            const sleep = this.sleep;
+            await sleep(questions[index].currentTime * 1000, this.publishTime.bind(this));
+            await sleep(5000, this.publishTime.bind(this))
+            // clearInterval(slee)
         }
-        // questions.forEach(async (question, index) => {
-        //     await this.sleep(10*1000);
-        //     console.log(index, question);
-        // })
     }
 
-    async sleep(time: number) {
-        return new Promise(resolve => setTimeout(resolve, time));
+    async sleep(time: number, _callback?: Function) {
+        let idInteval: any = 0
+        let currentTime = time
+        return new Promise(resolve => {
+            // setTimeout(resolve, time)
+            idInteval = setInterval(() => {
+                _callback(currentTime);
+                if (currentTime < 1) {
+                    clearInterval(idInteval);
+                    resolve('')
+                }
+                currentTime -= 1000;
+            }, 1000);
+            setTimeout(() => {
+                clearInterval(idInteval);
+                resolve('')
+            }, currentTime + 5000);
+        });
     }
 
 }

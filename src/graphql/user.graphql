@@ -21,6 +21,7 @@ type Query {
     hello: String
     users(page: Int): UserPaginate
     doctors(page: Int): UserPaginate
+    user: User
 }
 
 type Mutation {

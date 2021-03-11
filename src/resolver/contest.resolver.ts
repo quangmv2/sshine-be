@@ -9,6 +9,8 @@ import { AuthGuardGQL } from 'src/guard/auth.guard';
 import { UserService } from 'src/service/user.service';
 import { User } from 'src/interfaces/user.interface';
 import { Question } from 'src/interfaces/question.interface';
+import { RoleGuard } from 'src/guard/role.guard';
+import { ROLE } from 'src/utils';
 
 @Resolver("Contest")
 export class ContestResolver {
@@ -21,6 +23,7 @@ export class ContestResolver {
 
     @Mutation()
     @UseGuards(AuthGuardGQL)
+    @UseGuards(new RoleGuard([ROLE.ADMIN, ROLE.SUPER_ADMIN]))
     async createContest(@Args("input") input: CreateContestInputDTO, @Context() context): Promise<Contest> {
         const { user } = context.req;
 
@@ -46,9 +49,17 @@ export class ContestResolver {
     }
 
     @Mutation()
-    async addQuestionToContest(@Args("input") input) {
+    async toggleQuestionToContest(@Args("input") input) {
         return this.contestService.addQuestion(input);
     }
+
+    @Mutation()
+    async removeContest(@Args("input") id_contest: string) {
+        const contest = await this.contestModel.findById(id_contest);
+        if (!contest) return null;
+        await contest.remove();
+        return contest;
+    } 
 
     @Query()
     async userOfContest(@Args("id_contest") id_contest: string): Promise<User[]> {
@@ -70,8 +81,6 @@ export class ContestResolver {
     @Query()
     async questionOfContest(@Args("id_contest") id_contest: string): Promise<Question[]> {
         const questions = await this.contestService.getQuestionOfContest(id_contest);
-        console.log(questions);
-        
         return questions
     }
     @Query()
@@ -81,10 +90,16 @@ export class ContestResolver {
             delete q.answer;
             return q;
         })
-    }
+    } 
 
-    @Subscription()
-    async listenContestStart(@Args("id") id: string) {
+    @Subscription('listenContestStart', {
+        filter: (payload, variables, context) => {
+            console.log(payload, variables, context);
+            return true;
+        }
+    })
+    async listenContestStart(@Args("id") id) {
+        // return null;
         return this.contestService.listenContestStart(id);
     }
 
@@ -92,6 +107,18 @@ export class ContestResolver {
     async createBy(@Parent() parent) {
         console.log(parent);
         return this.userService.getUserById(parent.createBy);
+    }
+
+}
+
+@Resolver("DataStreamContest")
+export class DataStreamContestResolver {
+
+    @ResolveField('question')
+    async createBy(@Parent() parent) {
+        console.log(parent);
+        return null;
+        // return this.userService.getUserById(parent.createBy);
     }
 
 }

@@ -13,7 +13,6 @@ export class AuthGuardGQL implements CanActivate {
         const user = await this.authService.verifyToken(token);
         if (!user) return false;
         console.log(user);
-        
         ctx.req.user = user;
         ctx.req.token = token;
         return true;

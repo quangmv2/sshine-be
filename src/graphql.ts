@@ -6,6 +6,14 @@
 
 /* tslint:disable */
 /* eslint-disable */
+export enum EnumListenContest {
+    WAITTING = "WAITTING",
+    ANSWER = "ANSWER",
+    WAITTING_QUESTION = "WAITTING_QUESTION",
+    QUESTION = "QUESTION",
+    END = "END"
+}
+
 export class RegisterInput {
     username: string;
     password: string;
@@ -39,6 +47,11 @@ export class UpdateContestInput {
 export class AddQuestionToContest {
     id_contest?: string;
     id_question?: string;
+}
+
+export class Subscribe {
+    id_contest?: string;
+    id_user?: string;
 }
 
 export class CreateQuestionInput {
@@ -80,6 +93,8 @@ export abstract class IQuery {
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
 
     abstract doctors(page?: number): UserPaginate | Promise<UserPaginate>;
+
+    abstract user(): User | Promise<User>;
 }
 
 export class Token {
@@ -97,7 +112,9 @@ export abstract class IMutation {
 
     abstract updateContest(input?: UpdateContestInput): Contest | Promise<Contest>;
 
-    abstract addQuestionToContest(input?: AddQuestionToContest): Contest | Promise<Contest>;
+    abstract removeContest(input?: string): Contest | Promise<Contest>;
+
+    abstract toggleQuestionToContest(input?: AddQuestionToContest): string | Promise<string>;
 
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
@@ -114,14 +131,26 @@ export class Contest {
     createBy?: User;
 }
 
+export class Answer {
+    id_question?: string;
+    answer?: number;
+}
+
 export class CounterContest {
     question?: Question;
     type?: string;
     time?: number;
 }
 
+export class DataStreamContest {
+    question?: Question;
+    type?: EnumListenContest;
+    time?: number;
+    answer?: Answer;
+}
+
 export abstract class ISubscription {
-    abstract listenContestStart(id?: string): Contest | Promise<Contest>;
+    abstract listenContestStart(input?: Subscribe): DataStreamContest | Promise<DataStreamContest>;
 
     abstract listenQuestionContest(id?: string): CounterContest | Promise<CounterContest>;
 }

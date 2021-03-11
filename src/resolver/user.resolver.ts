@@ -9,7 +9,7 @@ export class UserResolver {
 
     constructor(
         private readonly userService: UserService
-    ){}
+    ) { }
 
     @Query('hello')
     // @UseGuards(AuthGuardGQL)
@@ -26,6 +26,14 @@ export class UserResolver {
     async doctors(@Args('page') page: number) {
         return this.userService.getUsersPaginate(page);
     }
+
+    @Query()
+    @UseGuards(AuthGuardGQL)
+    async user(@Context() context): Promise<User> {
+        const { user } = context.req;
+        return user;
+    }
+
 
     @Mutation('user')
     @UseGuards(AuthGuardGQL)

@@ -9,6 +9,7 @@ export interface Contest extends Document {
     createBy: string;
     id_users: string[]
     id_questions: string[]
+    id_users_reject: string[]
 }
 
 export interface ContestQuestion extends Document {
