@@ -30,8 +30,14 @@ input AddUserToContest {
     id_user: String,
 }
 
+input AnswerInput {
+    id_contest: String!,
+    id_question: String!,
+    answer: Int!
+}
+
 enum EnumListenContest {
-    WAITTING
+    NEXT
     ANSWER
     WAITTING_QUESTION
     QUESTION
@@ -64,11 +70,12 @@ type Mutation {
     toggleUserToContest(input: AddUserToContest): String
     userOfContest(id_contest: String): [User]
     questionOfContest(id_contest: String): [Question]
+    answer(input: AnswerInput): Int
+    contest(id_contest: String): Contest
 }
 
 type Query {
     contests: [Contest]
-    contest(id_contest: String): Contest
     userOfContest(id_contest: String): [User]
     questionOfContest(id_contest: String): [Question]
     questionOfContestNoAnswer(id_contest: String): [Question]

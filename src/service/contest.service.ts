@@ -1,12 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Contest, ContestQuestion } from 'src/interfaces/contest.interface';
+import { Answer, Contest, ContestQuestion } from 'src/interfaces/contest.interface';
 import { Model, PaginateModel, Types } from 'mongoose';
 import { PubSub } from 'graphql-subscriptions';
 import { Cron } from '@nestjs/schedule';
 import { Question } from 'src/interfaces/question.interface';
 import { ApolloError } from 'apollo-server-express';
-// import * as lodash from "lodash";
+import { EnumListenContest } from 'src/graphql';
+import * as _ from "lodash";
 
 @Injectable()
 export class ContestService {
@@ -18,6 +19,7 @@ export class ContestService {
         @InjectModel("Contest") private readonly contestModel: Model<Contest>,
         @InjectModel("Question") private readonly questionModel: Model<Question>,
         @InjectModel("ContestQuestion") private readonly contestQuestionModel: Model<ContestQuestion>,
+        @InjectModel("Answer") public readonly answerModel: Model<Answer>,
     ) { }
 
     async findContest(id: string): Promise<Contest> {
@@ -81,35 +83,35 @@ export class ContestService {
     async checkResult(id_contest: string, id_question: string) {
         const constest = await this.contestModel.findById(id_contest);
         const question = await this.questionModel.findById(id_question);
-        
+
     }
 
-    // @Cron("* * * * * *")
-    // async checkContestStart() {
-    //     const now = Date.now();
-    //     const contests = await this.contestModel.find({
-    //         $and: [
-    //             { timeStart: { $lte: now } },
-    //             { started: { $eq: false } }
-    //         ]
-    //     })
-    //     const ids = contests.map(c => c._id);
-    //     this.contestModel.updateMany({ _id: { $in: ids } }, {
-    //         $set: { started: true }
-    //     }).exec();
-    //     console.log("cron", now, contests)
-    //     contests.forEach(c => {
-    //         const publish = {
-    //             listenContestStart: {
-    //                 time: 1
-    //             }
-    //         }
-    //         this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
-    //         // this.pubSub.subscribe()
-    //         const counter = new Counter(this, c);
-    //         counter.start();
-    //     })
-    // }
+    @Cron("* * * * * *")
+    async checkContestStart() {
+        const now = Date.now();
+        const contests = await this.contestModel.find({
+            $and: [
+                { timeStart: { $lte: now } },
+                { started: { $eq: false } }
+            ]
+        })
+        const ids = contests.map(c => c._id);
+        this.contestModel.updateMany({ _id: { $in: ids } }, {
+            $set: { started: true }
+        }).exec();
+        console.log("cron", now, contests)
+        contests.forEach(c => {
+            const publish = {
+                listenContestStart: {
+                    time: 1
+                }
+            }
+            this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+            // this.pubSub.subscribe()
+            const counter = new Counter(this, c);
+            counter.start();
+        })
+    }
 
 }
 
@@ -122,27 +124,73 @@ class Counter {
         private readonly contest: Contest
     ) { }
 
+    questionNow = {};
+
+    rejectUser(users: string[], question) {
+
+    }
+
     publishTime(time: number) {
-        console.log(time);
+        // console.log(time);
         const publish = {
             listenContestStart: {
                 time,
-                // question
+                question: {
+                    ...this.questionNow,
+                    answer: null
+                },
+                type: EnumListenContest.QUESTION
             }
         }
-        
+        console.log(`CONTEST_START: ${this.contest._id}`, publish);
+
         this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, publish);
     }
 
+    publishTimeWaitting(time: number) {
+        // console.log(time);
+        const publish = {
+            listenContestStart: {
+                time,
+                type: EnumListenContest.WAITTING_QUESTION
+            }
+        }
+        console.log(`CONTEST_START: ${this.contest._id}`, publish);
+
+        this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, publish);
+    }
+
+
     async start() {
         console.log("start");
-
         const questions = await this.contestService.getQuestionOfContest(this.contest._id);
         for (let index = 0; index < questions.length; index++) {
             // const element = questions[index];
+            this.questionNow = questions[index]
             const sleep = this.sleep;
             await sleep(questions[index].currentTime * 1000, this.publishTime.bind(this));
-            await sleep(5000, this.publishTime.bind(this))
+            this.contest.id_questions_reject.push(questions[index]._id);
+            try {
+                await this.contest.save()
+            } catch (err) {
+                console.log(err);
+            } 
+            this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+                listenContestStart: {
+                    type: EnumListenContest.ANSWER,
+                    answer: {
+                        id_question: questions[index]._id,
+                        answer: questions[index].answer
+                    }
+                }
+            })
+            this.rejectUser(_.difference(this.contest.id_users, this.contest.id_users_reject), questions[index])
+            await sleep(5000, this.publishTimeWaitting.bind(this))
+            this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+                listenContestStart: {
+                    type: EnumListenContest.NEXT
+                }
+            })
             // clearInterval(slee)
         }
     }

@@ -5,6 +5,7 @@ const answerSchema = new mongoose.Schema({
     // id: {type: String},
     // _id: { type: String },
     // _id: { type: Schema.Types.ObjectId },
+    id_contest: { type: Schema.Types.ObjectId, required: true },
     id_question: { type: Schema.Types.ObjectId, required: true },
     id_user: { type: Schema.Types.ObjectId, required: true },
     answer: { type: Number },

@@ -1,4 +1,4 @@
-import { CreateContestInput, UpdateContestInput } from "../graphql";
+import { AnswerInput, CreateContestInput, UpdateContestInput } from "../graphql";
 
 export class CreateContestInputDTO extends CreateContestInput {
     // code: string;

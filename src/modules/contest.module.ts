@@ -8,6 +8,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { PubSub } from 'graphql-subscriptions';
 import { QuestionModule } from './question.module';
 import { QuestionSchema } from 'src/schema/question.schema';
+import { AnswerSchema } from 'src/schema/answer.schema';
 
 const PubSubMessage = {
   provide: 'PUB_SUB_MESSAGE',
@@ -16,7 +17,7 @@ const PubSubMessage = {
 
 @Module({
   imports: [
-    MongooseModule.forFeature([ ContestShema, ContestQuestionShema, QuestionSchema ]),
+    MongooseModule.forFeature([ ContestShema, ContestQuestionShema, QuestionSchema, AnswerSchema ]),
     ScheduleModule.forRoot(),
     UserModule,
     forwardRef(() => QuestionModule)

@@ -27,6 +27,7 @@ export class GqlModuleConfig implements GqlOptionsFactory {
             subscriptions: {
                 onConnect: async(connectParam: any, ws, ctx) => {
                     const { Authorization } = connectParam;
+                    return true;
                     // console.log(connectParam, ws, ctx);
                     const userContext = await this.authService.verifyToken(Authorization);
                     // connectParam["req"] = userContext;

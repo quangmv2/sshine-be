@@ -7,7 +7,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export enum EnumListenContest {
-    WAITTING = "WAITTING",
+    NEXT = "NEXT",
     ANSWER = "ANSWER",
     WAITTING_QUESTION = "WAITTING_QUESTION",
     QUESTION = "QUESTION",
@@ -54,6 +54,12 @@ export class AddUserToContest {
     id_user?: string;
 }
 
+export class AnswerInput {
+    id_contest: string;
+    id_question: string;
+    answer: number;
+}
+
 export class Subscribe {
     id_contest?: string;
     id_user?: string;
@@ -78,8 +84,6 @@ export abstract class IQuery {
     abstract hello(): string | Promise<string>;
 
     abstract contests(): Contest[] | Promise<Contest[]>;
-
-    abstract contest(id_contest?: string): Contest | Promise<Contest>;
 
     abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
 
@@ -130,6 +134,10 @@ export abstract class IMutation {
     abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
 
     abstract questionOfContest(id_contest?: string): Question[] | Promise<Question[]>;
+
+    abstract answer(input?: AnswerInput): number | Promise<number>;
+
+    abstract contest(id_contest?: string): Contest | Promise<Contest>;
 
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
