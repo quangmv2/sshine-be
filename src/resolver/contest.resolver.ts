@@ -23,7 +23,7 @@ export class ContestResolver {
 
     @Mutation()
     @UseGuards(AuthGuardGQL)
-    @UseGuards(new RoleGuard([ROLE.ADMIN, ROLE.SUPER_ADMIN]))
+    // @UseGuards(new RoleGuard([ROLE.ADMIN, ROLE.SUPER_ADMIN]))
     async createContest(@Args("input") input: CreateContestInputDTO, @Context() context): Promise<Contest> {
         const { user } = context.req;
 
