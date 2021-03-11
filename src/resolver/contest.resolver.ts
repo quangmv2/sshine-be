@@ -54,6 +54,11 @@ export class ContestResolver {
     }
 
     @Mutation()
+    async toggleUserToContest(@Args("input") input) {
+        return this.contestService.toogleUserToContets(input);
+    }
+
+    @Mutation()
     async removeContest(@Args("input") id_contest: string) {
         const contest = await this.contestModel.findById(id_contest);
         if (!contest) return null;
@@ -66,6 +71,19 @@ export class ContestResolver {
         const contest = await this.contestModel.findById(id_contest);
         if (!contest) return [];
         return this.userService.getUsers(contest.id_users);
+    }
+
+    @Mutation('userOfContest')
+    async userOfContestMutation(@Args("id_contest") id_contest: string): Promise<User[]> {
+        const contest = await this.contestModel.findById(id_contest);
+        if (!contest) return [];
+        return this.userService.getUsers(contest.id_users);
+    }
+
+    @Mutation('questionOfContest')
+    async questionOfContestMutation(@Args("id_contest") id_contest: string): Promise<Question[]> {
+        const questions = await this.contestService.getQuestionOfContest(id_contest);
+        return questions
     }
 
     @Query()
@@ -94,7 +112,7 @@ export class ContestResolver {
 
     @Query()
     async contests(): Promise<Contest[]>{
-        return this.contestModel.find().sort({ timeStart: 1 });
+        return this.contestModel.find().sort({ 'timeStart': -1 });
     }
 
     @Subscription('listenContestStart', {

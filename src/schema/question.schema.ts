@@ -8,7 +8,7 @@ const questionSchema = new mongoose.Schema({
     question: { type: String },
     answers: { type:  [String]},
     answer: { type: Number },
-    currenTime: { type: Number, default: 30 },
+    currentTime: { type: Number, default: 30 },
     // id_contest: { type: Schema.Types.ObjectId, required: true },
     createdAt: { type: Number },
     updatedAt: { type: Number }

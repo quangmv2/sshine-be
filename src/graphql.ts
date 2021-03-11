@@ -49,6 +49,11 @@ export class AddQuestionToContest {
     id_question?: string;
 }
 
+export class AddUserToContest {
+    id_contest?: string;
+    id_user?: string;
+}
+
 export class Subscribe {
     id_contest?: string;
     id_user?: string;
@@ -57,7 +62,7 @@ export class Subscribe {
 export class CreateQuestionInput {
     question: string;
     answers?: string[];
-    currenTime?: number;
+    currentTime?: number;
     answer?: number;
 }
 
@@ -65,7 +70,7 @@ export class UpdateQuestionInput {
     id?: string;
     question?: string;
     answers?: string[];
-    currenTime?: number;
+    currentTime?: number;
     answer?: number;
 }
 
@@ -88,6 +93,8 @@ export abstract class IQuery {
 
     abstract queryQuestion(input: string): Question | Promise<Question>;
 
+    abstract queryQuestions(): Question[] | Promise<Question[]>;
+
     abstract answerQuestion(input: string): number | Promise<number>;
 
     abstract users(page?: number): UserPaginate | Promise<UserPaginate>;
@@ -95,6 +102,8 @@ export abstract class IQuery {
     abstract doctors(page?: number): UserPaginate | Promise<UserPaginate>;
 
     abstract user(): User | Promise<User>;
+
+    abstract getUsers(): User[] | Promise<User[]>;
 }
 
 export class Token {
@@ -116,6 +125,12 @@ export abstract class IMutation {
 
     abstract toggleQuestionToContest(input?: AddQuestionToContest): string | Promise<string>;
 
+    abstract toggleUserToContest(input?: AddUserToContest): string | Promise<string>;
+
+    abstract userOfContest(id_contest?: string): User[] | Promise<User[]>;
+
+    abstract questionOfContest(id_contest?: string): Question[] | Promise<Question[]>;
+
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
@@ -127,6 +142,8 @@ export class Contest {
     id?: string;
     name?: string;
     timeStart?: number;
+    id_users?: string[];
+    id_questions?: string[];
     started?: boolean;
     createBy?: User;
 }
@@ -160,7 +177,7 @@ export class Question {
     question?: string;
     answers?: string[];
     answer?: number;
-    currenTime?: number;
+    currentTime?: number;
     createdAt?: number;
     updatedAt?: number;
 }

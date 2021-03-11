@@ -1,4 +1,4 @@
-import { Args, Context, Mutation, Parent, ResolveField, Resolver } from '@nestjs/graphql';
+import { Args, Context, Mutation, Parent, Query, ResolveField, Resolver } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose';
 import { CreateQuestionInputDTO } from 'src/dto/question.dto';
 import { Question } from "../interfaces/question.interface";
@@ -28,6 +28,11 @@ export class QuestionResolver {
         return question;
     }
 
+    @Query()
+    async queryQuestions(): Promise<Question[]> {
+        return this.questionModel.find().sort({ 'createdAt': -1 });
+    }
+
     // @Mutation()
     // @UseGuards(AuthGuardGQL)
     // async createManyQuestion(@Args("input") input: CreateQuestionInputDTO[], @Context() context): Promise<Question[]> {
@@ -43,5 +48,11 @@ export class QuestionResolver {
     // async contest(@Parent() parent: Question): Promise<Contest> {
     //     return this.contestService.findContest(parent.id_contest);
     // }
+
+    @ResolveField("id")
+    async id(@Parent() parent) {
+        return !parent._id ? parent.id : ( parent.id ? parent.id : parent._id );
+        // return this.userService.getUserById(parent.createBy);
+    }
 
 }

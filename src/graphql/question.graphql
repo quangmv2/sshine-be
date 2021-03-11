@@ -3,15 +3,15 @@ type Question {
     question: String,
     answers: [String],
     answer: Int,
-    currenTime: Int,
-    createdAt: Int,
-    updatedAt: Int   
+    currentTime: Int,
+    createdAt: Float,
+    updatedAt: Float   
 }
 
 input CreateQuestionInput {
     question: String!,
     answers: [String!]
-    currenTime: Int,
+    currentTime: Int,
     answer: Int,
 }
 
@@ -19,7 +19,7 @@ input UpdateQuestionInput {
     id: String,
     question: String,
     answers: [String]
-    currenTime: Int,
+    currentTime: Int,
     answer: Int,
 }
 
@@ -30,5 +30,6 @@ type Mutation {
 
 type Query {
     queryQuestion(input: String!): Question
+    queryQuestions: [Question]
     answerQuestion(input: String!): Int
 }

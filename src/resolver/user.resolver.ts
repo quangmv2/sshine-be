@@ -34,6 +34,12 @@ export class UserResolver {
         return user;
     }
 
+    @Query()
+    async getUsers(): Promise<User[]> {
+        const users = await this.userService.getUsers();
+        console.log(users)
+        return users;
+    }
 
     @Mutation('user')
     @UseGuards(AuthGuardGQL)

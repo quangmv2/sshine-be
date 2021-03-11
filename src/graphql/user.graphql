@@ -22,6 +22,7 @@ type Query {
     users(page: Int): UserPaginate
     doctors(page: Int): UserPaginate
     user: User
+    getUsers: [User]
 }
 
 type Mutation {

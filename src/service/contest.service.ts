@@ -40,6 +40,18 @@ export class ContestService {
         return result;
     }
 
+    async toogleUserToContets(input) {
+        const { id_contest, id_user } = input;
+
+        const contest = await this.contestModel.findById(id_contest);
+        if (!contest) throw new ApolloError("Da ton tai", "GRAPHQL_VALIDATION_FAILED")
+        const [arr, result] = this.toggleArrayItem(contest.id_users, id_user);
+        contest.id_users = arr
+        console.log(contest.id_users.includes(id_user));
+        contest.save();
+        return result;
+    }
+
     toggleArrayItem(arr, item) {
         return arr.includes(item)
             ? [arr.filter(i => i != item), "remove"] // remove item
@@ -61,7 +73,7 @@ export class ContestService {
             foreignField: "_id",
             as: "questions"
         });
-        // console.log();
+        // console.log(contest[0].questions);
 
         return contest[0].questions;
     }
@@ -72,32 +84,32 @@ export class ContestService {
         
     }
 
-    @Cron("* * * * * *")
-    async checkContestStart() {
-        const now = Date.now();
-        const contests = await this.contestModel.find({
-            $and: [
-                { timeStart: { $lte: now } },
-                { started: { $eq: false } }
-            ]
-        })
-        const ids = contests.map(c => c._id);
-        this.contestModel.updateMany({ _id: { $in: ids } }, {
-            $set: { started: true }
-        }).exec();
-        console.log("cron", now, contests)
-        contests.forEach(c => {
-            const publish = {
-                listenContestStart: {
-                    time: 1
-                }
-            }
-            this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
-            // this.pubSub.subscribe()
-            const counter = new Counter(this, c);
-            counter.start();
-        })
-    }
+    // @Cron("* * * * * *")
+    // async checkContestStart() {
+    //     const now = Date.now();
+    //     const contests = await this.contestModel.find({
+    //         $and: [
+    //             { timeStart: { $lte: now } },
+    //             { started: { $eq: false } }
+    //         ]
+    //     })
+    //     const ids = contests.map(c => c._id);
+    //     this.contestModel.updateMany({ _id: { $in: ids } }, {
+    //         $set: { started: true }
+    //     }).exec();
+    //     console.log("cron", now, contests)
+    //     contests.forEach(c => {
+    //         const publish = {
+    //             listenContestStart: {
+    //                 time: 1
+    //             }
+    //         }
+    //         this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
+    //         // this.pubSub.subscribe()
+    //         const counter = new Counter(this, c);
+    //         counter.start();
+    //     })
+    // }
 
 }
 

@@ -2,6 +2,8 @@ type Contest {
     id: String,
     name: String,
     timeStart: Float,
+    id_users: [String]
+    id_questions: [String]
     started: Boolean
     createBy: User
 }
@@ -21,6 +23,11 @@ input UpdateContestInput {
 input AddQuestionToContest {
     id_contest: String,
     id_question: String,
+}
+
+input AddUserToContest {
+    id_contest: String,
+    id_user: String,
 }
 
 enum EnumListenContest {
@@ -54,6 +61,9 @@ type Mutation {
     updateContest(input: UpdateContestInput): Contest
     removeContest(input: String): Contest
     toggleQuestionToContest(input: AddQuestionToContest): String
+    toggleUserToContest(input: AddUserToContest): String
+    userOfContest(id_contest: String): [User]
+    questionOfContest(id_contest: String): [Question]
 }
 
 type Query {

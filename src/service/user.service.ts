@@ -46,9 +46,9 @@ export class UserService {
         return users;
     }
 
-    async getUsers(ids: string[]): Promise<User[]> {
-        console.log(ids);
-        
+    async getUsers(ids?: string[]): Promise<User[]> {
+        // console.log(ids);
+        if (!ids) return this.userModel.find();
         return this.userModel.find({
             _id: { $in: ids }
         })
