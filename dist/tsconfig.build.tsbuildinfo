@@ -5456,8 +5456,8 @@
         "affectsGlobalScope": false
       },
       "../src/service/contest.service.ts": {
-        "version": "ded83ebd8216926c64ca966e899a54b84f881db69143080af1ce0f389ec1c182",
-        "signature": "6e073c9372c4c14bd49388afc94e2ad74e7ef27137cc072fcc0e56deb2583bca",
+        "version": "824a3bdb0fbb152f1353ed64dc7e0ccba4337f3d49c52abbebf0fffc0c59ea2a",
+        "signature": "8d076f4a0ad78dc14b6fe4e8e0183a6f90e41ede93b838b51ec2f2b344186f90",
         "affectsGlobalScope": false
       },
       "../src/resolver/question.resolver.ts": {
@@ -5491,8 +5491,8 @@
         "affectsGlobalScope": false
       },
       "../src/resolver/contest.resolver.ts": {
-        "version": "b9c4ea2eccaa1568b3c4434989657e191bf4a300242d2e3a7d55d745c522c441",
-        "signature": "e540c5e33f6fa6e75b0c4628fe2cbd33b3aa77e1acb6be6a5fd86995042e4b6c",
+        "version": "32d3bde60fa47a9aa0069c2d792ee9e760450bbc57c952f446829d369afa955f",
+        "signature": "c46bfb8f51467eba8377479aa36c70531de5d083e2e2ebfc58950352a8333620",
         "affectsGlobalScope": false
       },
       "../src/schema/contest.schema.ts": {

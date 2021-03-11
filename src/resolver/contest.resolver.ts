@@ -92,6 +92,11 @@ export class ContestResolver {
         })
     } 
 
+    @Query()
+    async contests(): Promise<Contest[]>{
+        return this.contestModel.find().sort({ timeStart: 1 });
+    }
+
     @Subscription('listenContestStart', {
         filter: (payload, variables, context) => {
             console.log(payload, variables, context);
