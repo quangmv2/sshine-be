@@ -5,8 +5,9 @@ type User {
     lastname: String,
     email: String,
     phoneNumber: String,
-    role: [String],
+    idRole: String,
     image: String
+    dv: String
 }
 
 type UserPaginate {
@@ -16,6 +17,15 @@ type UserPaginate {
     page: Int
 }
 
+input InputCreateUser {
+    username: String!,
+    password: String!,
+    email: String!,
+    firstname: String!
+    lastname: String!
+    image: String,
+    dv: String!
+}
 
 type Query {
     hello: String
@@ -27,5 +37,6 @@ type Query {
 
 type Mutation {
     user: User
+    createUser(input: InputCreateUser!): User
 }
 

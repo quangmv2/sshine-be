@@ -127,7 +127,28 @@ class Counter {
     questionNow = {};
 
     rejectUser(users: string[], question) {
-
+        const usersFilter = users.filter(async user => {
+            const answer = await this.contestService.answerModel.findOne({
+                $and : [
+                    { id_contest: this.contest.id },
+                    { id_question: question._id },
+                    { id_user: user }
+                ]
+            });
+            if (!answer) return true;
+            if (answer.answer == question.answer) return false;
+            return true;
+        });
+        usersFilter.forEach(u => {
+            this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+                listenContestStart: {
+                    type: EnumListenContest.STOP,
+                    user_id: u 
+                }
+            })
+        })
+        this.contest.id_users_reject.concat(usersFilter);
+        this.contest.save();
     }
 
     publishTime(time: number) {

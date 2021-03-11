@@ -7,6 +7,8 @@ export interface User extends Document {
     firstname: string;
     lastname: string;
     email: string;
+    idRole: string;
+    dv: string
     phoneNumber: string;
     confirm: string,
     active: any[],

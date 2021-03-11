@@ -42,6 +42,7 @@ enum EnumListenContest {
     WAITTING_QUESTION
     QUESTION
     END
+    STOP
 }
 
 type Answer {

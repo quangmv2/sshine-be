@@ -5,13 +5,15 @@ import { Schema } from 'mongoose';
 
 export const userSchema = new mongoose.Schema({
 
-    _id: { type: Schema.Types.ObjectId },
+    // _id: { type: Schema.Types.ObjectId },
     username: { type: String, unique: true, required: true},
     password: { type: String, required: true },
     firstname: { type: String, required: true },
     lastname: { type: String,  required: true },
     email: { type: String, unique: true, required: true },
     phoneNumber: { type: String },
+    idRole: { type: String },
+    dv: { type: String },
     confirm: { type: Boolean, default: false },
     image: { type: String },
     createdAt: { type: Number },

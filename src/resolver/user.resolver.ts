@@ -3,6 +3,8 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuardGQL } from 'src/guard/auth.guard';
 import { User } from 'src/graphql';
 import { UserService } from '../service/user.service';
+import { RegisterInputDTO } from 'src/dto/auth.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Resolver()
 export class UserResolver {
@@ -45,7 +47,19 @@ export class UserResolver {
     @UseGuards(AuthGuardGQL)
     async getUser(@Context() context): Promise<User> {
         const { user } = context.req;
+        console.log(user);
         return user;
     }
+
+    @Mutation()
+    async createUser(@Args("input") input: RegisterInputDTO) {
+        console.log(input);
+        return this.userService.createUser({
+            ...input,
+            password: bcrypt.hashSync(input.password, 10)
+        });
+    }
+
+
 
 }

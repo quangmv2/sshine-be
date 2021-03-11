@@ -11,7 +11,10 @@ export class UserService {
     ){}
 
     async createUser(input): Promise<User>{
-        const user = new this.userModel(input);
+        const user = new this.userModel({
+            ...input,
+            idRole: "CLIENT"
+        });
         await user.save();
         // this.messageService.createNewRoom(user.id);
         return user;

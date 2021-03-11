@@ -11,7 +11,8 @@ export enum EnumListenContest {
     ANSWER = "ANSWER",
     WAITTING_QUESTION = "WAITTING_QUESTION",
     QUESTION = "QUESTION",
-    END = "END"
+    END = "END",
+    STOP = "STOP"
 }
 
 export class RegisterInput {
@@ -80,6 +81,16 @@ export class UpdateQuestionInput {
     answer?: number;
 }
 
+export class InputCreateUser {
+    username: string;
+    password: string;
+    email: string;
+    firstname: string;
+    lastname: string;
+    image?: string;
+    dv: string;
+}
+
 export abstract class IQuery {
     abstract hello(): string | Promise<string>;
 
@@ -144,6 +155,8 @@ export abstract class IMutation {
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
 
     abstract user(): User | Promise<User>;
+
+    abstract createUser(input: InputCreateUser): User | Promise<User>;
 }
 
 export class Contest {
@@ -197,8 +210,9 @@ export class User {
     lastname?: string;
     email?: string;
     phoneNumber?: string;
-    role?: string[];
+    idRole?: string;
     image?: string;
+    dv?: string;
 }
 
 export class UserPaginate {

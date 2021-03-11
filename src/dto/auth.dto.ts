@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsEmail } from 'class-validator';
-import { LoginInput } from 'src/graphql';
+import { InputCreateUser, LoginInput } from 'src/graphql';
 
-export class RegisterInputDTO {
+export class RegisterInputDTO extends InputCreateUser {
 
     @IsNotEmpty({
         message: "Tài khoản không được rỗng."

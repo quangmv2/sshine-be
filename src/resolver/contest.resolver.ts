@@ -118,7 +118,7 @@ export class ContestResolver {
                 id_question: input.id_question,
                 id_user: user.id,
                 answer: input.answer
-            },{
+            }, {
                 new: true,
                 upsert: true
             });
@@ -164,7 +164,12 @@ export class ContestResolver {
 
     @Subscription('listenContestStart', {
         filter: (payload, variables, context) => {
-            // console.log(payload, variables, context);
+            console.log(payload, variables, context);
+            if (payload && payload.user_id) {
+                if (context && context.req && context.req.user)
+                    return context.req.user.id == payload.user_id
+                return false;
+            }
             return true;
         }
     })
