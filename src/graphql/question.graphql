@@ -26,6 +26,7 @@ input UpdateQuestionInput {
 type Mutation {
     createOneQuestion(input: CreateQuestionInput!): Question
     createManyQuestion(input: [CreateQuestionInput!]): [Question]
+    removeQuestion(input: String): Question
 }
 
 type Query {

@@ -64,6 +64,22 @@ export class ContestResolver {
     }
 
     @Mutation()
+    async duplicateContest(@Args("id_contest") input) {
+        const contest = await this.contestModel.findById(input);
+        if (!contest) throw new ApolloError("Not Found");
+        const newContest = new this.contestModel({
+            name: contest.name,
+            id_users : contest.id_users,
+            id_questions: contest.id_questions,
+            started: false,
+            createBy: contest.createBy,
+            timeStart: Date.now() + 1000*60*60*24
+        });
+        await newContest.save()
+        return newContest;
+    }
+
+    @Mutation()
     async removeContest(@Args("input") id_contest: string) {
         const contest = await this.contestModel.findById(id_contest);
         if (!contest) return null;

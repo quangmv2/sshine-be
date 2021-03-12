@@ -83,6 +83,7 @@ type Mutation {
     answer(input: AnswerInput): Int
     contest(id_contest: String): Contest
     result(id_contest: String): [UserDataUpdate]
+    duplicateContest(id_contest: String): Contest
 }
 
 type Query {

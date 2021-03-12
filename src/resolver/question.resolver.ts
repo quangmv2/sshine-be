@@ -7,6 +7,7 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuardGQL } from 'src/guard/auth.guard';
 import { ContestService } from 'src/service/contest.service';
 import { Contest } from 'src/interfaces/contest.interface';
+import { ApolloError } from 'apollo-server-express';
 
 @Resolver("Question")
 export class QuestionResolver {
@@ -25,6 +26,15 @@ export class QuestionResolver {
         const question = new this.questionModel(input);
         await question.save();
         // console.log(contest);    
+        return question;
+    }
+
+
+    @Mutation()
+    async removeQuestion(@Args("input") input:  String) {
+        const question = await this.questionModel.findById(input);
+        if (!question) throw new ApolloError("Not found", "GRAPHQL_VALIDATION_FAILED");
+        await question.remove();
         return question;
     }
 

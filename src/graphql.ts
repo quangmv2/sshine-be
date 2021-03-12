@@ -152,9 +152,13 @@ export abstract class IMutation {
 
     abstract result(id_contest?: string): UserDataUpdate[] | Promise<UserDataUpdate[]>;
 
+    abstract duplicateContest(id_contest?: string): Contest | Promise<Contest>;
+
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
+
+    abstract removeQuestion(input?: string): Question | Promise<Question>;
 
     abstract user(): User | Promise<User>;
 
