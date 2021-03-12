@@ -66,7 +66,7 @@ export class UserResolver {
 
     @Mutation()
     async createUser(@Args("input") input: RegisterInputDTO) {
-        console.log(input);
+        // console.log(input);
         return this.userService.createUser({
             ...input,
             password: bcrypt.hashSync(input.password, 10)

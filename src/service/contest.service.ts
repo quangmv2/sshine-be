@@ -33,12 +33,13 @@ export class ContestService {
 
     async addQuestion(input) {
         const { id_contest, id_question } = input;
-
         const contest = await this.contestModel.findById(id_contest);
         if (!contest) throw new ApolloError("Da ton tai", "GRAPHQL_VALIDATION_FAILED")
         const [arr, result] = this.toggleArrayItem(contest.id_questions, id_question);
         contest.id_questions = arr
-        console.log(contest.id_questions.includes(id_question));
+        // console.log(contest.id_questions.includes(id_question));
+        console.log(arr);
+        
         contest.save();
         return result;
     }
@@ -70,7 +71,7 @@ export class ContestService {
     }
 
     async getQuestionOfContest(id_contest: string): Promise<Question[]> {
-        console.log(id_contest);
+        // console.log(id_contest);
 
         const contest = await this.contestModel.aggregate().match({
             _id: Types.ObjectId(id_contest)
@@ -91,7 +92,7 @@ export class ContestService {
     }
 
     async resultUpdate(contest: Contest) {
-        console.log(contest);
+        // console.log(contest);
         const results = []
         for (let index = 0; index < contest.id_users.length; index++) {
             const element = contest.id_users[index];
@@ -127,7 +128,7 @@ export class ContestService {
                 reject: _.indexOf(contest.id_users_reject, contest.id_users[index]) > -1
             })
         }
-        console.log(results);
+        // console.log(results);
         results.sort((a, b) => {
             return b.correct - a.correct;
         })
@@ -150,7 +151,7 @@ export class ContestService {
         this.contestModel.updateMany({ _id: { $in: ids } }, {
             $set: { started: true }
         }).exec();
-        console.log("cron", now, contests)
+        // console.log("cron", now, contests)
         contests.forEach(c => {
             const publish = {
                 listenContestStart: {
@@ -160,6 +161,8 @@ export class ContestService {
             this.pubSub.publish(`CONTEST_START: ${c._id}`, publish);
             // this.pubSub.subscribe()
             const counter = new Counter(this, c);
+            console.log(c.id_questions);
+            
             counter.start();
         })
     }
@@ -196,9 +199,7 @@ class Counter {
             if (answer.answer == question.answer) continue;
             usersFilter.push(users[index])
         }
-
-
-        console.log("fill", usersFilter);
+        // console.log("fill", usersFilter);
 
         usersFilter.forEach(u => {
             this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
@@ -249,7 +250,18 @@ class Counter {
 
     async start() {
         console.log("start");
-        const questions = await this.contestService.getQuestionOfContest(this.contest._id);
+        const qs = await this.contestService.getQuestionOfContest(this.contest._id);
+        const questions = qs;
+        // this.contest.id_questions.forEach(c => {
+        //     questions.push(qs.find(q => {
+        //         console.log(q, q._id);
+        //         return q.id == c
+        //     }));
+        //     console.log(qs.find(q => {
+        //         console.log(q, q._id);
+        //         return q.id == c
+        //     }))
+        // })
         this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
             listenContestStart: {
                 type: EnumListenContest.NEXT,
@@ -258,6 +270,8 @@ class Counter {
             }
         })
         this.total = questions.length;
+        console.log(questions);
+        
         for (let index = 0; index < questions.length; index++) {
             // const element = questions[index];
             this.doing = index + 1;

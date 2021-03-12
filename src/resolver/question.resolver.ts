@@ -40,7 +40,7 @@ export class QuestionResolver {
 
     @Query()
     async queryQuestions(): Promise<Question[]> {
-        return this.questionModel.find().sort({ 'createdAt': -1 });
+        return this.questionModel.find().sort({ 'createdAt': 1 });
     }
 
     // @Mutation()

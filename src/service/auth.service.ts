@@ -65,7 +65,8 @@ export class AuthService {
 
     async login(input: LoginInputDTO): Promise<Token> {
         const { username, password } = input;
-        const user = await this.userService.getUserByUserNameOrEmail(username);
+        
+        const user = await this.userService.getUserByUserNameOrEmail(username.toLowerCase());
         if (!user) throw new HttpException('Incorrect', HttpStatus.UNAUTHORIZED);
         
         if (!bcrypt.compareSync(password, user.password)) throw new HttpException('Incorrect', HttpStatus.UNAUTHORIZED);
