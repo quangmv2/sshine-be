@@ -38,5 +38,7 @@ type Query {
 type Mutation {
     user: User
     createUser(input: InputCreateUser!): User
+    changePassword(input: String, id_user: String): Boolean
+    removeUser(input: String): User
 }
 

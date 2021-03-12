@@ -4926,8 +4926,8 @@
         "affectsGlobalScope": false
       },
       "../src/graphql.ts": {
-        "version": "37614cb7ea912401872e5b6be689a4e34f3940c3a35ecde3e6b9398ec5a40a10",
-        "signature": "63192256dc73769139e2061bcd1dbaaba196ea385d0a0788d7bd786da42c84be",
+        "version": "07c491fd10d28d02caa11541ed4381253a76fc21a1b40884cbda1a8fa3f0d049",
+        "signature": "b676dfdf95d16781c623f962e55680dbca784967ddc72281fe6402661bba37e0",
         "affectsGlobalScope": false
       },
       "../src/dto/auth.dto.ts": {
@@ -4941,8 +4941,8 @@
         "affectsGlobalScope": false
       },
       "../src/interfaces/user.interface.ts": {
-        "version": "e52efe33f976ce6a36ec6b7a9eb6ee2303191bdcced464b25d4761ed96cb347d",
-        "signature": "ded8b237b1bd4b9febcc57dcde6efe6994d43c62c8bf76ce4935e6ed74f1a18f",
+        "version": "2860094f8bd116db5d91f220ffe455011aa593e459ad053c4eb0cbefb9a6b65a",
+        "signature": "035e2d2837087b836828243fac82fa66166719153dfda138d43a925e702b3446",
         "affectsGlobalScope": false
       },
       "../src/service/user.service.ts": {
@@ -5245,9 +5245,54 @@
         "signature": "bdcf787c6906c3b47419b88a0f8390e3f5d8e4b6f6924b8c6efec6a2001695af",
         "affectsGlobalScope": false
       },
+      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts": {
+        "version": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
+        "signature": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": {
+        "version": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
+        "signature": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/pubsub.d.ts": {
+        "version": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
+        "signature": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/with-filter.d.ts": {
+        "version": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
+        "signature": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/graphql-subscriptions/dist/index.d.ts": {
+        "version": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
+        "signature": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts": {
+        "version": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
+        "signature": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/@types/cors/index.d.ts": {
+        "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
+        "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts": {
+        "version": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
+        "signature": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/apollo-server-express/dist/index.d.ts": {
+        "version": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
+        "signature": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
+        "affectsGlobalScope": false
+      },
       "../src/resolver/user.resolver.ts": {
-        "version": "bbaaf99764f5986aea5b7cdffd4a90cb55c711f208336ea45cb3880d1bafb5f1",
-        "signature": "60148c21a4c3b1238e8460e75f0c795f40dfbd56c5d01034b46f64c3a1cf30c3",
+        "version": "78382fdc89faa4839fca50422b602cc41a016b1dcbb2adcb8fce47ccbd6f12ae",
+        "signature": "02d0aea17b10dcc2988a98c94380d045c26dc53b1c3486b462bbe9a1f0475b6d",
         "affectsGlobalScope": false
       },
       "../node_modules/ts-mongoose-pagination/dist/mongoose-pagination/pagination.d.ts": {
@@ -5435,26 +5480,6 @@
         "signature": "6566d1f90d3af252e5491d43d221aaf2528cde097f01c7c68b0fe11e24e4840c",
         "affectsGlobalScope": false
       },
-      "../node_modules/graphql-subscriptions/dist/pubsub-engine.d.ts": {
-        "version": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
-        "signature": "4c9aded23c1eb21c4d7a4b03edb29e0611ee88975520a4aa8514186bb22cf20c",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/graphql-subscriptions/dist/pubsub.d.ts": {
-        "version": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
-        "signature": "4fdc7a5345d94cbdc99db32d6385bd27bc6a74fdd7971fdc6cfe8af2b75230ba",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/graphql-subscriptions/dist/with-filter.d.ts": {
-        "version": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
-        "signature": "1c8b9ca66d0512c05dc940b1791d4c7dd57f531cc6ed344851076cc6ce67b247",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/graphql-subscriptions/dist/index.d.ts": {
-        "version": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
-        "signature": "bbf290c3ac5379006edacffacd15be4e288cd6d720625d3bc51b3f937b808d79",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@nestjs/schedule/dist/enums/cron-expression.enum.d.ts": {
         "version": "64421c66dcd1ec7b5f7a79f9869a6c4e2090d031105fa70324b74db914423f97",
         "signature": "64421c66dcd1ec7b5f7a79f9869a6c4e2090d031105fa70324b74db914423f97",
@@ -5513,31 +5538,6 @@
       "../node_modules/@nestjs/schedule/index.d.ts": {
         "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/apollo-server-express/node_modules/graphql-tools/dist/index.d.ts": {
-        "version": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
-        "signature": "02d56ea773b997676c89b0c32e3c56633875a177c812259dee7e50deebecdf07",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/apollo-server-express/node_modules/@types/express/index.d.ts": {
-        "version": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
-        "signature": "69a75b67f56862574404368dc3be451749291d6b6f6890409551fce81908beee",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/@types/cors/index.d.ts": {
-        "version": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
-        "signature": "67a79af60f6e0f8eac8156364361915047de18fe367d7e0dd78a91add9f11bad",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/apollo-server-express/dist/ApolloServer.d.ts": {
-        "version": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
-        "signature": "be9cf51027eb4f65f17c102e3a7847c8faa5fc395786f4a462330ed63d601cb9",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/apollo-server-express/dist/index.d.ts": {
-        "version": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
-        "signature": "77c71787c70625318099c6eadfc0a0f472ba9b3b37a1fc2fb2701b341394f616",
         "affectsGlobalScope": false
       },
       "../node_modules/@types/lodash/common/common.d.ts": {
@@ -5606,8 +5606,8 @@
         "affectsGlobalScope": true
       },
       "../src/service/contest.service.ts": {
-        "version": "78177d861ba3a3b32253da3fc84436b714255cb03657ba3c392ec8002fe5ca9c",
-        "signature": "5f3b7762a109d39cc558bf0e67d6fd3116813e1878e9940f01ed69ed41d4c93b",
+        "version": "70b747a7e7e2091b21cc71e095deaeea518cc6121e1a22503709b899f9d13d27",
+        "signature": "48e8dbac0270bd6bf27f4fa990bb3a6a3a2635a7bdf44911f66b38a9abbd50d5",
         "affectsGlobalScope": false
       },
       "../src/resolver/question.resolver.ts": {
@@ -5641,8 +5641,8 @@
         "affectsGlobalScope": false
       },
       "../src/resolver/contest.resolver.ts": {
-        "version": "b12a813ab77cf8d1fb45a509e73f784ed9da38af2d524ad355c2166ec8ed4b95",
-        "signature": "ffa73ebc6d4f45c9c69e792046f285957c91ac1e29200e2297c41dd98d1be254",
+        "version": "0429e626507f172e9b28b4c29eb01651dc39265b6e243a9ed4182b29b3f58724",
+        "signature": "ffbee1889615f526889698d43168478ae4272999cdf2c5d24454fc5d6d9f1dd3",
         "affectsGlobalScope": false
       },
       "../src/schema/contest.schema.ts": {
@@ -17136,14 +17136,17 @@
       "../src/resolver/user.resolver.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/graphql/index.d.ts",
+        "../node_modules/@nestjs/mongoose/index.d.ts",
         "../node_modules/@types/graceful-fs/index.d.ts",
+        "../node_modules/@types/mongoose/index.d.ts",
         "../node_modules/@types/node/fs.d.ts",
         "../node_modules/@types/node/ts3.2/fs.d.ts",
         "../node_modules/@types/node/ts3.2/util.d.ts",
         "../node_modules/@types/node/util.d.ts",
+        "../node_modules/apollo-server-express/dist/index.d.ts",
         "../src/dto/auth.dto.ts",
-        "../src/graphql.ts",
         "../src/guard/auth.guard.ts",
+        "../src/interfaces/user.interface.ts",
         "../src/service/user.service.ts"
       ],
       "../src/schema/answer.schema.ts": [
@@ -17225,7 +17228,8 @@
         "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../src/graphql.ts",
         "../src/interfaces/contest.interface.ts",
-        "../src/interfaces/question.interface.ts"
+        "../src/interfaces/question.interface.ts",
+        "../src/service/user.service.ts"
       ],
       "../src/service/question.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -28172,7 +28176,6 @@
       "../src/resolver/user.resolver.ts": [
         "../node_modules/@types/mongoose/index.d.ts",
         "../src/dto/auth.dto.ts",
-        "../src/graphql.ts",
         "../src/interfaces/user.interface.ts",
         "../src/service/user.service.ts"
       ],
@@ -28203,7 +28206,8 @@
         "../node_modules/@types/mongoose/index.d.ts",
         "../node_modules/graphql-subscriptions/dist/index.d.ts",
         "../src/interfaces/contest.interface.ts",
-        "../src/interfaces/question.interface.ts"
+        "../src/interfaces/question.interface.ts",
+        "../src/service/user.service.ts"
       ],
       "../src/service/user.service.ts": [
         "../node_modules/@types/mongoose/index.d.ts",

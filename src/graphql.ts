@@ -150,6 +150,8 @@ export abstract class IMutation {
 
     abstract contest(id_contest?: string): Contest | Promise<Contest>;
 
+    abstract result(id_contest?: string): UserDataUpdate[] | Promise<UserDataUpdate[]>;
+
     abstract createOneQuestion(input: CreateQuestionInput): Question | Promise<Question>;
 
     abstract createManyQuestion(input?: CreateQuestionInput[]): Question[] | Promise<Question[]>;
@@ -157,6 +159,10 @@ export abstract class IMutation {
     abstract user(): User | Promise<User>;
 
     abstract createUser(input: InputCreateUser): User | Promise<User>;
+
+    abstract changePassword(input?: string, id_user?: string): boolean | Promise<boolean>;
+
+    abstract removeUser(input?: string): User | Promise<User>;
 }
 
 export class Contest {
@@ -185,12 +191,20 @@ export class DataStreamContest {
     type?: EnumListenContest;
     time?: number;
     answer?: Answer;
+    total?: number;
+    doing?: number;
+}
+
+export class UserDataUpdate {
+    user?: User;
+    correct?: number;
+    reject?: boolean;
 }
 
 export abstract class ISubscription {
     abstract listenContestStart(input?: Subscribe): DataStreamContest | Promise<DataStreamContest>;
 
-    abstract listenQuestionContest(id?: string): CounterContest | Promise<CounterContest>;
+    abstract listenResult(id_contest?: string): UserDataUpdate[] | Promise<UserDataUpdate[]>;
 }
 
 export class Question {

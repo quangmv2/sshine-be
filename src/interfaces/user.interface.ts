@@ -9,6 +9,7 @@ export interface User extends Document {
     email: string;
     idRole: string;
     dv: string
+    image: string
     phoneNumber: string;
     confirm: string,
     active: any[],

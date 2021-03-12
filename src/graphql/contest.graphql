@@ -61,6 +61,15 @@ type DataStreamContest {
     type: EnumListenContest,
     time: Float
     answer: Answer
+    total: Int,
+    doing: Int
+}
+
+type UserDataUpdate {
+    user: User
+    correct: Int
+    # total: Int
+    reject: Boolean
 }
 
 type Mutation {
@@ -73,6 +82,7 @@ type Mutation {
     questionOfContest(id_contest: String): [Question]
     answer(input: AnswerInput): Int
     contest(id_contest: String): Contest
+    result(id_contest: String): [UserDataUpdate]
 }
 
 type Query {
@@ -91,5 +101,5 @@ input Subscribe {
 
 type Subscription {
     listenContestStart(input: Subscribe): DataStreamContest
-    listenQuestionContest(id: String): CounterContest
+    listenResult(id_contest: String): [UserDataUpdate]
 }

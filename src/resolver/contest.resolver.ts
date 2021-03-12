@@ -162,9 +162,16 @@ export class ContestResolver {
         return this.contestModel.find().sort({ 'timeStart': -1 });
     }
 
+    @Mutation()
+    async result(@Args("id_contest") id_contest: string) {
+        const contest = await this.contestModel.findById(id_contest);
+        if (!contest) return [];
+        return this.contestService.resultUpdate(contest)
+    }
+
     @Subscription('listenContestStart', {
         filter: (payload, variables, context) => {
-            console.log(payload, variables, context);
+            // console.log(payload, variables, context);
             if (payload && payload.user_id) {
                 if (context && context.req && context.req.user)
                     return context.req.user.id == payload.user_id
@@ -177,6 +184,11 @@ export class ContestResolver {
         // return null;
         const { id_contest } = input
         return this.contestService.listenContestStart(id_contest);
+    }
+
+    @Subscription()
+    async listenResult(@Args("id_contest") id_contest: string) {
+        return this.contestService.listenResult(id_contest);
     }
 
     @ResolveField('createBy')

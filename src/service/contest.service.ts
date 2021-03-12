@@ -8,12 +8,13 @@ import { Question } from 'src/interfaces/question.interface';
 import { ApolloError } from 'apollo-server-express';
 import { EnumListenContest } from 'src/graphql';
 import * as _ from "lodash";
+import { UserService } from './user.service';
 
 @Injectable()
 export class ContestService {
 
     constructor(
-        // private readonly userService: UserService,
+        private readonly userService: UserService,
         // private readonly contestService: ContestService,
         @Inject('PUB_SUB_MESSAGE') public readonly pubSub: PubSub,
         @InjectModel("Contest") private readonly contestModel: Model<Contest>,
@@ -64,6 +65,10 @@ export class ContestService {
         return this.pubSub.asyncIterator(`CONTEST_START: ${id_contest}`);
     }
 
+    async listenResult(id_contest: string) {
+        return this.pubSub.asyncIterator(`RESULT: ${id_contest}`);
+    }
+
     async getQuestionOfContest(id_contest: string): Promise<Question[]> {
         console.log(id_contest);
 
@@ -83,7 +88,53 @@ export class ContestService {
     async checkResult(id_contest: string, id_question: string) {
         const constest = await this.contestModel.findById(id_contest);
         const question = await this.questionModel.findById(id_question);
+    }
 
+    async resultUpdate(contest: Contest) {
+        console.log(contest);
+        const results = []
+        for (let index = 0; index < contest.id_users.length; index++) {
+            const element = contest.id_users[index];
+            // const r = await this.answerModel.find({
+            //     $and: [
+            //         { id_contest: contest.id },
+            //         { id_user: contest.id_users[index] }
+            //     ]
+            // })
+            const user = await this.userService.getUserById(contest.id_users[index]);
+            if (!user) continue
+            const r = await this.answerModel.aggregate().match({
+                id_contest: Types.ObjectId(contest.id),
+                id_user: Types.ObjectId(contest.id_users[index])
+            }).lookup({
+                from: 'questions',
+                localField: "id_question",
+                foreignField: "_id",
+                as: "questions"
+            }).project({
+                'question': { "$arrayElemAt": ["$questions", 0] },
+                'answer': '$answer'
+            })
+            const sum = r.reduce((value: any, re: any) => {
+                return re.answer == re.question.answer ? value + 1 : value;
+            }, 0)
+
+            // for
+            console.log(r, sum);
+            results.push({
+                user,
+                correct: sum,
+                reject: _.indexOf(contest.id_users_reject, contest.id_users[index]) > -1
+            })
+        }
+        console.log(results);
+        results.sort((a, b) => {
+            return b.correct - a.correct;
+        })
+        this.pubSub.publish(`RESULT: ${contest.id}`, {
+            listenResult: results
+        })
+        return results;
     }
 
     @Cron("* * * * * *")
@@ -125,41 +176,55 @@ class Counter {
     ) { }
 
     questionNow = {};
+    total = 0;
+    doing = 0
 
-    rejectUser(users: string[], question) {
-        const usersFilter = users.filter(async user => {
+    async rejectUser(users: string[], question) {
+        const usersFilter = []
+        for (let index = 0; index < users.length; index++) {
             const answer = await this.contestService.answerModel.findOne({
-                $and : [
+                $and: [
                     { id_contest: this.contest.id },
                     { id_question: question._id },
-                    { id_user: user }
+                    { id_user: users[index] }
                 ]
             });
-            if (!answer) return true;
-            if (answer.answer == question.answer) return false;
-            return true;
-        });
+            if (!answer) {
+                usersFilter.push(users[index])
+                continue
+            }
+            if (answer.answer == question.answer) continue;
+            usersFilter.push(users[index])
+        }
+
+
+        console.log("fill", usersFilter);
+
         usersFilter.forEach(u => {
             this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
                 listenContestStart: {
                     type: EnumListenContest.STOP,
-                    user_id: u 
+                    user_id: u
                 }
             })
         })
-        this.contest.id_users_reject.concat(usersFilter);
-        this.contest.save();
+        // usersFilter.sort
+        this.contest.id_users_reject = this.contest.id_users_reject.concat(usersFilter);
+        await this.contest.save();
     }
 
     publishTime(time: number) {
         // console.log(time);
+
         const publish = {
             listenContestStart: {
                 time,
                 question: {
                     ...this.questionNow,
-                    answer: null
+                    answer: null,
                 },
+                total: this.total,
+                doing: this.doing,
                 type: EnumListenContest.QUESTION
             }
         }
@@ -176,7 +241,7 @@ class Counter {
                 type: EnumListenContest.WAITTING_QUESTION
             }
         }
-        console.log(`CONTEST_START: ${this.contest._id}`, publish);
+        // console.log(`CONTEST_START: ${this.contest._id}`, publish);
 
         this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, publish);
     }
@@ -185,8 +250,17 @@ class Counter {
     async start() {
         console.log("start");
         const questions = await this.contestService.getQuestionOfContest(this.contest._id);
+        this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+            listenContestStart: {
+                type: EnumListenContest.NEXT,
+                total: questions.length,
+                doing: 1
+            }
+        })
+        this.total = questions.length;
         for (let index = 0; index < questions.length; index++) {
             // const element = questions[index];
+            this.doing = index + 1;
             this.questionNow = questions[index]
             const sleep = this.sleep;
             await sleep(questions[index].currentTime * 1000, this.publishTime.bind(this));
@@ -195,25 +269,37 @@ class Counter {
                 await this.contest.save()
             } catch (err) {
                 console.log(err);
-            } 
+            }
             this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
                 listenContestStart: {
                     type: EnumListenContest.ANSWER,
                     answer: {
                         id_question: questions[index]._id,
                         answer: questions[index].answer
-                    }
+                    },
+                    total: this.total,
+                    doing: this.doing
                 }
             })
-            this.rejectUser(_.difference(this.contest.id_users, this.contest.id_users_reject), questions[index])
+            await this.rejectUser(_.difference(this.contest.id_users, this.contest.id_users_reject), questions[index])
+            this.contestService.resultUpdate(this.contest)
             await sleep(5000, this.publishTimeWaitting.bind(this))
-            this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
-                listenContestStart: {
-                    type: EnumListenContest.NEXT
-                }
-            })
+            if (index < questions.length - 1) {
+                this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+                    listenContestStart: {
+                        type: EnumListenContest.NEXT,
+                        total: questions.length,
+                        doing: this.doing + 1
+                    }
+                })
+            }
             // clearInterval(slee)
         }
+        this.contestService.pubSub.publish(`CONTEST_START: ${this.contest._id}`, {
+            listenContestStart: {
+                type: EnumListenContest.END
+            }
+        })
     }
 
     async sleep(time: number, _callback?: Function) {
