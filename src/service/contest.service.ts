@@ -114,22 +114,33 @@ export class ContestService {
                 as: "questions"
             }).project({
                 'question': { "$arrayElemAt": ["$questions", 0] },
-                'answer': '$answer'
+                'answer': '$answer',
+                'updatedAt': '$updatedAt'
             })
+            r.sort((a: any, b: any) => {
+                return a.updatedAt - b.updatedAt;
+            });
+            const totalTime = r.reduce((value: any, re: any) => {
+                return re.updatedAt + value;
+            }, 0);
+            
             const sum = r.reduce((value: any, re: any) => {
                 return re.answer == re.question.answer ? value + 1 : value;
             }, 0)
 
             // for
-            console.log(r, sum);
+            // console.log("tt",r, sum, totalTime);
             results.push({
                 user,
                 correct: sum,
-                reject: _.indexOf(contest.id_users_reject, contest.id_users[index]) > -1
+                reject: _.indexOf(contest.id_users_reject, contest.id_users[index]) > -1,
+                totalTime
             })
         }
-        // console.log(results);
+        console.log(results);
         results.sort((a, b) => {
+            if (b.correct == a.correct) 
+                return a.totalTime - b.totalTime;
             return b.correct - a.correct;
         })
         this.pubSub.publish(`RESULT: ${contest.id}`, {

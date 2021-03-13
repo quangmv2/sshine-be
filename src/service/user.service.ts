@@ -24,7 +24,7 @@ export class UserService {
         const user = await this.userModel.findOne({
             $or: [
                 { username },
-                { email: username }
+                { email: { $regex : new RegExp(username, "i") } }
             ]
         }).exec();
         return user;
